@@ -1,2 +1,4 @@
 # ignore anything generated from builds
-# _*/
+_build
+_static
+_templates
