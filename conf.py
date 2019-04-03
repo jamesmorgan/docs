@@ -367,10 +367,10 @@ extensions = [
     'sphinxcontrib.mermaid'
 ]
 
-def setup(app):
-    from recommonmark import transform
-    app.add_transform(transform.AutoStructify)
+# def setup(app):
+#     from recommonmark import transform
+#     app.add_transform(transform.AutoStructify)
 
-from sphinx.highlighting import lexers
-from pygments_lexer_solidity import SolidityLexer
-lexers['solidity'] = SolidityLexer()
+# from sphinx.highlighting import lexers
+# from pygments_lexer_solidity import SolidityLexer
+# lexers['solidity'] = SolidityLexer()
