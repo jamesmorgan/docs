@@ -361,12 +361,6 @@ epub_title = project
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
 
-extensions = [
-    'sphinx_markdown_tables',
-    'recommonmark',
-    'sphinxcontrib.mermaid'
-]
-
 # def setup(app):
 #     from recommonmark import transform
 #     app.add_transform(transform.AutoStructify)
