@@ -3,3 +3,8 @@ python:
    install:
       - requirements: requirements.txt
         method: pip
+
+sphinx:
+    builder: html
+    configuration: conf.py
+    fail_on_warning: false
