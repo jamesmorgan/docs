@@ -3,20 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Connext's documentation!
+Connext Documentation
 ===================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   :caption: Contents:
+   00-introduction.md
+   01-contracts.md
 
