@@ -362,9 +362,9 @@ epub_title = project
 epub_exclude_files = ['search.html']
 
 extensions = [
-    'sphinx_markdown_tables',
+    # 'sphinx_markdown_tables',
     'recommonmark',
-    'sphinxcontrib.mermaid'
+    # 'sphinxcontrib.mermaid'
 ]
 
 # def setup(app):
