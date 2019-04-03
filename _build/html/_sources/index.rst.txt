@@ -11,6 +11,6 @@ Contents:
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   00-introduction.md
-   01-contracts.md
-
+   README
+   introduction
+   contracts
