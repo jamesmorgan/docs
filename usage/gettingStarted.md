@@ -7,9 +7,9 @@ Integrating Connext and the hosted Dai hub allows you to make instant, trust-min
 Before getting started integrating connext, make sure you have the following prerequisites installed:
 
 - Node 9+ and NPM
-- Docker (if not using docker for local development)
-- Make (if not using docker for local development)
-- jq (`brew install jq`)
+- Docker
+- Make
+- jq
 - PosgreSQL*
 - Redis*
 - Yarn*
