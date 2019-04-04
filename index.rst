@@ -6,11 +6,14 @@
 Connext Documentation
 ===================================
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
-   README
-   introduction
-   contracts
+
+   usage/introduction
+   usage/gettingStarted
+   modules/architecture
+   modules/client
+   modules/hub
+   modules/contracts
+   usage/faq
+   CONTRIBUTING
