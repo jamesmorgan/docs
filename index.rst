@@ -45,6 +45,8 @@ Develop
 
     `Contracts <develop/contracts.html>`_
 
+    `Types and Other Helpful Classes <develop/types.html>`_
+
 **See the code:**
 
     `Github <https://github.com/ConnextProject>`_
@@ -78,5 +80,6 @@ Site Map
    develop/client
    develop/hub
    develop/contracts
+   develop/types
    background/faq
    CONTRIBUTING
