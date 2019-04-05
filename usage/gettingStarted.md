@@ -4,14 +4,14 @@ Integrating Connext and the hosted Dai hub allows you to make instant, trust-min
 
 ## Running a Hub
 
-Make sure you have the following prerequisites installed:
+To sample the hub in action on rinkeby or mainnet check out the [Dai Card](https://daicard.io). To get started locally, make sure you have the following prerequisites installed:
 
-- Node 9+ and NPM
-- Docker
-- Make
-- jq
+- [Node 9+ and NPM](https://nodejs.org/en/)
+- [Docker](https://www.docker.com/)
+- Make: (probably already installed) Install w ```brew install make``` or ```apt install make``` or similar.
+- jq: (probably not installed yet) Install w ```brew install jq``` or ```apt install jq``` or similar.
 
-To sample the hub in action on rinkeby or mainnet check out the [Dai Card](https://daicard.io). To get started locally, and test out other hub functions, simply open a terminal window and run the following:
+Then, open a terminal window and run the following:
 
 ```bash
 git clone https://github.com/ConnextProject/indra.git
@@ -19,7 +19,7 @@ cd indra
 npm start
 ```
 
-This will take a while to build the first time, so make it easy on yourself and configure your metamask to use the rpc `localhost:3000/api/eth` and import the hub's private key (`659CBB0E2411A44DB63778987B1E22153C086A95EB6B18BDF89DE078917ABC63`) so you can easily send money to the signing wallet.
+This will take a while to build the first time, but the build gets cached so only fresh installs will take a long time. While it's building, configure your metamask to use the rpc `localhost:3000/api/eth` and import the hub's private key (`659CBB0E2411A44DB63778987B1E22153C086A95EB6B18BDF89DE078917ABC63`) so you can easily send money to the signing wallet.
 
 Once all the components are up and running, navigate to `localhost:3000` to checkout the sandbox. To implement the client on your own frontend, checkout the [implementing the client](#implementing-the-client) section.
 
