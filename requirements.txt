@@ -1,4 +1,4 @@
-# sphinx_markdown_tables
+sphinx_markdown_tables
 # sphinxcontrib-mermaid
 recommonmark
 sphinx >= 2.0
