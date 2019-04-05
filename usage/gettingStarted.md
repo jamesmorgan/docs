@@ -1,6 +1,6 @@
 # Getting Started
 
-Integrating Connext and the hosted Dai hub allows you to make instant, trust-minimized, off-chain payments to anyone else connected to the hub. This guide will walk you through how to get a hub up and running locally and some key aspects of integrating the client. If you are unfamiliar with payment channels, or ethereum basics, make sure you have read the [introduction](../learn/introduction.md).
+Integrating Connext and the hosted Dai hub allows you to make instant, trust-minimized, off-chain payments to anyone else connected to the hub. This guide will walk you through how to get a hub up and running locally and some key aspects of integrating the client. If you are unfamiliar with payment channels, or ethereum basics, make sure you have read the [introduction](../background/introduction.md).
 
 ## Running a Hub
 

@@ -1,6 +1,6 @@
 # Introduction
 
-This guide aims to provide just enough information to get started building an application with Connext. If you're already familiar with Connext and how payment channels work and would like to learn how to develop with our system, feel free to head over to [Getting Started](../develop/gettingStarted.md).
+This guide aims to provide just enough information to get started building an application with Connext. If you're already familiar with Connext and how payment channels work and would like to learn how to develop with our system, feel free to head over to [Getting Started](../usage/gettingStarted.md).
 
 If you're unfamiliar with terms like smart contract and private key, please refer to a more general developer guide such as [this one, compiled by the Ethereum community](https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial), before continuing.
 

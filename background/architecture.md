@@ -12,7 +12,7 @@ Our [Hubs](https://github.com/ConnextProject/indra) can be thought of as an auto
 
 [Indra](https://github.com/ConnextProject/indra) is the core implementation repository for Connext. Indra contains ready-for-deployment code for our core contracts, client, Hub, as well as scripts needed to deploy and operate a hub in production. When deploying a hub to production, the most recent docker images will be used.
 
-For detailed instructions on how to run the code contained within the repository see the [Quickstart](../gettingStarted.md) and [Troubleshooting](../troubleshooting.md) guides.
+For detailed instructions on how to run the code contained within the repository see the [Quickstart](../usage/gettingStarted.md) and [Troubleshooting](../usage/troubleshooting.md) guides.
 
 There are several modules contained within the indra repository:
 
