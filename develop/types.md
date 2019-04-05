@@ -12,9 +12,17 @@ Types:
 * [MetadataType](#metadatatype)
 * [Payment](#payment)
 * [WithdrawalParameters](#withdrawalparameters)
+* [ChannelState](#channelstate)
+* [UpdateRequest](#updaterequest)
+* [ThreadState](#threadstate)
+* [ThreadHistoryItem](#threadhistoryitem)
+* [ExchangeRateState](#exchangeratestate)
+* [SyncResult](#syncresult)
+* [ChannelStatus](#channelstatus)
 
 Classes:
 
+* [SyncControllerState](#synccontrollerstate)
 * [CurrencyConvertable](#currencyconvertable)
 
 ### ConnextClientOptions
@@ -131,3 +139,35 @@ A `WithdrawalParameters` object has the following fields:
 | withdrawalTokenUser | String | Amount of tokens to transfer from the user's balance to 'recipient' |
 
 This type is used in conjunction with the [`connext.withdraw`](client.html#withdraw) method.
+
+___
+
+### ChannelState
+
+___
+
+### UpdateRequest
+
+___
+
+### ThreadState
+
+___
+
+### ThreadHistoryItem
+
+___
+
+### ExchangeRateState
+
+___
+
+### SyncResult
+
+___
+
+### ChannelStatus
+
+___
+
+### SyncControllerState
