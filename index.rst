@@ -14,11 +14,11 @@ Resources and documentation for Connext (Indra, Client, and Contracts)
 Learn
 ***************
 
-   `Overview <usage/introduction.html>`_
+   `Payment Channels <background/introduction.html>`_
 
-   `FAQs <usage/faq.html>`_
+   `System Architecture <background/architecture.html>`_
 
-   `Getting Started Guide <usage/gettingStarted.html>`_
+   `FAQs <background/faq.html>`_
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -28,26 +28,28 @@ Learn
 Develop
 ***************
 
-**Detailed dev manuals:**
+**Developer Guides:**
 
-    `Developer Guides <usage/gettingStarted.html>`_
+    `Quickstart <usage/gettingStarted.html>`_
+
+    `Core Concepts <usage/coreConcepts.html>`_
+
+    `Troubleshooting <usage/troubleshooting.html>`_
 
 
-**Reference Documentation:**  
+**Detailed Documentation:**
 
-    `Architecture <modules/architecture.html>`_ 
+    `Client <develop/client.html>`_
 
-    `Client <modules/client.html>`_ 
+    `Hub <develop/hub.html>`_
 
-    `Hub <modules/hub.html>`_ 
-
-    `Contracts <modules/contracts.html>`_
+    `Contracts <develop/contracts.html>`_
 
 **See the code:**
 
     `Github <https://github.com/ConnextProject>`_
 
-**Want to help build Connext?** 
+**Want to help build Connext?**
 
     `Contribute <CONTRIBUTING.html>`_
 
@@ -68,11 +70,13 @@ Site Map
 .. toctree::
    :maxdepth: 2
 
-   usage/introduction
+   background/introduction
+   background/architecture
    usage/gettingStarted
-   modules/architecture
-   modules/client
-   modules/hub
-   modules/contracts
-   usage/faq
+   usage/coreConcepts
+   usage/troubleshooting
+   develop/client
+   develop/hub
+   develop/contracts
+   background/faq
    CONTRIBUTING
