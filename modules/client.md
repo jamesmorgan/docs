@@ -1,5 +1,0 @@
-# Client
-
-## Methods
-
-## Useful Types
