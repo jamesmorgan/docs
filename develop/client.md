@@ -4,9 +4,23 @@
 
 ### Configuration
 
-The best way to get a new instance of the connext client is using the `getConnextClient` function, and supplying the `hubUrl` and `rpcUrl` as environment variables.
+The best way to get a new instance of the connext client is using the `getConnextClient` function, and supplying the `HUB_URL` and `RPC_URL` as environment variables. You should instantiate the `web3` object you pass into the client with the `rpcUrl` from the `.env`, and directly supply the `HUB_URL` to the client options on start.
+
+The client will autoconfigure the auth, and all the addresses and network information with the hub on `start`.
 
 ### Making Payments
+
+It is recommended that all client implementers read through the [core concepts](coreConcepts.md) before implementing the client.
+
+In general, if a payment is not fully collateralized, send an intentionally failing payment to trigger the hubs autocollateral mechanism and wait for the onchain transaction to be confirmed.
+
+If you would rather avoid complexities around collateral completely, use a custodial payment instead.
+
+### Runtime Flags
+
+When working with payment channels, there are certain precautions you have to take when you are updating the state to avoid breaking state with the hub and having to dispute your channel.
+
+It is recommended that all implementers use the [`RuntimeState`](#runtimestate) flags to restrict user actions at a UI level. Additionally, these flags can be used to display more descriptive details to users (i.e. communicate which phase an onchain user-deposit transaction is in).
 
 ## Documentation
 
@@ -24,7 +38,6 @@ Methods:
 
 State:
 
-* [Listeners](#listeners)
 * [PersistentState](#persistentstate)
 * [RuntimeState](#runtimestate)
 
@@ -409,3 +422,53 @@ const withdrawal: WithdrawalParameters = {
 await connext.stop() // stops all internal polling
 // should be used when cleaning up resources
 ```
+
+___
+
+### PersistentState
+
+The client's persistent state includes things that should persist through independent sessions. It is stored as a redux state with the following properties:
+
+**channel**: [`ChannelState`](types.md#channelstate) the latest double signed channel state
+
+**channelUpdate**: [`UpdateRequest`](types.md#updaterequest) the latest channel update
+
+**latestValidState**: [`ChannelState`](types.md#channelstate) the latest channel update without pending operations, used for `Invalidation` updates
+
+**activeThreads**: [`ThreadState[]`](types.md#threadstate) all open threads in the latest channel state
+
+**activeInitialThreadStates**: [`ThreadState[]`](types.md#threadstate) the initial states of all open threads
+
+**threadHistory**: [`ThreadHistoryItem[]`](types.md#threadhistoryitem) an array of objects used to track and generate appropriate threadIDs, keyed by the receiver address
+
+**lastThreadUpdateId**: `number` the id of the latest thread update to keep hub in sync
+
+**syncControllerState**: [`SyncControllerState`](types.md#synccontrollerstate) includes any updates to sync with the hub
+
+___
+
+### RuntimeState
+
+The client's runtime state includes things that should not persist through sessions. The flags set here can be used by implementers to restrict user actions at a UI level. The can* flags in the runtime state are set by the middleware.
+
+It is stored as a redux state with the following properties:
+
+**awaitingOnchainTransaction**: `boolean` true if either channel member has submitted an onchain transaction
+
+**canDeposit**: `boolean` true if user can initiate a deposit
+
+**canExchange**: `boolean` true if user can initiate an exchange
+
+**canWithdraw**: `boolean` true if user can withdraw from channel
+
+**canBuy**: `boolean` true if user can make a purchase
+
+**canCollateralize**: `boolean` true if hub is able to collateralize users channel
+
+**exchangeRate**: [`ExchangeRateState`](types.md#exchangeratestate)`| null` the client's exchange rates
+
+**syncResultsFromHub**: [`SyncResult[]`](types.md#syncresult) all open threads in the latest channel state
+
+**updateRequestTimeout**: `number` default amount of time to wait before invalidating update
+
+**channelStatus**: [`ChannelStatus`](types.md#channelstatus) the current status of the channel. Can only advance channel state if the channel status is `CS_OPEN`. Otherwise, clients can contact hub admins offline to solve the dispute gaslessly, or use the `ChannelManager` functions with the `channelState` from the client (latest double signed state).
