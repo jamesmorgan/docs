@@ -23,6 +23,8 @@ This will take a while to build the first time, but the build gets cached so onl
 
 Once all the components are up and running, navigate to `localhost:3000` to checkout the sandbox. To implement the client on your own frontend, checkout the [implementing the client](#implementing-the-client) section.
 
+### Additional Resources
+
 For more detailed information about our hubs, check out the following:
 
 - [API Docs](../develop/hub.md)
@@ -32,6 +34,8 @@ For more detailed information about our hubs, check out the following:
 - [Troubleshooting](troubleshooting.md)
 
 ## Implementing the Client
+
+### Configuration
 
 First, install the client package:
 
