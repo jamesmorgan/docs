@@ -8,9 +8,11 @@ The best way to get a new instance of the connext client is using the `getConnex
 
 ### Making Payments
 
-## Methods
+## Documentation
 
-* [getConnextClient](#getConnextClient)
+Methods:
+
+* [getConnextClient](#getconnextclient)
 * [buy](#buy)
 * [deposit](#deposit)
 * [exchange](#exchange)
@@ -20,9 +22,15 @@ The best way to get a new instance of the connext client is using the `getConnex
 * [stop](#stop)
 * [withdraw](#withdraw)
 
+State:
+
+* [Listeners](#listeners)
+* [PersistentState](#persistentstate)
+* [RuntimeState](#runtimestate)
+
 ### getConnextClient
 
-▸ **getConnextClient**(options: *[ConnextClientOptions](types.html#connextclientoptions)*): <`ConnextClient`>
+▸ **getConnextClient**(options: *[ConnextClientOptions](types.md#connextclientoptions)*): <`ConnextClient`>
 
 Retrieve a new instance of the connext client initialized with the provided parameters.
 
@@ -30,30 +38,28 @@ Retrieve a new instance of the connext client initialized with the provided para
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| options | [ConnextClientOptions](types.html#connextclientoptions) |  the options to initialize the client with |
+| options | [ConnextClientOptions](types.md#connextclientoptions) |  the options to initialize the client with |
 
 **Returns:** `ConnextClient`
 
 **Example:**
 
 ```javascript
-const client = getConnextClient({...})
+const connext = getConnextClient({...})
 // register listener
-client.on('onStateChange', state => {
+connext.on('onStateChange', state => {
   console.log('Connext state changed:', state);
 })
-await client.start() // start polling
+await connext.start() // start polling
 ```
 
 ### buy
 
-▸ **buy**(purchase: *[PurchaseRequest](../interfaces/purchaserequest.md)*): `Promise`<`object`>
-
-*Defined in [Connext.ts:958](https://github.com/ConnextProject/indra/blob/5961649/modules/client/src/Connext.ts#L958)*
+▸ **buy**(purchase: *[PurchaseRequest](types.md#purchaserequest)*): `Promise`<`object`>
 
 Make a purchase (group of related payments) within the channel. Purchases can have meta objects associated with them. These objects are stored as JSONs by the hub.
 
-There are 5 primary [types of payments](types.md#purchaserequest) you can make:
+There are 5 primary [types of payments](types.md#purchasepaymentrequest) you can make:
 
 * [`PT_CHANNEL`] - A payment between channel participants (to or from hub directly)
 * [`PT_THREAD`] - Noncustodial payments to others who have channels open with the hub. Users must be online to receive these payments. Threads can be thought of as unidirectional, short-lived channels.
@@ -68,7 +74,7 @@ All non-custodial payment types are subject to [availablility](coreConcepts.md#a
 | ------ | ------ | ------ |
 | purchase | [PurchaseRequest](types.md#purchaserequest) |  the `PurchaseRequest` sent to the hub. |
 
-**Returns:** `Promise`<`object`>
+**Returns:** `Promise`<`{ purchaseId: string }`>
 
 **Example:**
 
@@ -84,7 +90,7 @@ const amount: Payment = { // in wei units
 }
 // a group of related payments, e.g. a tip and a fee
 // this is the basic structure for each outlined type of payment
-const payments: PurchasePaymentRequest = [
+const payments: PurchasePaymentRequest[] = [
   {
     recipient: connext.opts.hubAddress,
     amount,
@@ -96,7 +102,7 @@ const payments: PurchasePaymentRequest = [
     type: "PT_THREAD"
   },
   {
-    recipient: "0xsa3g...", // a user who may be offline frequently
+    recipient: "0xgf5s...", // a user who may be offline frequently
     amount,
     type: "PT_CUSTODIAL"
   },
@@ -110,7 +116,7 @@ const payments: PurchasePaymentRequest = [
   },
 ]
 
-await connext.buy({
+const { purchaseId } = await connext.buy({
   meta,
   payments,
 })
@@ -122,13 +128,11 @@ ___
 
 ### deposit
 
-▸ **deposit**(payment: *[Payment](../#channelupdatereasons.payment)*): `Promise`<`void`>
+▸ **deposit**(payment: *[Payment](types.md#payment)*): `Promise`<`void`>
 
-*Defined in [Connext.ts:935](https://github.com/ConnextProject/indra/blob/5961649/modules/client/src/Connext.ts#L935)*
+This method allows users to deposit into their channels.
 
-This method allows users to deposit into their own channels.
-
-It generates a `ProposePendingDeposit` state update, that is then cosigned by the hub, and sent to chain.
+It generates a `ProposePendingDeposit` state update, which is cosigned by the hub, and sent to chain by the user.
 
 If there is a problem with the onchain transaction, the client will automatically send an `Invalidation` update to the hub and revert any pending deposits into their channel.
 
@@ -138,42 +142,70 @@ While users have an onchain transaction in flight, they are not able to make fur
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| payment | [Payment](../#channelupdatereasons.payment) |  the deposit amount as a \`Payment\`(#payment) type |
+| payment | [Payment](types.md#payment) |  the deposit amount as a `Payment`(types.md#payment) type |
 
 **Returns:** `Promise`<`void`>
 
+**Example:**
+
+```typescript
+// send a token and eth deposit to the channel
+await connext.deposit({
+  amountWei: "10000",
+  amountToken: "1000",
+})
+// the connext class is an event emitter. Implementers can
+// subscribe to channel state changes via registered listeners
+```
+
+Note: since the user is sending the onchain transaction, there must be enough eth in the signing wallet to afford the gas of the deposit transaction * `connext.opts.gasMultiple`.
 ___
 
 ### exchange
 
 ▸ **exchange**(toSell: *`string`*, currency: *"wei" \| "token"*): `Promise`<`void`>
 
-*Defined in [Connext.ts:947](https://github.com/ConnextProject/indra/blob/5961649/modules/client/src/Connext.ts#L947)*
-
 Allows a user to initiate an in-channel exchange with the hub by requesting an exchange and proposing an `Exchange` update type.
 
-Exchange rates used are supplied by the hub, and verified to be within a reasonable percentage before moving forward with the exchange.
+Exchange rates used are supplied by the hub, and verified to be within a reasonable range of the exchange rate in the client's store before moving forward with the exchange.
+
+If the hub does not have sufficient collateral in the channel for the exchange, the exchange will fail. Unlike failed payments, a failing exchange will not trigger autocollateralization of the channel. By default, the hub should deposit enough to facilitate any in channel exchanges up to the exchange limit set by your hub operator. See the [hub configuration](hub.md#configuration) section for more details, and contact your hub operator to determine how the exchange limits may affect your application
 
 **Parameters:**
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
 | toSell | `string` |  the amount of eth/tokens to sell, in wei units |
-| currency | "wei" \| "token" |  can either be "wei" or "token" to specify which type of currency you are selling |
+| currency | `"wei"` \| `"token"` |  can either be "wei" or "token" to specify which type of currency you are selling |
 
 **Returns:** `Promise`<`void`>
+
+**Example:**
+
+```typescript
+// propose a token exchange with the hub
+await connext.exchange({
+  toSell: "100",
+  currency: "token",
+})
+// propose a wei exchange with the hub
+await connext.exchange({
+  toSell: "10",
+  currency: "wei",
+})
+```
+
+Note: Due to rounding errors, you may notice that the amount that is actually exchanged within the channel may not be *exactly* the requested amount.
 
 ___
 
 ### recipientNeedsCollateral
 
-▸ **recipientNeedsCollateral**(recipient: *[Address](../#address)*, amount: *[Payment](../#channelupdatereasons.payment)*): `Promise`<`string` \| `null`>
-
-*Defined in [Connext.ts:1010](https://github.com/ConnextProject/indra/blob/5961649/modules/client/src/Connext.ts#L1010)*
+▸ **recipientNeedsCollateral**(recipient: *[Address](typed.md#address)*, amount: *[Payment](types.md#payment)*): `Promise`<`string` \| `null`>
 
 Returns null if the hub has enough collateral in the recipient's channel to facilitate a payment, and a descriptive string if it cannot.
 
-Insufficiently collateralized payments will fail, but they will trigger the hub's autocollateralization mechanism.
+Insufficiently collateralized payments will fail, but they will trigger the hub's autocollateralization mechanism. See more about this in the [core concepts](coreConcepts.md) section of this documentation.
 
 Implementers can use this function to check the status of a recipient's collateral, and intentionally send a failing payment to start the autocollateralization, then use this function to monitor the status of that collateralization.
 
@@ -181,30 +213,91 @@ Implementers can use this function to check the status of a recipient's collater
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| recipient | [Address](../#address) |  the signing wallet address of the payment recipient |
-| amount | [Payment](../#channelupdatereasons.payment) |  the amount of the payment, as a \`Payment\` type. |
+| recipient | [Address](types.md#address) |  the signing wallet address of the payment recipient |
+| amount | [Payment](types.md#payment) |  the amount of the payment, as a `Payment` type. |
 
 **Returns:** `Promise`<`string` \| `null`>
+
+**Example:**
+
+```typescript
+// establish payment details
+const payment: PurchasePaymentRequest = {
+  recipient: "0x87djb...",
+  amount: {
+    wei: "100",
+    token: "0"
+  },
+  type: "PT_CHANNEL"
+}
+// check if a payee's channel has sufficient collateral before sending payment
+const needsCollateral: string | null = await connext.recipientNeedsCollateral({
+  recipient: payment.recipient,
+  amount: payment.amount,
+})
+
+// if needsCollateral exists, trigger autocollateralization
+if (needsCollateral) {
+  // is a descriptive string, e.g "Channel does not exist yet"
+  console.log(needsCollateral)
+  try {
+    await connext.buy({
+      meta: { msg: "Triggering autocollateral of recipient"},
+      payments: [payment]
+    })
+  } catch (e) {
+    console.log("Autocollateral triggered by failing payment for recipient!")
+  }
+}
+
+// `needsCollateral == null` so recipient does not need collateral in channel
+// payment should go through instantly
+```
 
 ___
 
 ### redeem
 
-▸ **redeem**(secret: *`string`*): `Promise`<`object`>
+▸ **redeem**(secret: *`string`*): `Promise`<`{ purchaseId: string }`>
 
-*Defined in [Connext.ts:997](https://github.com/ConnextProject/indra/blob/5961649/modules/client/src/Connext.ts#L997)*
-
-Allows a payee to input a secret (previously generated by the payer) to unlock funds.
+Allows a payee to input a secret (previously generated by the payor) to unlock funds.
 
 Upon submission of the secret, the hub unlocks the funds indicated by the secret and sends them to the user redeeming the secret.
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| secret | `string` |
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| secret | `string` | Hex string generated by `connext.generateSecret()` created by the payor
 
-**Returns:** `Promise`<`object`>
+**Returns:** `Promise`<`{ purchaseId: string }`>
+
+**Example:**
+
+```typescript
+// first create a secret as payor and add to payment level metadata
+const secret = connext.generateSecret()
+const payment = {
+  meta: { secret },
+  recipient: "0x0000...", // linked payments always use empty addr recipients
+  amount: {
+    wei: "100",
+    token: "0",
+  }
+}
+// make the payment
+const payorRes = await connext.buy({
+  meta: { msg: "linked payment demo" },
+  payments: [ payment ]
+})
+console.log("payor purchaseId", payorRes.purchaseId)
+
+// redeem a linked payment
+const payeeRes = await connext.redeem(secret)
+console.log("payee purchaseId", payeeRes.purchaseId)
+```
+
+It is important to note that `PT_LINK` type payments have no specified recipient and can be redeemed by anyone with the secret. Additionally, for the payee, these are custodial payments and not subject to [availability](coreconcepts.md#availability) or collateral [requirements](coreconcepts.md#collateral).
 
 ___
 
@@ -212,13 +305,25 @@ ___
 
 ▸ **requestCollateral**(): `Promise`<`void`>
 
-*Defined in [Connext.ts:984](https://github.com/ConnextProject/indra/blob/5961649/modules/client/src/Connext.ts#L984)*
-
 Request that the hub collateralize a user's channel.
 
-Hub will deposit tokens and/or ETH to the user's account as per parameters (deposit amount, denomination, etc) set in hub's environment variables.
+Hub will deposit tokens and/or ETH to the user's account in accordance with their configured autodeposit parameters. In order to conserve collateral, some hub operators may impose restrictions on who is allowed to request collateral into their channel to avoid griefing.
+
+Contact your hub operator to find out how their configuration may affect your use case, and learn more about hub configuration parameters [here](hub.md#configuration) and [autocollateralization](#coreConcepts.md#collateralization).
 
 **Returns:** `Promise`<`void`>
+
+**Example:**
+
+```typescript
+await connext.requestCollateral()
+// hub will generate a `ProposePendingDeposit` update, where it deposits into the
+// users channel from the contract reserves
+
+// unlike user submitted onchain transactions, or onchain transactions with exchanges
+// (as with client withdrawals), hub collateral deposits
+// are non-blocking operations, and the state may still be updated.
+```
 
 ___
 
@@ -226,13 +331,25 @@ ___
 
 ▸ **start**(): `Promise`<`void`>
 
-*Defined in [Connext.ts:913](https://github.com/ConnextProject/indra/blob/5961649/modules/client/src/Connext.ts#L913)*
+Starts the stateful portions of the Connext client, including internal pollers.
 
-Starts the stateful portions of the Connext client.
-
-Note: the full implementation lives in ConnextInternal.
+It is important to note that the client is an `EventEmitter`, so implementers can subscribe to changes in the client state by registering listeners before starting the connext client.
 
 **Returns:** `Promise`<`void`>
+
+**Example:**
+
+```typescript
+const connext: ConnextClient = getConnextClient({...})
+// register listener
+// the only event the client emits is `onStateChange`, which is triggered
+// each time the connexts internal store is updated.
+
+connext.on('onStateChange', state => {
+  console.log('Connext state changed:', state);
+})
+await connext.start() // start polling
+```
 
 ___
 
@@ -240,21 +357,22 @@ ___
 
 ▸ **stop**(): `Promise`<`void`>
 
-*Defined in [Connext.ts:921](https://github.com/ConnextProject/indra/blob/5961649/modules/client/src/Connext.ts#L921)*
-
 Stops the stateful portions of the Connext client.
 
-Note: the full implementation lives in ConnextInternal.
-
 **Returns:** `Promise`<`void`>
+
+**Example:**
+
+```typescript
+await connext.stop() // stops all internal polling
+// should be used when cleaning up resources
+```
 
 ___
 
 ### withdraw
 
-▸ **withdraw**(withdrawal: *[WithdrawalParameters](../#withdrawalparameters)*): `Promise`<`void`>
-
-*Defined in [Connext.ts:971](https://github.com/ConnextProject/indra/blob/5961649/modules/client/src/Connext.ts#L971)*
+▸ **withdraw**(withdrawal: *[WithdrawalParameters](types.md#withdrawalparameters)*): `Promise`<`void`>
 
 Withdraw funds from a channel.
 
@@ -266,6 +384,28 @@ Currently, token withdrawals are not supported as the hub is trying to maintain 
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| withdrawal | [WithdrawalParameters](../#withdrawalparameters) |  the \`WithdrawalParameters\` sent to the hub. |
+| withdrawal | [WithdrawalParameters](types.md#withdrawalparameters) |  the `WithdrawalParameters` sent to the hub. |
 
 **Returns:** `Promise`<`void`>
+
+**Example:**
+
+```typescript
+// first generate the withdrawal parameters
+const withdrawal: WithdrawalParameters = {
+  withdrawalWeiUser: "0", // wei to withdraw from channel balance
+  tokensToSell: "0", // tokens to sell and withdraw as wei
+  withdrawalTokenUser: "0", // tokens to withdraw from channel balance
+  weiToSell: "0", // wei to sell and withdraw as tokens
+  recipient: "0xad33f..." // an outside address to receive funds to. does not need a channel
+}
+
+// NOTE: at this time, the hub does NOT support token withdrawals
+// this is done to conserve collateral complexity by forcing token
+// payments and conserving tokens within the channel system.
+
+// this will be enabled very soon!
+
+await connext.stop() // stops all internal polling
+// should be used when cleaning up resources
+```
