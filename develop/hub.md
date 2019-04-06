@@ -53,7 +53,7 @@ Creates a `ProposePendingDeposit` update with the user as the sender of the onch
 
 | Code | Status | Content |
 | ------ | ------ | ------ |
-| 200 | SUCCESS | [`ChannelRow`](types.md#channelrow) |
+| 200 | SUCCESS | [`ChannelRow`](types.html#channelrow) |
 | 400 | BAD REQUEST | `{ error : "Received invalid user deposit request. Aborting." }` |
 | 404 | NOT FOUND | `null` |
 
@@ -84,7 +84,7 @@ ___
 
 Requests collateralization into your channel to handle expected payments.
 
-Uses an [autocollateralization](coreConcepts.md#autocollateralization) mechanism which determined the amount to collateralize basedj on recent payment volumes and set boundaries.
+Uses an [autocollateralization](../usage/coreConcepts.html#autocollateralization) mechanism which determined the amount to collateralize basedj on recent payment volumes and set boundaries.
 
 See the [configuration](#configuration) section of this document for information on how to set these bounds as a hub operator.
 
@@ -109,7 +109,7 @@ See the [configuration](#configuration) section of this document for information
 
 | Code | Status | Content |
 | ------ | ------ | ------ |
-| 200 | SUCCESS | [`Sync`](types.md#sync) |
+| 200 | SUCCESS | [`Sync`](types.html#sync) |
 | 400 | BAD REQUEST | `{ error : "Received invalid collateral request. Aborting." }` |
 | 404 | NOT FOUND | `null` |
 
@@ -161,7 +161,7 @@ Note: Failures due to lack of collateral on exchange updates do not trigger the 
 
 | Code | Status | Content |
 | ------ | ------ | ------ |
-| 200 | SUCCESS | [`Sync`](types.md#sync) |
+| 200 | SUCCESS | [`Sync`](types.html#sync) |
 | 400 | BAD REQUEST | `{ error : "Received invalid exchange request. Aborting." }` |
 | 404 | NOT FOUND | `null` |
 
@@ -216,7 +216,7 @@ Creates a `ProposePendingWithdrawal` update, where an onchain tokens for wei exc
 
 | Code | Status | Content |
 | ------ | ------ | ------ |
-| 200 | SUCCESS | [`Sync`](types.md#sync) |
+| 200 | SUCCESS | [`Sync`](types.html#sync) |
 | 400 | BAD REQUEST | `{ error : "Received invalid withdrawal request. Aborting." }` |
 | 404 | NOT FOUND | `null` |
 
@@ -264,13 +264,13 @@ Accepts and processes a series of channel updates signed by the user to the hub 
 | ------ | ------ | ------ |
 | authToken | `string` | User's authorization token, gotten from `[auth](#auth)` endpoint |
 | lastThreadUpdateId | `number` | Latest thread update id |
-| updates | [`UpdateRequest`](types.md#updaterequest) | Array of updates to return to the hub from the client |
+| updates | [`UpdateRequest`](types.html#updaterequest) | Array of updates to return to the hub from the client |
 
 * **Responses**
 
 | Code | Status | Content |
 | ------ | ------ | ------ |
-| 200 | SUCCESS | `{ error: string | null, updates:` [`Sync`](types.md#sync) `}` |
+| 200 | SUCCESS | `{ error: string | null, updates:` [`Sync`](types.html#sync) `}` |
 | 400 | BAD REQUEST | `{ error : "Received invalid update state request. Aborting." }` |
 | 404 | NOT FOUND | `null` |
 
@@ -300,7 +300,7 @@ ___
 
 ### Sync
 
-Returns an array of updates to the user after the specified nonce as a [sync](types.md#sync) JSON object.
+Returns an array of updates to the user after the specified nonce as a [sync](types.html#sync) JSON object.
 
 * **URL:** *hub-url*/channel/:user/sync?:lastChanTx&:lastThreadUpdate
 
@@ -324,7 +324,7 @@ Returns an array of updates to the user after the specified nonce as a [sync](ty
 
 | Code | Status | Content |
 | ------ | ------ | ------ |
-| 200 | SUCCESS | [`Sync`](types.md#sync) |
+| 200 | SUCCESS | [`Sync`](types.html#sync) |
 | 400 | BAD REQUEST | `{ error : "Received invalid sync request. Aborting." }` |
 | 404 | NOT FOUND | `null` |
 
@@ -348,7 +348,7 @@ ___
 
 ### Get Channel
 
-  Returns a [`ChannelRow`](types.md#channelrow) JSON containing information about the user's channel.
+  Returns a [`ChannelRow`](types.html#channelrow) JSON containing information about the user's channel.
 
 * **URL:** *hub-url*/channel/:user
 
@@ -370,7 +370,7 @@ ___
 
 | Code | Status | Content |
 | ------ | ------ | ------ |
-| 200 | SUCCESS | [`ChannelRow`](types.md#channelrow) |
+| 200 | SUCCESS | [`ChannelRow`](types.html#channelrow) |
 | 400 | BAD REQUEST | `{ error : "Received invalid get channel request. Aborting}` |
 | 404 | NOT FOUND | `null` |
 
@@ -394,7 +394,7 @@ ___
 
 ### Get Latest Update
 
-Returns a [`ChannelStateUpdateRow`](types.md#channelstateupdaterow) JSON the users latest state update.
+Returns a [`ChannelStateUpdateRow`](types.html#channelstateupdaterow) JSON the users latest state update.
 
 * **URL:** *hub-url*/channel/:user/latest-update
 
@@ -416,7 +416,7 @@ Returns a [`ChannelStateUpdateRow`](types.md#channelstateupdaterow) JSON the use
 
 | Code | Status | Content |
 | ------ | ------ | ------ |
-| 200 | SUCCESS | [`ChannelStateUpdateRow`](types.md#channelstateupdaterow) |
+| 200 | SUCCESS | [`ChannelStateUpdateRow`](types.html#channelstateupdaterow) |
 | 400 | BAD REQUEST | `{ error : "Received invalid get channel request. Aborting}` |
 | 404 | NOT FOUND | `null` |
 
@@ -440,7 +440,7 @@ ___
 
 ### Get Latest State No Pending Operations
 
-Returns a [`ChannelState`](types.md#channelstate) JSON which is the latest state in the channel that does not contain any pending operations.
+Returns a [`ChannelState`](types.html#channelstate) JSON which is the latest state in the channel that does not contain any pending operations.
 
 * **URL:** *hub-url*/channel/:user/latest-no-pending
 
@@ -462,7 +462,7 @@ Returns a [`ChannelState`](types.md#channelstate) JSON which is the latest state
 
 | Code | Status | Content |
 | ------ | ------ | ------ |
-| 200 | SUCCESS | [`ChannelState`](types.md#channelstate) |
+| 200 | SUCCESS | [`ChannelState`](types.html#channelstate) |
 | 400 | BAD REQUEST | `{ error : "Received invalid get channel request. Aborting}` |
 | 404 | NOT FOUND | `null` |
 
