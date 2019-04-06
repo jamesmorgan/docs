@@ -28,6 +28,8 @@ Types:
 * [ChannelRow](#channelrow)
 * [Sync](#sync)
 * [ChannelStateUpdateRow](#channelstateupdaterow)
+* [ThreadRow](#threadrow)
+* [ThreadStateUpdateRow](#threadstateupdaterow)
 
 Classes:
 
@@ -123,7 +125,7 @@ ___
 
 ### Payment
 
-A `Payment` object has the following fields: 
+A `Payment` object has the following fields:
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
@@ -136,7 +138,7 @@ ___
 
 ### WithdrawalParameters
 
-A `WithdrawalParameters` object has the following fields: 
+A `WithdrawalParameters` object has the following fields:
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
@@ -192,3 +194,11 @@ ___
 ___
 
 ### ChannelStateUpdateRow
+
+___
+
+### ThreadRow
+
+___
+
+### ThreadStateUpdateRow
