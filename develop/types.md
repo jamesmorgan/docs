@@ -1,5 +1,11 @@
 # Types
 
+## Best Practices
+
+### Conversion Functions
+
+### Using Currency Types
+
 ## Index
 
 Methods:
@@ -19,6 +25,9 @@ Types:
 * [ExchangeRateState](#exchangeratestate)
 * [SyncResult](#syncresult)
 * [ChannelStatus](#channelstatus)
+* [ChannelRow](#channelrow)
+* [Sync](#sync)
+* [ChannelStateUpdateRow](#channelstateupdaterow)
 
 Classes:
 
@@ -171,3 +180,15 @@ ___
 ___
 
 ### SyncControllerState
+
+___
+
+### ChannelRow
+
+___
+
+### Sync
+
+___
+
+### ChannelStateUpdateRow
