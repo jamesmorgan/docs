@@ -2,6 +2,34 @@
 
 ## Configuration
 
+There are several env vars that can be set as a hub operator. The full hub configuration options and implementation can be found [here](https://github.com/ConnextProject/indra/blob/master/modules/hub/src/Config.ts).
+
+When operating a hub, you have a fine degree of tuning the autocollateralization mechanism through the configuration options. Some key environment variables to understand are:
+
+* **HOT_WALLET_ADDRESS:** The hubs signing wallet address
+
+* **TOKEN_CONTRACT_ADDRESS:** The token contract address approved by the [`ChannelManager`](contracts.html) contract
+
+* **SHOULD_COLLATERALIZE_URL:** (optional) The URL to check if a user requesting collateral is approved to do so. Defaults to `NO_CHECK`, allowing any address to request collateral
+
+* **STALE_CHANNEL_DAYS:** (optional) The number of days a channel is inactive before being considered "stale" and being autodisputed. If not provided, the hub will not autodispute stale channels
+
+* **CHANNEL_BEI_LIMIT:** (optional) The maximum amount of tokens the hub will deposit into any users channel for exchange purposes. Defaults to `69`
+
+* **BEI_MIN_THRESHOLD:** (optional) The minimum amount of hub token balance required for the hub to dispute a stale channel. Defaults to `5`
+
+* **BEI_MIN_COLLATERALIZATION:** (optional) The minimum amount tokens the hub should collateralize. If hubs token balance falls below this value * `MIN_COLLATERALIZATION_MULTIPLE`, the autocollateralization will be triggered regardless of recent payments. Defaults to `10`
+
+* **BEI_MAX_COLLATERALIZATION:** (optional) The maximum token balance the hub will maintain as collateral in a user's channel. If hubs token balance falls below this value * `MAX_COLLATERALIZATION_MULTIPLE`, the autocollateralization will not triggered regardless of recent payments. Defaults to `169`
+
+* **MIN_COLLATERALIZATION_MULTIPLE:** (optional) The minimum collateralization multiple used in the autocollateralization mechanism. Defaults to `0.5`
+
+* **MAX_COLLATERALIZATION_MULTIPLE:** (optional) The minimum collateralization multiple used in the autocollateralization mechanism. Defaults to `1.5`
+
+* **RECENT_PAYMENTS_INTERVAL:** (optional) The window in [psql interval string format](https://www.postgresql.org/docs/9.1/datatype-datetime.html) to be used when calculating the recent payments for autocollateralization. Defaults to `10 minutes`
+
+* **THREAD_BEI_LIMIT:** (optional) The maximum amount to be used in any one thread when calculating autocollateralization targets. Defaults to `10`
+
 ## Authorization
 
 The authorization for client implementers is performed on [`connext.start()`](client.html#start) through an internal `auth` method.
