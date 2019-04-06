@@ -2,9 +2,41 @@
 
 ## Configuration
 
+## Authorization
+
+The authorization for client implementers is performed on [`connext.start()`](client.html#start) through an internal `auth` method.
+
+The authorization flow is implemented as follows:
+
+```typescript
+const rpcUrl = "localhost:8545"
+const hubUrl = "localhost:8080"
+// Imagine the `hub` is an object with an interface corresponding to the
+// methods outlined below
+
+// first get the nonce
+const nonce = await hub.authChallenge()
+
+// create hash and sign
+const preamble = "SpankWallet authentication message:";
+const web3 = new Web3(rpcUrl)
+const hash = web3.utils.sha3(`${preamble} ${web3.utils.sha3(nonce)} ${web3.utils.sha3(origin)}`);
+const signature = await web3.eth.personal.sign(hash, this.opts.user);
+
+// return to hub
+const auth = await hub.authResponse(nonce, this.opts.user, origin, signature)
+// save auth token, e.g
+document.cookie = `hub.sid=${auth}`;
+```
+
 ## API Documentation
 
-Open Endpoints
+Open Endpoints:
+
+* [Get Config](#get-config)
+* [Auth Challenge](#auth-challenge)
+* [Auth Response](#auth-response)
+* [Auth Status](#auth-status)
 
 Channel Endpoints*:
 
@@ -24,6 +56,151 @@ Thread Endpoints*:
 
 *Requires proper authorization
 
+### Get Config
+
+Returns configuration information from the hub as a JSON. Configuration information returned includes:
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| channelManagerAddress | `string` | The address of the [`ChannelManager`](contracts.html) contract |
+| hotWalletAddress | `string` | The eth address of the hub's signing wallet |
+| tokenContractAddress | `string` | The approved token contract address |
+| ethRpcUrl | `string` | The url of the eth provider used by the hub |
+| ethNetworkId | `string` | Network id of the eth network the hub is connected to |
+| beiMaxCollateralization | `string` | Token autocollateralization ceiling |
+
+* **URL:** *hub-url*/config
+
+* **Method:** `GET`
+
+* **Responses**
+
+| Code | Status | Content |
+| ------ | ------ | ------ |
+| 200 | SUCCESS | `{ channelManagerAddress: string, hotWalletAddress: string, tokenContractAddress: string, ethRpcUrl: string, ethNetworkId: string, beiMaxCollateralization: string }` |
+
+* **Example:**
+
+```typescript
+$.ajax({
+  url: "config",
+  type : "GET",
+  success : function(r) {
+    console.log(r);
+  }
+});
+```
+
+___
+
+### Auth Challenge
+
+Returns a nonce for the user to sign. See the [authorization](#authorization) section for more details.
+
+* **URL:** *hub-url*/auth/challenge
+
+* **Method:** `POST`
+
+* **Responses**
+
+| Code | Status | Content |
+| ------ | ------ | ------ |
+| 200 | SUCCESS | `{ nonce: string }` |
+
+* **Example:**
+
+```typescript
+$.ajax({
+  url: "auth/challenge",
+  type : "POST",
+  data: {},
+  success : function(r) {
+    console.log(r);
+  }
+});
+```
+
+___
+
+### Auth Response
+
+Handles a response to the users authorization challenge. See the [authorization](#authorization) section for more details.
+
+* **URL:** *hub-url*/auth/response
+
+* **Method:** `POST`
+
+* **Data Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| address | `string` | Eth address of user requesting auth |
+| nonce | `string` | Value retrieved from [auth challenge](#auth-challenge) endpoint |
+| origin | `string` | Origin of domain requests |
+| signature | `string` | Users signature of the challenge response |
+
+* **Responses**
+
+| Code | Status | Content |
+| ------ | ------ | ------ |
+| 200 | SUCCESS | `{ nonce: string }` |
+| 400 | BAD REQUEST | `Received invalid challenge request. Aborting.` |
+| 400 | BAD REQUEST | `Received auth challenge from invalid origin` |
+
+* **Example:**
+
+```typescript
+$.ajax({
+  url: "auth/response",
+  type : "POST",
+  data: {
+    address: "0x22fab...",
+    nonce: "82basdh",
+    origin: "localhost",
+    signature: "0xdan38...",
+  },
+  success : function(r) {
+    console.log(r);
+  }
+});
+```
+
+___
+
+### Auth Status
+
+Returns the authorization status of the request session address as a JSON object with the following fields:
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| success | `boolean` | Returns true if the session is authorized |
+| address | `string` | The address with the valid auth status. Field is ommitted if success is `false` |
+
+* **URL:** *hub-url*/auth/status
+
+* **Method:** `GET`
+
+* **Responses**
+
+| Code | Status | Content |
+| ------ | ------ | ------ |
+| 200 | SUCCESS | `{ success: true, address: string }` |
+| 200 | SUCCESS | `{ success: false }` |
+
+* **Example:**
+
+```typescript
+$.ajax({
+  url: "auth/status",
+  type : "GET",
+  success : function(r) {
+    console.log(r);
+  }
+});
+```
+
+___
+
 ### Request Deposit
 
 Creates a `ProposePendingDeposit` update with the user as the sender of the onchain transaction. Any time a user deposits, the hub may use the opportunity to preemptively collateralize the channel for following state updates, such as in-channel swaps.
@@ -42,7 +219,7 @@ Creates a `ProposePendingDeposit` update with the user as the sender of the onch
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| authToken | `string` | User's authorization token, gotten from `[auth](#auth)` endpoint |
+| authToken | `string` | User's authorization token, gotten from `[auth](#authorization)` flow |
 | depositWei | `string` | Amount of eth the user wants to deposit in wei |
 | depositToken | `string` | Amount of tokens the user wants to deposit in wei |
 | lastChanTx | `number` | The last global nonce of the channel |
@@ -102,7 +279,7 @@ See the [configuration](#configuration) section of this document for information
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| authToken | `string` | User's authorization token, gotten from `[auth](#auth)` endpoint |
+| authToken | `string` | User's authorization token, gotten from `[auth](#authorization)` flow |
 | lastChanTx | `number` | Global nonce of the user's channel |
 
 * **Responses**
@@ -152,7 +329,7 @@ Note: Failures due to lack of collateral on exchange updates do not trigger the 
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| authToken | `string` | User's authorization token, gotten from `[auth](#auth)` endpoint |
+| authToken | `string` | User's authorization token, gotten from `[auth](#authorization)` flow |
 | weiToSell | `string` | Amount of eth to sell from user's balance in wei units |
 | tokensToSell | `string` | Amount of tokens to sell from user's balance in wei units |
 | lastChanTx | `number` | Global nonce of the user's channel |
@@ -204,7 +381,7 @@ Creates a `ProposePendingWithdrawal` update, where an onchain tokens for wei exc
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| authToken | `string` | User's authorization token, gotten from `[auth](#auth)` endpoint |
+| authToken | `string` | User's authorization token, gotten from `[auth](#authorization)` flow |
 | lastChanTx | `number` | Global nonce of the user's channel |
 | tokensToSell | `string` | Tokens to sell from user's balance as part of withdrawal and onchain exchange in wei units |
 | weiToSell | `string` | Wei to sell from user's balance as part of withdrawal and onchain exchange in wei units |
@@ -262,7 +439,7 @@ Accepts and processes a series of channel updates signed by the user to the hub 
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| authToken | `string` | User's authorization token, gotten from `[auth](#auth)` endpoint |
+| authToken | `string` | User's authorization token, gotten from `[auth](#authorization)` flow |
 | lastThreadUpdateId | `number` | Latest thread update id |
 | updates | [`UpdateRequest`](types.html#updaterequest) | Array of updates to return to the hub from the client |
 
@@ -318,7 +495,7 @@ Returns an array of updates to the user after the specified nonce as a [sync](ty
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| authToken | `string` | User's authorization token, gotten from `[auth](#auth)` endpoint |
+| authToken | `string` | User's authorization token, gotten from `[auth](#authorization)` flow |
 
 * **Responses**
 
