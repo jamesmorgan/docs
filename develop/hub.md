@@ -52,7 +52,13 @@ Channel Endpoints*:
 
 Thread Endpoints*:
 
-* TODO
+* [Get Thread](#get-thread)
+* [Get Threads](#get-threads)
+* [Get Initial Thread States](#get-initial-thread-states)
+* [Get Incoming Threads](#get-incoming-threads)
+* [Get Active Threads](#get-active-threads)
+* [Get Last Thread Update Id](#get-last-thread-update-id)
+* [Update Thread](#update-thread)
 
 *Requires proper authorization
 
@@ -513,7 +519,7 @@ $.ajax({
   dataType: "json",
   type : "POST",
   data: {
-    authToken: "Qgf7AM5WFc" // cookie gotten from the `auth` endpoint
+    authToken: "Qgf7AM5WFc"
   }
   success : function(r) {
     console.log(r);
@@ -559,7 +565,7 @@ $.ajax({
   dataType: "json",
   type : "POST",
   data: {
-    authToken: "Qgf7AM5WFc" // cookie gotten from the `auth` endpoint
+    authToken: "Qgf7AM5WFc"
   }
   success : function(r) {
     console.log(r);
@@ -605,7 +611,7 @@ $.ajax({
   dataType: "json",
   type : "POST",
   data: {
-    authToken: "Qgf7AM5WFc" // cookie gotten from the `auth` endpoint
+    authToken: "Qgf7AM5WFc"
   }
   success : function(r) {
     console.log(r);
@@ -651,7 +657,346 @@ $.ajax({
   dataType: "json",
   type : "POST",
   data: {
-    authToken: "Qgf7AM5WFc" // cookie gotten from the `auth` endpoint
+    authToken: "Qgf7AM5WFc"
+  }
+  success : function(r) {
+    console.log(r);
+  }
+});
+```
+
+___
+
+### Get Thread
+
+Returns a [`ThreadRow`](types.html#threadrow) JSON representing thread details of thread with provided sender and receiver.
+
+* **URL:** *hub-url*/thread/:sender/to/:receiver
+
+* **Method:** `POST`
+  
+* **URL Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| sender | `string` | Sender's eth address |
+| receiver | `string` | Receiver's eth address |
+
+* **Data Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| authToken | `string` | Request sender's current auth token |
+
+* **Responses**
+
+| Code | Status | Content |
+| ------ | ------ | ------ |
+| 200 | SUCCESS | [`ThreadRow`](types.html#threadrow) |
+| 400 | BAD REQUEST | `Received invalid get thread request. Aborting.` |
+| 404 | NOT FOUND | `null` |
+
+* **Example:**
+
+```typescript
+$.ajax({
+  url: "thread/0x30FdA91A43B5B9eA7c5027619259f8dB2a68aA47/to/0x2DA565caa7037Eb198393181089e92181ef5Fb53",
+  dataType: "json",
+  type : "POST",
+  data: {
+    authToken: "Qgf7AM5WFc"
+  }
+  success : function(r) {
+    console.log(r);
+  }
+});
+```
+
+___
+
+### Get Threads
+
+Returns a [`ThreadState[]`](types.html#threadstate), containing threads for the provided user. Including the inactive threads.
+
+* **URL:** *hub-url*/thread/:user/all
+
+* **Method:** `POST`
+  
+* **URL Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| user | `string` | User's eth address |
+
+* **Data Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| authToken | `string` | Request sender's current auth token |
+
+* **Responses**
+
+| Code | Status | Content |
+| ------ | ------ | ------ |
+| 200 | SUCCESS | [`ThreadState[]`](types.html#threadstate) |
+| 400 | BAD REQUEST | `Received invalid get threads request. Aborting.` |
+| 404 | NOT FOUND | `null` |
+
+* **Example:**
+
+```typescript
+$.ajax({
+  url: "thread/0x30FdA91A43B5B9eA7c5027619259f8dB2a68aA47/all",
+  dataType: "json",
+  type : "POST",
+  data: {
+    authToken: "Qgf7AM5WFc"
+  }
+  success : function(r) {
+    console.log(r);
+  }
+});
+```
+
+___
+
+### Get Initial Thread States
+
+Returns a [`ThreadState[]`](types.html#threadstate), containing the initial thread states for the provided user.
+
+This is used to regenerate the merkle root of the channel as threads open and close.
+
+* **URL:** *hub-url*/thread/:user/initial-states
+
+* **Method:** `POST`
+  
+* **URL Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| user | `string` | User's eth address |
+
+* **Data Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| authToken | `string` | Request sender's current auth token |
+
+* **Responses**
+
+| Code | Status | Content |
+| ------ | ------ | ------ |
+| 200 | SUCCESS | [`ThreadState[]`](types.html#threadstate) |
+| 400 | BAD REQUEST | `Received invalid get thread initial states request. Aborting.` |
+| 404 | NOT FOUND | `null` |
+
+* **Example:**
+
+```typescript
+$.ajax({
+  url: "thread/0x30FdA91A43B5B9eA7c5027619259f8dB2a68aA47/initial-states",
+  dataType: "json",
+  type : "POST",
+  data: {
+    authToken: "Qgf7AM5WFc"
+  }
+  success : function(r) {
+    console.log(r);
+  }
+});
+```
+
+___
+
+### Get Incoming Threads
+
+Returns a [`ThreadRow[]`](types.html#threadrow), containing the incoming thread (i.e. user is receiver) states for the provided user.
+
+* **URL:** *hub-url*/thread/:user/incoming
+
+* **Method:** `POST`
+  
+* **URL Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| user | `string` | User's eth address |
+
+* **Data Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| authToken | `string` | Request sender's current auth token |
+
+* **Responses**
+
+| Code | Status | Content |
+| ------ | ------ | ------ |
+| 200 | SUCCESS | [`ThreadRow[]`](types.html#threadrow) |
+| 400 | BAD REQUEST | `Received invalid get incoming threads request. Aborting.` |
+| 404 | NOT FOUND | `null` |
+
+* **Example:**
+
+```typescript
+$.ajax({
+  url: "thread/0x30FdA91A43B5B9eA7c5027619259f8dB2a68aA47/incoming",
+  dataType: "json",
+  type : "POST",
+  data: {
+    authToken: "Qgf7AM5WFc"
+  }
+  success : function(r) {
+    console.log(r);
+  }
+});
+```
+
+___
+
+### Get Active Threads
+
+Returns a [`ThreadState[]`](types.html#threadstate), containing the active threads for the provided user.
+
+* **URL:** *hub-url*/thread/:user/active
+
+* **Method:** `POST`
+  
+* **URL Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| user | `string` | User's eth address |
+
+* **Data Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| authToken | `string` | Request sender's current auth token |
+
+* **Responses**
+
+| Code | Status | Content |
+| ------ | ------ | ------ |
+| 200 | SUCCESS | [`ThreadState[]`](types.html#threadstate) |
+| 400 | BAD REQUEST | `Received invalid get active threads request. Aborting.` |
+| 404 | NOT FOUND | `null` |
+
+* **Example:**
+
+```typescript
+$.ajax({
+  url: "thread/0x30FdA91A43B5B9eA7c5027619259f8dB2a68aA47/active",
+  dataType: "json",
+  type : "POST",
+  data: {
+    authToken: "Qgf7AM5WFc"
+  }
+  success : function(r) {
+    console.log(r);
+  }
+});
+```
+
+___
+
+### Get Last Thread Update Id
+
+Returns the latest thread update id for the provided user
+
+* **URL:** *hub-url*/thread/:user/last-update-id
+
+* **Method:** `POST`
+  
+* **URL Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| sender | `string` | Sender's eth address |
+| receiver | `string` | Receiver's eth address |
+
+* **Data Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| authToken | `string` | Request sender's current auth token |
+
+* **Responses**
+
+| Code | Status | Content |
+| ------ | ------ | ------ |
+| 200 | SUCCESS | `{ latestThreadUpdateId: number }` |
+| 400 | BAD REQUEST | `Received invalid get last update id request. Aborting.` |
+| 404 | NOT FOUND | `null` |
+
+* **Example:**
+
+```typescript
+$.ajax({
+  url: "thread/0x30FdA91A43B5B9eA7c5027619259f8dB2a68aA47/last-update-id",
+  dataType: "json",
+  type : "POST",
+  data: {
+    authToken: "Qgf7AM5WFc"
+  }
+  success : function(r) {
+    console.log(r);
+  }
+});
+```
+
+___
+
+### Update Thread
+
+Accepts and stores sender-signed thread updates. Returns the updated thread as a [`ThreadStateUpdateRow`](types.html#threadstateupdaterow)
+
+* **URL:** *hub-url*/thread/:sender/to/:receiver/update
+
+* **Method:** `POST`
+  
+* **URL Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| user | `string` | User's eth address |
+
+* **Data Params**
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| authToken | `string` | Request sender's current auth token |
+| update | [`ThreadState`](types.html#threadstate) | The sender-signed thread state update |
+
+* **Responses**
+
+| Code | Status | Content |
+| ------ | ------ | ------ |
+| 200 | SUCCESS | [`ThreadState`](types.html#threadstate) |
+| 400 | BAD REQUEST | `Received invalid update thread request. Aborting.` |
+| 404 | NOT FOUND | `null` |
+
+* **Example:**
+
+```typescript
+$.ajax({
+  url: "thread/0x30FdA91A43B5B9eA7c5027619259f8dB2a68aA47/to/0x2DA565caa7037Eb198393181089e92181ef5Fb53/update",
+  dataType: "json",
+  type : "POST",
+  data: {
+    authToken: "Qgf7AM5WFc",
+    update: {
+      contractAddress: "0xj38cw..",
+      sender: "0xad43fw..",
+      receiver: "0x22asd..",
+      threadId: 1,
+      balanceWeiSender: "1000",
+      balanceWeiReceiver: "0",
+      balanceTokenSender: "100",
+      balanceTokenReceiver: "0",
+      txCount: 0,
+      sigA: "0xf7am5..."
+    }
   }
   success : function(r) {
     console.log(r);
