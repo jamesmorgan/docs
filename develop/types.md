@@ -45,7 +45,7 @@ The object contains the following fields:
 | web3 | Web3 | the Web3 object used by the client |
 | hubUrl | String | url of the hub |
 | user | Address | address of the signing wallet |
-| contractAddress? | Address | (optional) address of the [ChannelManager](contracts.md) contract |
+| contractAddress? | Address | (optional) address of the [ChannelManager](contracts.html) contract |
 | hubAddress? | Address | (optional) address of the hub's signing wallet |
 | tokenAddress? | Address | (optional) address of the channel's token |
 | origin? | String | (optional) origin of the hub calls |
