@@ -231,7 +231,7 @@ Creates a `ProposePendingDeposit` update with the user as the sender of the onch
 | Code | Status | Content |
 | ------ | ------ | ------ |
 | 200 | SUCCESS | [`ChannelRow`](types.html#channelrow) |
-| 400 | BAD REQUEST | `{ error : "Received invalid user deposit request. Aborting." }` |
+| 400 | BAD REQUEST | `Received invalid user deposit request. Aborting.` |
 | 404 | NOT FOUND | `null` |
 
 * **Example:**
@@ -287,7 +287,7 @@ See the [configuration](#configuration) section of this document for information
 | Code | Status | Content |
 | ------ | ------ | ------ |
 | 200 | SUCCESS | [`Sync`](types.html#sync) |
-| 400 | BAD REQUEST | `{ error : "Received invalid collateral request. Aborting." }` |
+| 400 | BAD REQUEST | `Received invalid collateral request. Aborting.` |
 | 404 | NOT FOUND | `null` |
 
 * **Example:**
@@ -339,7 +339,7 @@ Note: Failures due to lack of collateral on exchange updates do not trigger the 
 | Code | Status | Content |
 | ------ | ------ | ------ |
 | 200 | SUCCESS | [`Sync`](types.html#sync) |
-| 400 | BAD REQUEST | `{ error : "Received invalid exchange request. Aborting." }` |
+| 400 | BAD REQUEST | `Received invalid exchange request. Aborting.` |
 | 404 | NOT FOUND | `null` |
 
 * **Example:**
@@ -394,7 +394,7 @@ Creates a `ProposePendingWithdrawal` update, where an onchain tokens for wei exc
 | Code | Status | Content |
 | ------ | ------ | ------ |
 | 200 | SUCCESS | [`Sync`](types.html#sync) |
-| 400 | BAD REQUEST | `{ error : "Received invalid withdrawal request. Aborting." }` |
+| 400 | BAD REQUEST | `Received invalid withdrawal request. Aborting.` |
 | 404 | NOT FOUND | `null` |
 
 * **Example:**
@@ -448,7 +448,7 @@ Accepts and processes a series of channel updates signed by the user to the hub 
 | Code | Status | Content |
 | ------ | ------ | ------ |
 | 200 | SUCCESS | `{ error: string | null, updates:` [`Sync`](types.html#sync) `}` |
-| 400 | BAD REQUEST | `{ error : "Received invalid update state request. Aborting." }` |
+| 400 | BAD REQUEST | `Received invalid update state request. Aborting.` |
 | 404 | NOT FOUND | `null` |
 
 * **Example:**
@@ -502,7 +502,7 @@ Returns an array of updates to the user after the specified nonce as a [sync](ty
 | Code | Status | Content |
 | ------ | ------ | ------ |
 | 200 | SUCCESS | [`Sync`](types.html#sync) |
-| 400 | BAD REQUEST | `{ error : "Received invalid sync request. Aborting." }` |
+| 400 | BAD REQUEST | `"Received invalid sync request. Aborting.` |
 | 404 | NOT FOUND | `null` |
 
 * **Example:**
@@ -548,7 +548,7 @@ ___
 | Code | Status | Content |
 | ------ | ------ | ------ |
 | 200 | SUCCESS | [`ChannelRow`](types.html#channelrow) |
-| 400 | BAD REQUEST | `{ error : "Received invalid get channel request. Aborting}` |
+| 400 | BAD REQUEST | `Received invalid get channel request. Aborting.` |
 | 404 | NOT FOUND | `null` |
 
 * **Example:**
@@ -594,7 +594,7 @@ Returns a [`ChannelStateUpdateRow`](types.html#channelstateupdaterow) JSON the u
 | Code | Status | Content |
 | ------ | ------ | ------ |
 | 200 | SUCCESS | [`ChannelStateUpdateRow`](types.html#channelstateupdaterow) |
-| 400 | BAD REQUEST | `{ error : "Received invalid get channel request. Aborting}` |
+| 400 | BAD REQUEST | `Received invalid get channel request. Aborting.` |
 | 404 | NOT FOUND | `null` |
 
 * **Example:**
@@ -640,7 +640,7 @@ Returns a [`ChannelState`](types.html#channelstate) JSON which is the latest sta
 | Code | Status | Content |
 | ------ | ------ | ------ |
 | 200 | SUCCESS | [`ChannelState`](types.html#channelstate) |
-| 400 | BAD REQUEST | `{ error : "Received invalid get channel request. Aborting}` |
+| 400 | BAD REQUEST | `Received invalid get channel request. Aborting.` |
 | 404 | NOT FOUND | `null` |
 
 * **Example:**
