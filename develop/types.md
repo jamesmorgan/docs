@@ -205,7 +205,7 @@ A `ChannelState` object has the following fields:
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| contractAddress | Address | [`ChannelManager`](contracts.html) |
+| contractAddress | Address | [`ChannelManager`](contracts.html) contract address |
 | user | Address | Eth address of signing wallet of channel user |
 | recipient | Address | Eth address of recipient of outside funds, defaults to user in all cases but `ProposePendingWithdrawal` states |
 | balanceWeiHub | string | The eth balance of the hub in the channel in wei units |
