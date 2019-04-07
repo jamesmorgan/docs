@@ -1,10 +1,14 @@
-# Editing the Docs
+# Connext Documentation
+
+Documentation can be found [here](https://connext.readthedocs.io/en/latest/)
+
+## Editing the Docs
 
 Edit the existing markdown documents directly, and regenerate the build folder using `make html`.
 
 The Table of Contents is defined by `index.rst` in the root. 
 
-To deploy edits, simply commit to master and check your edits [here](https://connext.readthedocs.io/en/latest/)
+To deploy edits, simply commit to master and check your edits at the [live docs](https://connext.readthedocs.io/en/latest/)
 
 ## Readthedocs
 
