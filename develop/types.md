@@ -87,6 +87,7 @@ Types:
 * [Sync](#sync)
 * [ChannelStateUpdateRow](#channelstateupdaterow)
 * [ThreadRow](#threadrow)
+* [ThreadStateUpdate](#threadstateupdate)
 * [ThreadStateUpdateRow](#threadstateupdaterow)
 * [CurrencyType](#currencytype)
 
@@ -420,21 +421,56 @@ ___
 
 ### SyncResult
 
+An `SyncResult` is a JSON object returned by the hub containing information about a proposed thread or channel state update. It has the following form:
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| type | `"thread"` or `"channel"` | The type of state update, whether it is for a thread or for a channel |
+| update | [`ThreadStateUpdate`](#threadstateupdate) or [`UpdateRequest`](#updaterequest) | Update information. It is an `UpdateRequest` type for a `channel` state updae, and `ThreadStateUpdate` for a `thread` state change |
+
 ___
 
 ### ChannelStatus
+
+An enum containing various channel statuses. There are the following `ChannelStatus` options
+
+| Name | Description |
+| ------ | ------ |
+| `CS_OPEN` | Channel is open and able to accept offchain state updates |
+| `CS_CHANNEL_DISPUTE` | Channel is being disputed onchain |
+| `CS_THREAD_DISPUTE` | One or more of the threads with your channel is being disputed onchain |
+| `CS_CHAINSAW_ERROR` | Chainsaw, the chain event listener component of the hub, cannot process a channel event |
 
 ___
 
 ### SyncControllerState
 
+The `SyncControllerState` is an internal client class, used to store updates that need to be sent back to the hub so the client and hub channel states are in sync. The class does not have any class methods, and has the following properties:
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| updatesToSync | [`SyncResult[]`](#syncresult) | Updates received from the hub, to sync with client's local state |
+
 ___
 
 ### ChannelRow
 
+The `SyncControllerState` is an internal client class, used to store updates that need to be sent back to the hub so the client and hub channel states are in sync. The class does not have any class methods, and has the following properties:
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| updatesToSync | [`SyncResult[]`](#syncresult) | Updates to return to the hub from the client |
+
 ___
 
 ### Sync
+
+The hub returns this type from most endpoints. It is an object containing information about the channel status, as well as any updates the client has requested:
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| statys| [`ChannelStatus`](#channelstatus) | The channel status |
+| updates| [`SyncResult[]`](#syncresult) | Updates received from the hub, to sync with client's local state |
 
 ___
 
