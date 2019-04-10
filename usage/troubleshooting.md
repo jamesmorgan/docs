@@ -1,5 +1,0 @@
-# Troubleshooting
-
-## Client Implementations
-
-## Indra
