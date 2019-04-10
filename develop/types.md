@@ -85,18 +85,20 @@ Types:
 * [ChannelStatus](#channelstatus)
 * [ChannelRow](#channelrow)
 * [Sync](#sync)
+* [ChannelStateUpdate](#channelstateupdate)
+* [ChannelUpdateReason](#channelupdatereason)
 * [ChannelStateUpdateRow](#channelstateupdaterow)
 * [ThreadRow](#threadrow)
 * [ThreadStateUpdate](#threadstateupdate)
 * [ThreadStateUpdateRow](#threadstateupdaterow)
 * [CurrencyType](#currencytype)
+* [CurrencyFormatOptions](#currencyformatoptions)
 
 Classes:
 
 * [SyncControllerState](#synccontrollerstate)
 * [CurrencyConvertable](#currencyconvertable)
 * [Currency](#currency)
-* [CurrencyType](#currencytype)
 
 ### ConnextClientOptions
 
@@ -465,44 +467,269 @@ ___
 
 ### Sync
 
-The hub returns this type from most endpoints. It is an object containing information about the channel status, as well as any updates the client has requested:
+The hub returns this type from most endpoints. It is an object containing information about the channel status, as well as any updates the client has requested, or needs to sync:
 
 | Name | Type | Description |
 | ------ | ------ | ------ |
-| statys| [`ChannelStatus`](#channelstatus) | The channel status |
+| status| [`ChannelStatus`](#channelstatus) | The channel status |
 | updates| [`SyncResult[]`](#syncresult) | Updates received from the hub, to sync with client's local state |
+
+___
+
+### ChannelStateUpdate
+
+A `ChannelStateUpdate` object contains all information regarding a proposed or accepted state update with the following fields:
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| id? | `number` | The database id of the update |
+| reason | [`ChannelUpdateReason`](#channelupdatereason) | The reason for the update |
+| state | [`ChannelState`](#channelstate) | The channel state after applying args |
+| args | [`Args`](#args) | args for state update  |
+| metadata | `Object` | any associated metadata |
+
+___
+
+### ChannelUpdateReason
+
+The reason for this state update. This is an enum type with the following values:
+
+| Name | Description |
+| ------ | ------ |
+| `Payment` | Payment state update |
+| `Exchange` | Exchange state update |
+| `ProposePendingDeposit` | Deposit state update |
+| `ProposePendingWithdrawal` | Withdrawal state update |
+| `ConfirmPending` | Confirm an onchain transaction or pending operations on state |
+| `Invalidation` | Invalidate pending operations |
+| `OpenThread` | Open a new thread in channel |
+| `CloseThread` | Close existing thread in channel |
+| `EmptyChannel` | Return to operating channel from dispute |
 
 ___
 
 ### ChannelStateUpdateRow
 
+A `ChannelStateUpdateRow` is used by the hub to store information about channel state updates (eg. args, sigs, etc) in its database. In addition to extending the [`ChannelStateUpdate`](#channelstateupdate) type, it has the following fields:
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| id | `number` | The channel update id in the hub's database |
+| createdOn| `Date` | Timestamp of when entry inserted into db |
+| channelId?| `number` | Associated channel id |
+| chainsawId?| `number` | Associated chain event id (if possible) |
+| invalid? | [`InvalidationReason`](#invalidationreason) | If the update has been invalidated, the reason why |
+| onchainTxLogicalId? | `number` | The id of the entry in the onchain transactions raw table in the hub's database |
+
 ___
 
 ### ThreadRow
+
+A `ThreadRow` is used by the hub to store information about threads in its database. It is an object with the following fields:
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| id | `number` | The thread id in the hub's database |
+| state| [`ThreadState`](#threadstate) | Current thread state |
 
 ___
 
 ### ThreadStateUpdateRow
 
+A `ThreadStateUpdateRow` is used by the hub to store information about thread updates in its database. It is an object with the following fields:
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| id | `number` | The thread id in the hub's database |
+| createdOn | `Date` | Timestamp of update being added to hub's database |
+| state| [`ThreadState`](#threadstate) | Current thread state |
+
 ___
 
 ### convertChannelState
+
+Converts the numeric fields of a [`ChannelState`](#channelstate) object between `string`, [`BigNumber`](https://mikemcl.github.io/bignumber.js/), and [`BN`](https://github.com/indutny/bn.js/) types based on the input.
+
+| Parameter Name | Type | Description |
+| ------ | ------ | ------ |
+| conversionType | `"bn"`, `"str"`, `"bignumber"` | The type to convert numeric fields to |
+| obj | [`ChannelState`](#channelstate) | Object to convert |
+
+Example usage:
+
+```typescript
+// this function has the call signature:
+// convertChannelState(toType, channelState)
+
+// imagine threadState is a previously created thread obj
+const channelStateBN = convertChannelState("bn", channelState)
+const channelStateBigNum = convertChannelState("bignumber", channelState)
+const channelStateStr = convertChannelState("str", channelStateBN)
+```
 
 ___
 
 ### convertThreadState
 
+Converts the numeric fields of a [`ThreadState`](#threadstate) object between `string`, [`BigNumber`](https://mikemcl.github.io/bignumber.js/), and [`BN`](https://github.com/indutny/bn.js/) types based on the input.
+
+| Parameter Name | Type | Description |
+| ------ | ------ | ------ |
+| conversionType | `"bn"`, `"str"`, `"bignumber"` | The type to convert numeric fields to |
+| obj | [`ThreadState`](#threadstate) | Object to convert |
+
+Example usage:
+
+```typescript
+// this function has the call signature:
+// convertThreadState(toType, threadState)
+
+// imagine threadState is a previously created thread obj
+const threadStateBN = convertThreadState("bn", threadState)
+const threadStateBigNum = convertThreadState("bignumber", threadState)
+const threadStateStr = convertThreadState("str", threadStateBN)
+```
+
 ___
 
 ### convertArgs
+
+Converts the numeric fields of any [`Args`](#args) object between `string`, [`BigNumber`](https://mikemcl.github.io/bignumber.js/), and [`BN`](https://github.com/indutny/bn.js/) types based on the input.
+
+| Parameter Name | Type | Description |
+| ------ | ------ | ------ |
+| to | `"bn"`, `"str"`, `"bignumber"` | The type to convert numeric fields to |
+| reason | `"Payment"`, `"Exchange"`, `"ProposePendingDeposit"`, `"ProposePendingWithdrawal"`, `"ConfirmPending"`, `"Invalidation"`, `"EmptyChannel"`, `"OpenThread"`, `"CloseThread"` | The specific type of args |
+| args | [`Args`](#args) | Object to convert |
+
+Example usage:
+
+```typescript
+// this function has the call signature:
+// convertArgs(to, reason, args)
+
+// eg. convert payment args
+const pay: PaymentArgs = {
+  amountToken: ,
+  amountWei: ,
+  recipient: "hub",
+}
+const payBN = convertArgs("bn", "Payment", pay)
+const payBigNum = convertArgs("bignumber", "Payment", pay)
+const payStr = convertArgs("str", "Payment", pay)
+
+// eg. convert exchange args
+const exchange: ExchangeArgs = {
+  exchangeRate: "5.0",
+  seller: "hub",
+  tokensToSell: "0",
+  weiToSell: "10",
+}
+const exchangeBN = convertArgs("bn", "Exchange", exchange)
+const exchangeBigNum = convertArgs("bignumber", "Exchange", exchange)
+const exchangeStr = convertArgs("str", "Exchange", exchangeBN)
+```
 
 ___
 
 ### CurrencyConvertable
 
+The `CurrencyConvertable` is a class used to convert between various currencies and denominations easily. Client implementers can use this class to easily convert between and display appropriate values.
+
+In addition, class instances have the following class methods for conversion:
+
+*** to(toType: CurrencyType): CurrencyConvertable ***
+*** toUSD(): CurrencyConvertable ***
+*** toETH(): CurrencyConvertable ***
+*** toWEI(): CurrencyConvertable ***
+*** toFIN(): CurrencyConvertable ***
+*** toBOOTY(): CurrencyConvertable ***
+*** toBEI(): CurrencyConvertable ***
 ___
 
 ### Currency
+
+The `Currency` class is used to easily handle and display the currencies within a channel. The currencies supported by this class are defined by the [`CurrencyType`](#currencytype) enum.
+
+Constructor:
+
+```typescript
+constructor(type: CurrencyType, amount: BN | BigNumber | string | number): Currency
+```
+
+`static` methods:
+
+*** Currency.ETH(amount: BN | BigNumber | string | number): Currency ***
+Returns a new ETH type currency with given amount
+*** Currency.USD(amount: BN | BigNumber | string | number): Currency ***
+Returns a new USD type currency with given amount
+*** Currency.WEI(amount: BN | BigNumber | string | number): Currency ***
+Returns a new WEI type currency with given amount
+*** Currency.FIN(amount: BN | BigNumber | string | number): Currency ***
+Returns a new FIN type currency with given amount
+*** Currency.BOOTY(amount: BN | BigNumber | string | number): Currency ***
+Returns a new BOOTY type currency with given amount
+*** Currency.BEI(amount: BN | BigNumber | string | number): Currency ***
+Returns a new BEI type currency with given amount
+*** Currency.equals(c1: Currency, c2: Currency): boolean ***
+Returns `true` if the currencies have the same type and amount
+
+Getters:
+
+*** type(): CurrencyType ***
+*** symbol(): string ***
+*** currency(): { type: `CurrencyType`, amount: `BigNumber` } ***
+*** amount(): string ***
+*** amountBigNumber(): BigNumber ***
+*** amountBN(): BN ***
+
+Methods:
+
+*** format(options?: CurrencyFormatOptions): string ***
+*** floor(): Currency ***
+*** toFIN(): CurrencyConvertable ***
+*** toBOOTY(): CurrencyConvertable ***
+*** toBEI(): CurrencyConvertable ***
+
+Example usage:
+
+```typescript
+const curr1 = new Currency(CurrencyType.USD, 105.70362)
+const curr2 = Currency.USD(105.70362)
+
+console.log(Currency.equals(curr1, curr2)) // true
+console.log(curr.type()) // USD
+console.log(curr.symbol()) // $
+console.log(curr.currency()) // { type: 'USD', amount: BigNumber(105.70362) }
+
+// set the format options
+let opts: CurrencyFormatOptions = {
+  decimals: 2,
+  withSymbol: true,
+  showTrailingZeros: false,
+}
+console.log(curr1.format(opts)) // $105.70
+opts = {
+  decimals: 0,
+  withSymbol: false,
+  showTrailingZeros: false,
+}
+console.log(curr1.format(opts)) // 105
+```
+
+See [`CurrencyTypes`](#currencytypes) for the different currencies supported.
+
+___
+
+### CurrencyFormatOptions
+
+`CurrencyFormatOptions` is an object used to define the how a currency is displayed as a string, with the following fields:
+
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| decimals? | `number` | Number of decimals to display |
+| withSymbol? | `boolean` | Display currency with it's default symbol, which is a `$` for USD, and the first three characters of the token or denomination name otherwise (eg. FIN for finney) |
+| showTrailingZeros| `boolean` | Display any trailing 0s |
 
 ___
 
