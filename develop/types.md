@@ -717,7 +717,7 @@ opts = {
 console.log(curr1.format(opts)) // 105
 ```
 
-See [`CurrencyTypes`](#currencytypes) for the different currencies supported.
+See [`CurrencyType`](#currencytype) for the different currencies supported.
 
 ___
 
