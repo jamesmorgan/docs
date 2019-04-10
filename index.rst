@@ -34,9 +34,6 @@ Develop
 
     `Core Concepts <usage/coreConcepts.html>`_
 
-    `Troubleshooting <usage/troubleshooting.html>`_
-
-
 **Detailed Documentation:**
 
     `Client <develop/client.html>`_
@@ -76,7 +73,6 @@ Site Map
    background/architecture
    usage/gettingStarted
    usage/coreConcepts
-   usage/troubleshooting
    develop/client
    develop/hub
    develop/contracts

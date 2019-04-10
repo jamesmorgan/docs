@@ -31,7 +31,6 @@ For more detailed information about our hubs, check out the following:
 - Deploying locally [with docker](https://github.com/ConnextProject/indra#to-deploy-using-docker) and [without docker](https://github.com/ConnextProject/indra#to-deploy-locally)
 - [Deploying to Production](https://github.com/ConnextProject/indra#deploying-to-production)
 - [Interacting with a Hub](https://github.com/ConnextProject/indra#how-to-interact-with-an-indra-hub)
-- [Troubleshooting](troubleshooting.md)
 
 ## Implementing the Client
 
