@@ -638,13 +638,15 @@ The `CurrencyConvertable` is a class used to convert between various currencies 
 
 In addition, class instances have the following class methods for conversion:
 
-* `to(toType: CurrencyType): CurrencyConvertable`
-* `toUSD(): CurrencyConvertable`
-* `toETH(): CurrencyConvertable`
-* `toWEI(): CurrencyConvertable`
-* `toFIN(): CurrencyConvertable`
-* `toBOOTY(): CurrencyConvertable`
-* `toBEI(): CurrencyConvertable`
+```typescript
+to(toType: CurrencyType): CurrencyConvertable
+toUSD(): CurrencyConvertable
+toETH(): CurrencyConvertable
+toWEI(): CurrencyConvertable
+toFIN(): CurrencyConvertable
+toBOOTY(): CurrencyConvertable
+toBEI(): CurrencyConvertable
+```
 
 ___
 
@@ -660,43 +662,39 @@ constructor(type: CurrencyType, amount: BN | BigNumber | string | number): Curre
 
 `static` methods:
 
-* `Currency.ETH(amount: BN | BigNumber | string | number): Currency`
-Returns a new ETH type currency with given amount
+```typescript
+// Returns a new Currency object with the indicated type and given
+Currency.ETH(amount: BN | BigNumber | string | number): Currency
+Currency.USD(amount: BN | BigNumber | string | number): Currency
+Currency.WEI(amount: BN | BigNumber | string | number): Currency
+Currency.FIN(amount: BN | BigNumber | string | number): Currency
+Currency.BOOTY(amount: BN | BigNumber | string | number): Currency
+Currency.BEI(amount: BN | BigNumber | string | number): Currency
 
-* `Currency.USD(amount: BN | BigNumber | string | number): Currency`
-Returns a new USD type currency with given amount
-
-* `Currency.WEI(amount: BN | BigNumber | string | number): Currency`
-Returns a new WEI type currency with given amount
-
-* `Currency.FIN(amount: BN | BigNumber | string | number): Currency`
-Returns a new FIN type currency with given amount
-
-* `Currency.BOOTY(amount: BN | BigNumber | string | number): Currency`
-Returns a new BOOTY type currency with given amount
-
-* `Currency.BEI(amount: BN | BigNumber | string | number): Currency`
-Returns a new BEI type currency with given amount
-
-* `Currency.equals(c1: Currency, c2: Currency): boolean`
-Returns `true` if the currencies have the same type and amount
+// returns true if the currencies have the same type and amount
+Currency.equals(c1: Currency, c2: Currency): boolean
+```
 
 Getters:
 
-* `type(): CurrencyType`
-* `symbol(): string`
-* `currency(): { type: CurrencyType, amount: BigNumber }`
-* `amount(): string`
-* `amountBigNumber(): BigNumber`
-* `amountBN(): BN`
+```typescript
+type(): CurrencyType
+symbol(): string
+currency(): { type: CurrencyType, amount: BigNumber }
+amount(): string
+amountBigNumber(): BigNumber
+amountBN(): BN
+```
 
 Methods:
 
-* `format(options?: CurrencyFormatOptions): string`
-* `floor(): Currency`
-* `toFIN(): CurrencyConvertable`
-* `toBOOTY(): CurrencyConvertable`
-* `toBEI(): CurrencyConvertable`
+```typescript
+format(options?: CurrencyFormatOptions): string
+floor(): Currency
+toFIN(): CurrencyConvertable
+toBOOTY(): CurrencyConvertable
+toBEI(): CurrencyConvertable
+```
 
 Example usage:
 
