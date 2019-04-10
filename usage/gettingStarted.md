@@ -21,7 +21,7 @@ npm start
 
 This will take a while to build the first time, but the build gets cached so only fresh installs will take a long time. While it's building, configure your metamask to use the rpc `localhost:3000/api/eth` and import the hub's private key (`659CBB0E2411A44DB63778987B1E22153C086A95EB6B18BDF89DE078917ABC63`) so you can easily send money to the signing wallet.
 
-Once all the components are up and running, navigate to `localhost:3000` to checkout the sandbox. To implement the client on your own frontend, checkout the [implementing the client](#implementing-the-client) section.
+Once all the components are up and running, navigate to `http://localhost/` to checkout the sandbox. To implement the client on your own frontend, checkout the [implementing the client](#implementing-the-client) section.
 
 ### Additional Resources
 
