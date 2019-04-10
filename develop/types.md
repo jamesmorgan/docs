@@ -124,7 +124,7 @@ If the optional values are not provided, they will default to the ones that sync
 Example:
 
 ```javascript
-// * Instantiate the connext client* 
+// Instantiate the connext client
 const connext = getConnextClient({
   web3: new Web3("http://localhost:8545"),
   hubUrl: "http://localhost:8080",
