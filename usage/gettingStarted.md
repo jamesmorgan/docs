@@ -19,7 +19,11 @@ cd indra
 npm start
 ```
 
-This will take a while to build the first time, but the build gets cached so only fresh installs will take a long time. While it's building, configure your metamask to use the rpc `localhost:3000/api/eth` and import the hub's private key (`659CBB0E2411A44DB63778987B1E22153C086A95EB6B18BDF89DE078917ABC63`) so you can easily send money to the signing wallet.
+You can also skip this step for now if you want to connect to our hosted rinkeby hub instead of running your own locally.
+
+Starting Indra will take a while the first time, but the build gets cached so it will only take this lone the first time. While it's building, configure your metamask to use the rpc `localhost:3000/api/eth` and import the hub's private key (`659CBB0E2411A44DB63778987B1E22153C086A95EB6B18BDF89DE078917ABC63`) so you can easily send money to the signing wallet.
+
+Alternatively, point metamask to a Rinkeby rpc url (eg use our hub's eth endpoint: `https://rinkeby.hub.connext.network/api/eth`) and get some Rinkeby eth from a [faucet](https://faucet.rinkeby.io/).
 
 Once all the components are up and running, navigate to `http://localhost/` to checkout the sandbox. To implement the client on your own frontend, checkout the [implementing the client](#implementing-the-client) section.
 
@@ -42,26 +46,6 @@ First, install the client package:
 npm install connext
 ```
 
-Configure your `.env` depending on which network your hub is connected to, and if you are using a Connext hosted hub:
-
-```bash
-# Docker
-HUB_URL=https://localhost:3000/api/eth
-RPC_URL=https://localhost:3000/api/hub
-# Local Hub
-HUB_URL=http://localhost:8080
-RPC_URL=http://localhost:8545
-
-# Rinkeby Hub
-HUB_URL=https://daicard.io/api/rinkeby/hub
-RPC_URL=https://eth-rinkeby.alchemyapi.io/jsonrpc/SU-VoQIQnzxwTrccH4tfjrQRTCrNiX6w
-# Mainnet Hub
-HUB_URL=https://daicard.io/api/mainnet/hub
-RPC_URL=https://eth-mainnet.alchemyapi.io/jsonrpc/rHT6GXtmGtMxV66Bvv8aXLOUc6lp0m_-
-# These values are for connecting to the Connext hosted hubs.
-# Insert your own values here if you are a hub operator
-```
-
 ### Basic Example
 
 The following is a basic example of how to use the client to make payments. As an implementer, there are some [core concepts](./coreConcepts.md) to be aware of that will impact user experience based on your client implementation.
@@ -69,91 +53,101 @@ The following is a basic example of how to use the client to make payments. As a
 To start using a channel, just deposit from the signing wallet into the ChannelManger contract and start making payments:
 
 ```javascript
-// Import the client and environment
-require('dotenv').config()
 import { getConnextClient } from "connext/dist/Connext.js";
 const Web3 = require("web3");
 
+hubUrl=http://localhost:3000/api/eth
+ethUrl=http://localhost:3000/api/hub
+
+// Or, use the following to connect to a live rinekby hub
+hubUrl=https://rinkeby.hub.connext.network/api/hub
+ethUrl=https://rinkeby.hub.connext.network/api/eth
+
 // instantiate web3, get signer
-const web3 = new Web3(process.env.RPC_URL)
-const accounts = await web3.eth.getAccounts()
+const web3 = new Web3(new Web3.providers.HttpProvider(ethUrl))
 
-// set the client options
-const connextOptions = {
-  web3,
-  hubUrl: process.env.HUB_URL,
-  user: accounts[0],
-  origin: 'localhost' // the host url of your app
-}
+(async function() {
 
-// instantiate a new instance of the client
-const connext = await getConnext(connextOptions)
+  const accounts = await web3.eth.getAccounts()
 
-// the connext client is an event emitter
-// start the app, and register a listener
-connext.on('onStateChange', connext => {
-  console.log('Connext:', connext)
-}
-// start connext
-await connext.start()
+  // set the client options
+  const connextOptions = {
+    web3,
+    hubUrl,
+    user: accounts[0],
+    origin: 'localhost' // the host url of your app
+  }
 
-// Now that the client is started, you can make a deposit into the channel.
-// Channels can accept deposits in both ETH and tokens. However, when depositing tokens,
-// ensure the user has sufficient ETH remaining in their wallet to afford the gas
-// of the deposit transaction.
+  // instantiate a new instance of the client
+  const connext = await getConnextClient(connextOptions)
 
-// make a deposit in ETH
-await connext.deposit({
-  amountWei: "1500",
-  amountToken: "0", // assumed to be in wei units
-})
+  // the connext client is an event emitter
+  // start the app, and register a listener
+  connext.on('onStateChange', connext => {
+    console.log('Connext:', connext)
+  }
+  // start connext
+  await connext.start()
 
-// Congratulations! You have now opened a payment channel with the hub,
-// and you are ready to start updating your state. Connext facilitates
-// in channel exchanges, token payments, and channel withdrawals in wei.
+  // Now that the client is started, you can make a deposit into the channel.
+  // Channels can accept deposits in both ETH and tokens. However, when depositing tokens,
+  // ensure the user has sufficient ETH remaining in their wallet to afford the gas
+  // of the deposit transaction.
 
-// exchange wei for dai
-await connext.exchange("1000", "wei");
+  // make a deposit in ETH
+  await connext.deposit({
+    amountWei: "1500",
+    amountToken: "0", // assumed to be in wei units
+  })
 
-// make a dai payment
-// payments made can be retrieved using the returned purchase id,
-// which ties together all payment channel updates initiated in the array.
-const purchaseId = await connext.buy({
-  meta: {
+  // Congratulations! You have now opened a payment channel with the hub,
+  // and you are ready to start updating your state. Connext facilitates
+  // in channel exchanges, token payments, and channel withdrawals in wei.
 
-  },
-  payments: [
-    {
-      recipient: "0x7fab....", // payee  address
-      amount: {
-        amountToken: "10",
-        amountWei: "0" // only token payments are facilitated
-      },
-      type: "PT_CHANNEL", // the payment type, see the client docs for more
+  // exchange wei for dai
+  await connext.exchange("1000", "wei");
+
+  // make a dai payment
+  // payments made can be retrieved using the returned purchase id,
+  // which ties together all payment channel updates initiated in the array.
+  const purchaseId = await connext.buy({
+    meta: {
+
     },
-  ]
-})
+    payments: [
+      {
+        recipient: "0x7fab....", // payee  address
+        amount: {
+          amountToken: "10",
+          amountWei: "0" // only token payments are facilitated
+        },
+        type: "PT_CHANNEL", // the payment type, see the client docs for more
+      },
+    ]
+  })
 
-// Note: The hub is responsible for collateralizing all payments
-// If the hub does not have funds to forward the payment in the
-// payment recipient's channel, the payment will fail until the
-// hub is able to deposit more tokens into the channel.
-// See the Collateral section to learn more
+  // Note: The hub is responsible for collateralizing all payments
+  // If the hub does not have funds to forward the payment in the
+  // payment recipient's channel, the payment will fail until the
+  // hub is able to deposit more tokens into the channel.
+  // See the Collateral section to learn more
 
-// withdraw funds from channel as wei
-// the token funds that are in your channel are exchanged for
-// wei on chain as part of the withdrawal
-await connext.withdraw({
-  // address to receive withdrawal funds
-  // does not need to have a channel with connext to receive funds
-  recipient: "0x8cef....",
-  // USD price if using dai
-  exchangeRate: "139.35",
-  // wei to transfer from the user's balance to 'recipient'
-  withdrawalWeiUser: "500",
-  // tokens from channel balance to sell back to hub
-  tokensToSell: "990",
-})
+  // withdraw funds from channel as wei
+  // the token funds that are in your channel are exchanged for
+  // wei on chain as part of the withdrawal
+  await connext.withdraw({
+    // address to receive withdrawal funds
+    // does not need to have a channel with connext to receive funds
+    recipient: "0x8cef....",
+    // USD price if using dai
+    exchangeRate: "139.35",
+    // wei to transfer from the user's balance to 'recipient'
+    withdrawalWeiUser: "500",
+    // tokens from channel balance to sell back to hub
+    tokensToSell: "990",
+  })
+
+})()
 ```
 
 Further documentation on the client can be found [here](../develop/client.md).
