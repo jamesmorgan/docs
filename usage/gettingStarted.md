@@ -16,7 +16,7 @@ npm install connext
 
 ### Basic Example
 
-**Warning: This basic example is currently broken due to complexity surrounding the way web3.js signs. We are actively working on fixing this. In the meantime, check out the [daicard repo](https://github.com/ConnextProject/card) as a slightly more complicated example of an app that utilizes a connext client.**
+**Warning: Be sure to use the Connext client @ 3.0.19**
 
 The following is a basic example of how to use the client to make payments. As an implementer, there are some [core concepts](./coreConcepts.md) to be aware of that will impact user experience based on your client implementation.
 
