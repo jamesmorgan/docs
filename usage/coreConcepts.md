@@ -14,6 +14,8 @@ To avoid this, you can implement a custom provider that defaults to approving an
 
 If you are using trust-minimized payments, you will only be able to make payments if the hub has at least that amount in the payee's channel. For example, if Alice pays Bob 10 DAI through the hub, the hub must have at least 10 DAI in its channel with Bob to facilitate the payment. If Alice and Chris want to pay Bob 10 DAI each, as tips during videogame streaming for example, the hub must have at least 20 DAI in it's channel with Bob.
 
+To collateralize the hub, send funds to the contract address.
+
 ### Custodial payments don't need collateral
 
 Collateral requirements only apply if you are using non-custodial payments. To bypass these requirements completely, use trusted hub payments by inserting the payment type `PT_CUSTODIAL`. This allows the hub to forward along payments it receives, without having the collateral in the recipients channel.
