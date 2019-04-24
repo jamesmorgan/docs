@@ -24,7 +24,7 @@ Collateral requirements only apply if you are using non-custodial payments. To b
 
 The hub handles these requirements by using an autocollateralization mechanism that is triggered by any payment made, whether or not the payment was successful. Hubs determine amount of collateral needed in a channel based on the number and value of recent payments made to the recipient. Additionally, there are floors and ceilings implemented by hub operators to minimize the amount of collateral that is locked in hub channels, as well as set a minimum amount of collateral to be maintained in each channel.
 
-Typically, hub balances below 10 DAI will trigger recollateralization. Hubs will put up to 170 DAI in any one channel. These values are configurable, so contact your hub operator for more details. Additionally, checkout the [hub](../develop/hub.md) documentation for additional configurable parameters.
+Typically, hub balances below 10 DAI will trigger recollateralization. Hubs will put up to 170 DAI in any one channel. These values are configurable, so contact your hub operator for more details. Additionally, check out the [hub](../advanced/hub.md) documentation for additional configurable parameters.
 
 ### Implementer considerations
 
@@ -64,6 +64,6 @@ This can be partly trust-minimized by allowing for conditional resolution of pay
 
 ### Hub is centralized and can censor payments
 
-Our hub is currently operated by us (Connext) and is centralized off-chain similar to how 0x relayers like Radar Relay work. This means that our hub could be censored, DDoS’d or shut down, which would mean that our payment service could go offline.
+Our hosted hub is currently operated by us (Connext) and is centralized off-chain similar to how 0x relayers like Radar Relay work. This means that our hub could be censored, DDoS’d or shut down, which would mean that our payment service could go offline. 
 
 Hosting a hub is an interim solution to solve cheap, fast payments now while we work on building out the remaining pieces needed for a decentralized state channel network. We can fix our own centralization by allowing other Connext hubs (at that point, nodes) to be networked together, by making it easy for anyone to run a node, and by moving to sending state updates over some P2P messaging protocol rather than over https. These changes will require some quality of life improvements to our contract functions, however, so we expect to only start work on them after our next contract iteration is deployed.

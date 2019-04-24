@@ -38,8 +38,6 @@ Develop
 
     `Client <develop/client.html>`_
 
-    `Hub <develop/hub.html>`_
-
     `Contracts <develop/contracts.html>`_
 
     `Types and Other Helpful Classes <develop/types.html>`_
@@ -51,6 +49,15 @@ Develop
 **Want to help build Connext?**
 
     `Contribute <CONTRIBUTING.html>`_
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+***************
+Advanced
+***************
+    `Running a Hub <advanced/runHub.html>`_
+
+    `Hub Options <develop/hub.html>`_
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -70,12 +77,13 @@ Site Map
    :maxdepth: 2
 
    background/introduction
+   background/faq
    background/architecture
    usage/gettingStarted
    usage/coreConcepts
    develop/client
-   develop/hub
    develop/contracts
    develop/types
-   background/faq
+   advanced/runHub
+   advanced/hub
    CONTRIBUTING

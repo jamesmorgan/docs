@@ -1,4 +1,4 @@
-# Hub
+# Hub Options
 
 ## Configuration
 
