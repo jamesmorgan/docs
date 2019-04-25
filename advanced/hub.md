@@ -1,4 +1,4 @@
-# Hub Options
+# Hub Options and API Reference
 
 ## Configuration
 
