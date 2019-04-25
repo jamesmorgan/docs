@@ -22,10 +22,12 @@ npm install connext
 
 The following is a basic example of how to use the client to make payments. As an implementer, there are some [core concepts](./coreConcepts.md) to be aware of that will impact user experience based on your client implementation.
 
-To start using a channel, just deposit from the signing wallet into the ChannelManger contract and start making payments:
+To start using a channel, just deposit from the signing wallet into the ChannelManager contract and start making payments:
 
 
 **Instantiate and Start the Client**
+
+First, let's start up Connext. The constructor accepts a Web3 object, the URL of the hub you're connecting to (in most cases, https://rinkeby.hub.connext.network/api/hub), a user address, and the host URL of your application. We'll use `getConnextClient` to spin up an instance of Connext and assign it to a variable. 
  
 ```javascript
 import { getConnextClient } from "connext/dist/Connext.js";
@@ -56,8 +58,11 @@ async function() {
 
 // Instantiate a new instance of the client
   const connext = await getConnextClient(connextOptions)
+```
 
-// The Connext client is an event emitter
+Now that you've instantiated the client, you'll want to register a listener for the events that it emits and then start Connext!
+
+```javascript
 // Start the app, and register a listener
   connext.on('onStateChange', connext => {
     console.log('Connext:', connext)
@@ -83,7 +88,7 @@ Now that the client is started, you can make a deposit into a channel. Channels 
 
 Now that you've deposited, you have a payment channel open with the hub. You're ready to start transacting by updating your channel state. Connext facilitates in-channel exchanges, token payments, and channel withdrawals in Wei.
 
-Note: The hub is responsible for collateralizing all payments. If the hub does not have funds to forward the payment in the payment recipient's channel, the payment will fail until the hub is able to deposit more tokens into the channel. To add collateral to the hub, simply send tokens (Dai if you're using our hosted hub) to the contract address. See the Collateral section to learn more.
+Note: The hub is responsible for "collateralizing" all payments. If the hub does not have funds to forward the payment in the payment recipient's channel, the payment will fail until the hub is able to deposit more tokens into the channel. To add collateral to the hub, simply send tokens (Dai if you're using our hosted hub) to the contract address. See the [Collateral section](./coreConcepts.md#collateral) to learn more.
 
 ```javascript
   // Exchanging Wei for Dai
