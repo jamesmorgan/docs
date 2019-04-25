@@ -57,7 +57,7 @@ Advanced
 ***************
     `Running a Hub <advanced/runHub.html>`_
 
-    `Hub Options <develop/hub.html>`_
+    `Hub Options and API Reference <develop/hub.html>`_
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
