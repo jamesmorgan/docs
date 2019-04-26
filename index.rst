@@ -30,9 +30,19 @@ Develop
 
 **Developer Guides:**
 
-    `Quickstart <usage/gettingStarted.html>`_
-
+    `Intro <usage/gettingStarted.html>`_
+    
     `Core Concepts <usage/coreConcepts.html>`_
+
+    `Instantiation <usage/instantiation.html>`_
+
+    `Deposits <usage/deposits.html>`_
+
+    `Payments and Exchanges <usage/payments.html>`_
+
+    `Withdrawals <usage/withdrawals.html>`_
+
+
 
 **Detailed Documentation:**
 
@@ -81,6 +91,10 @@ Site Map
    background/architecture
    usage/gettingStarted
    usage/coreConcepts
+   usage/instantiation
+   usage/deposits
+   usage/payments
+   usage/withdrawals
    develop/client
    develop/contracts
    develop/types
