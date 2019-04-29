@@ -1,4 +1,4 @@
-# Instantiate and Start the Client
+# Instantiating the Client
 
 
 First, install the client package:
@@ -53,4 +53,4 @@ Now that you've instantiated the client, you'll want to register a listener for 
 }
 ```
 
-Once you've instantiated the client, [the next step is to make a deposit to a channel](./deposits.html).
+Once you've instantiated the client, [the next step is to make a deposit to a channel](../deposits.md).

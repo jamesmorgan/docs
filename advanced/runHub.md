@@ -2,7 +2,9 @@
 
 To sample the hub in action on rinkeby or mainnet check out the [Dai Card](https://daicard.io). 
 
-Contents:
+Hub API reference and configurable parameters can be found [here](../../develop/hub.md).
+
+**Contents:**
 
 - [Running a local Hub with Docker](#with-docker)
 - [Running a local Hub without Docker](#without-docker)

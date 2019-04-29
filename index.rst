@@ -14,7 +14,7 @@ Resources and documentation for Connext (Indra, Client, and Contracts)
 Learn
 ***************
 
-   `Payment Channels <background/introduction.html>`_
+   `Introduction <background/introduction.html>`_
 
    `System Architecture <background/architecture.html>`_
 
@@ -30,18 +30,21 @@ Develop
 
 **Developer Guides:**
 
-    `Intro <usage/gettingStarted.html>`_
+    `Basic Example <usage/gettingStarted.html>`_
     
-    `Core Concepts <usage/coreConcepts.html>`_
+        `Core Concepts <usage/coreConcepts.html>`_
 
-    `Instantiation <usage/instantiation.html>`_
+        `Instantiation <usage/instantiation.html>`_
 
-    `Deposits <usage/deposits.html>`_
+        `Deposits <usage/deposits.html>`_
 
-    `Payments and Exchanges <usage/payments.html>`_
+        `Payments and Exchanges <usage/payments.html>`_
 
-    `Withdrawals <usage/withdrawals.html>`_
+        `Withdrawals <usage/withdrawals.html>`_
 
+    `Real-world Usage and Considerations <usage/daiCard.html>`_
+
+    `Running a Hub <advanced/runHub.html>`_
 
 
 **Detailed Documentation:**
@@ -49,6 +52,8 @@ Develop
     `Client <develop/client.html>`_
 
     `Contracts <develop/contracts.html>`_
+
+    `Hub Options and API Reference <develop/hub.html>`_
 
     `Types and Other Helpful Classes <develop/types.html>`_
 
@@ -59,15 +64,6 @@ Develop
 **Want to help build Connext?**
 
     `Contribute <CONTRIBUTING.html>`_
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-***************
-Advanced
-***************
-    `Running a Hub <advanced/runHub.html>`_
-
-    `Hub Options and API Reference <develop/hub.html>`_
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -91,13 +87,10 @@ Site Map
    background/architecture
    usage/gettingStarted
    usage/coreConcepts
-   usage/instantiation
-   usage/deposits
-   usage/payments
-   usage/withdrawals
+   advanced/runHub
    develop/client
    develop/contracts
    develop/types
-   advanced/runHub
-   advanced/hub
+   develop/hub
+
    CONTRIBUTING
