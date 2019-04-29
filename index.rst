@@ -11,15 +11,14 @@ Resources and documentation for Connext (Indra, Client, and Contracts)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 ***************
-Learn
+About Connext
 ***************
 
    `Introduction <background/introduction.html>`_
 
-   `System Architecture <background/architecture.html>`_
-
    `FAQs <background/faq.html>`_
 
+   `System Architecture <background/architecture.html>`_
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -27,8 +26,6 @@ Learn
 ***************
 Develop
 ***************
-
-**Developer Guides:**
 
     `Basic Example <usage/gettingStarted.html>`_
     
@@ -45,9 +42,13 @@ Develop
     `Real-world Usage and Considerations <usage/daiCard.html>`_
 
     `Running a Hub <advanced/runHub.html>`_
+    
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+***********************
+Detailed Documentation 
+***********************
 
-**Detailed Documentation:**
 
     `Client <develop/client.html>`_
 
@@ -57,11 +58,19 @@ Develop
 
     `Types and Other Helpful Classes <develop/types.html>`_
 
-**See the code:**
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+***********************
+See the code
+***********************
 
     `Github <https://github.com/ConnextProject>`_
 
-**Want to help build Connext?**
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+***********************
+Help build Connext
+***********************
 
     `Contribute <CONTRIBUTING.html>`_
 
