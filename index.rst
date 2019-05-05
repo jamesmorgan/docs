@@ -6,7 +6,11 @@
 Connext Documentation
 ===================================
 
-Resources and documentation for Connext (Indra, Client, and Contracts)
+Connext is an infrastructure layer on top of Ethereum that lets projects do instant, high volume transactions with arbitrarily complex conditions for settlement. Connext does this by batching signed Ethereum interactions which can all be settled later on the blockchain without needing to trust intermediaries.
+
+These docs cover both the background of Connext and how you get started integrating Connext into your Ethereum wallet or application. If you’re already familiar with how state channel networks work and would like to learn how to develop with our system, feel free to head over to Getting Started.
+
+If you’re unfamiliar with terms like smart contract and private key, please refer to a more general developer guide such as this one, compiled by the Ethereum community, before continuing.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -18,18 +22,14 @@ About Connext
 
    `FAQs <background/faq.html>`_
 
-   `System Architecture <background/architecture.html>`_
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 ***************
-Develop
+User Documentation
 ***************
 
-    `Basic Example <usage/gettingStarted.html>`_
-    
-        `Core Concepts <usage/coreConcepts.html>`_
+    `Quickstart Guide <usage/gettingStarted.html>`_
 
         `Instantiation <usage/instantiation.html>`_
 
@@ -39,40 +39,26 @@ Develop
 
         `Withdrawals <usage/withdrawals.html>`_
 
-    `Real-world Usage and Considerations <usage/daiCard.html>`_
-
-    `Running a Hub <advanced/runHub.html>`_
-    
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-***********************
-Detailed Documentation 
-***********************
-
-
     `Client <develop/client.html>`_
 
-    `Contracts <develop/contracts.html>`_
-
-    `Hub Options and API Reference <develop/hub.html>`_
-
-    `Types and Other Helpful Classes <develop/types.html>`_
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 ***********************
-See the code
+Constributor Documentation 
 ***********************
+    `Contributing <CONTRIBUTING.html>`_
 
-    `Github <https://github.com/ConnextProject>`_
+    `System Architecture <background/architecture.html>`_
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    `Core Concepts <usage/coreConcepts.html>`_
 
-***********************
-Help build Connext
-***********************
+    `Running a Hub <advanced/runHub.html>`_
 
-    `Contribute <CONTRIBUTING.html>`_
+    `Contracts and Protocols <develop/contracts.html>`_
+
+    `Hub API Reference <develop/hub.html>`_
+
+    `Types Reference <develop/types.html>`_
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -83,23 +69,3 @@ Community
 `Join the Connext Community <discord.gg/yKkzZZm>`_ to meet the team, discuss development, and hang out!
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-*********
-Site Map
-*********
-
-.. toctree::
-   :maxdepth: 2
-
-   background/introduction
-   background/faq
-   background/architecture
-   usage/gettingStarted
-   usage/coreConcepts
-   advanced/runHub
-   develop/client
-   develop/contracts
-   develop/types
-   develop/hub
-
-   CONTRIBUTING
