@@ -8,9 +8,7 @@ Connext Documentation
 
 Connext is an infrastructure layer on top of Ethereum that lets projects do instant, high volume transactions with arbitrarily complex conditions for settlement. Connext does this by batching signed Ethereum interactions which can all be settled later on the blockchain without needing to trust intermediaries.
 
-These docs cover both the background of Connext and how you get started integrating Connext into your Ethereum wallet or application. If you’re already familiar with how state channel networks work and would like to learn how to develop with our system, feel free to head over to Getting Started.
-
-If you’re unfamiliar with terms like smart contract and private key, please refer to a more general developer guide such as this one, compiled by the Ethereum community, before continuing.
+These docs cover both the background of Connext and how you get started integrating Connext into your Ethereum wallet or application.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -46,12 +44,12 @@ Contents
     :maxdepth: 2
     :caption: Contributor Documentation
 
-    CONTRIBUTING
     background/architecture
     usage/coreConcepts
     advanced/runHub
     develop/contracts
     develop/hub
     develop/types
+    CONTRIBUTING
 
 

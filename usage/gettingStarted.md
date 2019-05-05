@@ -1,4 +1,4 @@
-# Quick Start Guide
+# Quick Start
 
 The following is a basic end-to-end example of how to use the client to make payments. If you are unfamiliar with payment channels or Ethereum basics, make sure you have read the [introduction](../background/introduction.md).
 
