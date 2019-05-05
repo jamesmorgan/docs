@@ -56,7 +56,7 @@ Constributor Documentation
 
     `Contracts and Protocols <develop/contracts.html>`_
 
-    `Hub API Reference <develop/hub.html>`_
+    `Hub Options and Reference <develop/hub.html>`_
 
     `Types Reference <develop/types.html>`_
 
@@ -69,3 +69,30 @@ Community
 `Join the Connext Community <discord.gg/yKkzZZm>`_ to meet the team, discuss development, and hang out!
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+*********
+Site Map
+*********
+
+.. toctree::
+   :maxdepth: 2
+
+   background/introduction
+   background/faq
+
+.. toctree::
+   :maxdepth: 2
+   :caption: User Documentation
+   usage/gettingStarted
+   develop/client
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contributor Documentation
+   CONTRIBUTING
+   background/architecture
+   usage/coreConcepts
+   advanced/runHub
+   develop/hub
+   develop/contracts
+   develop/types
