@@ -14,54 +14,6 @@ If you’re unfamiliar with terms like smart contract and private key, please re
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-***************
-About Connext
-***************
-
-   `Introduction <background/introduction.html>`_
-
-   `FAQs <background/faq.html>`_
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-***************
-User Documentation
-***************
-
-    `Quickstart Guide <usage/gettingStarted.html>`_
-
-        `Instantiation <usage/instantiation.html>`_
-
-        `Deposits <usage/deposits.html>`_
-
-        `Payments and Exchanges <usage/payments.html>`_
-
-        `Withdrawals <usage/withdrawals.html>`_
-
-    `Client <develop/client.html>`_
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-***********************
-Constributor Documentation 
-***********************
-    `Contributing <CONTRIBUTING.html>`_
-
-    `System Architecture <background/architecture.html>`_
-
-    `Core Concepts <usage/coreConcepts.html>`_
-
-    `Running a Hub <advanced/runHub.html>`_
-
-    `Contracts and Protocols <develop/contracts.html>`_
-
-    `Hub Options and Reference <develop/hub.html>`_
-
-    `Types Reference <develop/types.html>`_
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 *********
 Community
 *********
@@ -71,28 +23,35 @@ Community
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 *********
-Site Map
+Contents
 *********
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
+    :caption: Background
 
-   background/introduction
-   background/faq
+    background/introduction
+    background/faq
 
-.. toctree::
-   :maxdepth: 2
-   :caption: User Documentation
-   usage/gettingStarted
-   develop/client
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contributor Documentation
-   CONTRIBUTING
-   background/architecture
-   usage/coreConcepts
-   advanced/runHub
-   develop/hub
-   develop/contracts
-   develop/types
+    :maxdepth: 2
+    :caption: User Documentation
+
+    usage/gettingStarted
+    develop/client
+
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Contributor Documentation
+
+    CONTRIBUTING
+    background/architecture
+    usage/coreConcepts
+    advanced/runHub
+    develop/hub
+    develop/contracts
+    develop/types
+
+
