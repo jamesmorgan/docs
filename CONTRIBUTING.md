@@ -1,4 +1,4 @@
-# Contributing
+# Contributing Guide
 
 We value curiosity, enthusiasm, and determination. Anyone who is excited about state channels and our vision is welcome to contribute to Connext. While we're always looking for developers, there are plenty of other ways to contribute through documentation, design, marketing, and even translation. If you're not sure how best to contribute, reach out to a team member and we'll be happy to find a way for you to help out.
 
