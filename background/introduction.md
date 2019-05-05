@@ -1,10 +1,8 @@
 # Introduction
 
-Connext is an infrastructure layer on top of Ethereum that lets projects do instant, high volume transactions with arbitrarily complex conditions for settlement. The goal of the Connext Network is to help developers build applications on top of Ethereum that can scale to large consumer bases without affecting usability or cost.
+Connext is an infrastructure layer on top of Ethereum that lets projects do instant, high volume transactions with arbitrarily complex conditions for settlement. The goal of the Connext Network is to scale payment-related applications built on top of Ethereum to large consumer bases without affecting their usability or cost. Projects in the space are already using Connext to enable instant wallet payments, monetize content with microtransactions, and power marketplaces on the Ethereum mainnet!
 
-Connext does this by batching signed Ethereum interactions which can all be settled later on the blockchain without needing to trust intermediaries. Users deposit assets into a "state channel" with a counterparty and cryptographically sign, send and receive conditional updates to the asset balance which can be used at any time to make a finalized transaction on the base blockchain. This trasnaction batching process can further extended to multiple counterparties by linking channels together into a network. 
-
-Connext can be used to dramatically lower the speed and cost of transacting on the Ethereum blockchain. Projects in the space are already using Connext to enable instant wallet payments, monetize content with microtransactions, and power marketplaces on the Ethereum mainnet!
+Connext does this using *state channels*. State channels enable batching of signed Ethereum interactions which can all be settled later on the blockchain without needing to trust intermediaries.
 
 If you're already familiar with Connext and how state channels work and would like to learn how to develop with our system, check out the [Quick Start](../usage/gettingStarted.md).
 
@@ -18,7 +16,7 @@ This iteration of Connext features basic payment transaction support limited to 
 
 Development of v2.0 of Connext is currently underway. The coming update will move Connext onto the [CounterFactual Framework](https://counterfactual.io) and enable more abstract conditionality for settling payments, much stronger trust-minimization, and the ability to route transactions over multiple decentralized nodes. 
 
-## How State Channels Work
+## State Channel Basics
 
 1. A user opens a channel by depositing their money into our Channel Manager smart contract with the Hub.
 
