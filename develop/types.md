@@ -1,4 +1,4 @@
-# Types
+# Types Reference
 
 ## Best Practices
 

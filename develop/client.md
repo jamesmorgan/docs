@@ -1,4 +1,4 @@
-# Client
+# Client Reference
 
 ## Best Practices
 

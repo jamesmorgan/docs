@@ -1,4 +1,4 @@
-## Running a Local Hub
+## Running Your Own Hub
 
 To sample the hub in action on rinkeby or mainnet check out the [Dai Card](https://daicard.io). 
 

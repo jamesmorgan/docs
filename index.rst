@@ -50,8 +50,8 @@ Contents
     background/architecture
     usage/coreConcepts
     advanced/runHub
-    develop/hub
     develop/contracts
+    develop/hub
     develop/types
 
 

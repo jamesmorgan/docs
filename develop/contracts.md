@@ -1,4 +1,4 @@
-# Contracts
+# Contracts and Protocols
 
 All source code for the contracts, as well as information about contributing, can be found [here](https://github.com/ConnextProject/indra/tree/master/modules/contracts)
 
