@@ -36,7 +36,7 @@ Contents
     :maxdepth: 2
     :caption: User Documentation
 
-    usage/quickstart
+    usage/quickStart
     develop/client
 
 
