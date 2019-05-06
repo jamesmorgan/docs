@@ -10,6 +10,11 @@ Installing the client is simple. In your project root,
 **Warning: Be sure to use only Connext client v3.1.8 and above. Other versions have been deprecated and may be unstable**
 
 ## Instantiating the Client
+Import the client into your file:
+```javascript
+import Connext from `connext`;
+```
+
 The client is instantiated by passing in an object of type [ConnextOptions](../develop/types.md#connextclientoptions). There are three ways to set up options:
 
 **For web applications:**

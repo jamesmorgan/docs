@@ -1,32 +1,25 @@
 # Client Reference
 
 ## Best Practices
+Like [web3.js](https://web3js.readthedocs.io/), the Connext client is a collection of libraries that allow you to interact with a local or remote Connext hub over HTTP.
 
-### Configuration
+### Payment Types
+By default, clients make all payments using the `PT_OPTIMISTIC` payment type. We recommend that you understand the [trust assumptions](../usage/limitations.html) of optimistic payments before implementing the client. Optimistic payments will be phased out completely by the time the network is decentralized.
 
-The best way to get a new instance of the connext client is using the `getConnextClient` function, and supplying the `HUB_URL` and `RPC_URL` as environment variables. You should instantiate the `web3` object you pass into the client with the `rpcUrl` from the `.env`, and directly supply the `HUB_URL` to the client options on start.
+Payments will automatically be of the type `PT_LINK` if you provide a `secret` in the payment metadata but do not provide a payment `recipient`. Link payments are redeemable "referral" payments which can be unlocked by having the receiver call the `redeem()` function and supply the `secret` set by the sender.
 
-The client will autoconfigure the auth, and all the addresses and network information with the hub on `start`.
-
-### Making Payments
-
-It is recommended that all client implementers read through the [core concepts](../usage/coreConcepts.html) before implementing the client.
-
-In general, if a payment is not fully collateralized, send an intentionally failing payment to trigger the hubs autocollateral mechanism and wait for the onchain transaction to be confirmed.
-
-If you would rather avoid complexities around collateral completely, use a custodial payment instead.
+For advanced users, you can set payment type directly. For instance, you can make all payments only custodially with `PT_CUSTODIAL`. Check out the [`buy()` reference](#buy)
 
 ### Runtime Flags
+Onchain functions such as `deposit()` and `withdraw()` use a "two-phase commit" process. First, the user sends the transaction onchain to the contract. Then, upon detecting the transaction, the hub returns a confirmation offchain which reflects the user's new balances.
 
-When working with payment channels, there are certain precautions you have to take when you are updating the state to avoid breaking state with the hub and having to dispute your channel.
-
-It is recommended that all implementers use the [`RuntimeState`](#runtimestate) flags to restrict user actions at a UI level. Additionally, these flags can be used to display more descriptive details to users (i.e. communicate which phase an onchain user-deposit transaction is in).
+It is recommended that implementers use the [`RuntimeState`](#runtimestate) flags to show the lifecycle of onchain functions to users. This helps users understand where their funds are in the process. The flags also expose transaction hashes which can be shown on [etherscan](https://etherscan.io)
 
 ## Documentation
 
 Methods:
 
-* [getConnextClient](#getconnextclient)
+* [create](#create)
 * [buy](#buy)
 * [deposit](#deposit)
 * [exchange](#exchange)
@@ -41,11 +34,17 @@ State:
 * [PersistentState](#persistentstate)
 * [RuntimeState](#runtimestate)
 
-### getConnextClient
+### create
 
-▸ **getConnextClient**(options: *[ConnextClientOptions](types.html#connextclientoptions)*): <`ConnextClient`>
+▸ **create**(options: *[ConnextClientOptions](types.html#connextclientoptions)*): <`ConnextClient`>
 
-Retrieve a new instance of the connext client initialized with the provided parameters.
+Retrieve a new instance of the connext client initialized with the provided parameters. 
+
+Implementers can provide:
+1. `connextProvider`, and `web3Provider`; OR
+2. `safeSignHook`, `web3Provider`, and `hubUrl`; OR
+3. `privateKey`, and `hubUrl`; OR
+4. `mnemonic`, and `hubUrl`
 
 **Parameters:**
 
@@ -58,11 +57,9 @@ Retrieve a new instance of the connext client initialized with the provided para
 **Example:**
 
 ```javascript
-const connext = getConnextClient({...})
-// register listener
-connext.on('onStateChange', state => {
-  console.log('Connext state changed:', state);
-})
+import Connext from `connext`;
+
+const connext = Connext.create({...})
 await connext.start() // start polling
 ```
 
@@ -72,12 +69,17 @@ await connext.start() // start polling
 
 Make a purchase (group of related payments) within the channel. Purchases can have meta objects associated with them. These objects are stored as JSONs by the hub.
 
-There are 5 primary [types of payments](types.html#purchasepaymentrequest) you can make:
-
+There are 5 primary [types of payments](types.html#purchasepaymentrequest):
 * [`PT_CHANNEL`] - A payment between channel participants (to or from hub directly)
 * [`PT_THREAD`] - Noncustodial payments to others who have channels open with the hub. Users must be online to receive these payments. Threads can be thought of as unidirectional, short-lived channels.
 * [`PT_CUSTODIAL`] - Purely custodial payments through the hub.
 * [`PT_LINK`] - A payment generated by a secret created by the sender. This payment is only redeemable of the receiver can provide the secret, and is redeemable by anyone. This is a custodial payment.
+
+By default, all payments are made with the `PT_OPTIMISTIC` type, which utilizes the following flow:
+1. Attempts a `PT_CHANNEL` payment;
+2. If the above fails, attempts to recollateralize the receiver channel and waits;
+3. Attempts a `PT_CHANNEL` payment again after 30 seconds;
+4. If the above fails, uses `PT_CUSTODIAL` instead.
 
 All non-custodial payment types are subject to [availablility](../usage/coreConcepts.html#availability) and [collateral](../usage/coreConcepts.html#collateral) requirements.
 
