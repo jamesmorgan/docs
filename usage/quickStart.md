@@ -60,6 +60,19 @@ The client can also be instantiated by directly passing in a private key or mnem
   client.start() //starts polling for updates
 ```
 
+## Listening for Events
+You can listen for updates to the channel using `connext.on`.
+```javascript
+  // register listener
+  // the only event the client emits is `onStateChange`, which is triggered
+  // each time the connexts internal store is updated.
+
+  connext.on('onStateChange', state => {
+    console.log('Connext state changed:', state);
+  })
+  await connext.start() // start polling
+```
+
 ## Depositing
 After instantiation, you can deposit into a channel with `connext.deposit`. Our hosted Hub accepts deposits in both ETH and DAI. However, when depositing tokens, ensure the user has sufficient ETH remaining in their wallet to afford the gas of the deposit transaction.
 ```javascript
@@ -82,7 +95,12 @@ Make an in-channel swap with,
 ## Making a Payment
 Making a payment is simple! Just call `connext.buy()`
 ```javascript
-  //TODO
+  await connext.buy({ 
+    recipient: "0x8cef....",
+    amount: {
+      amountToken: "100"
+    }
+  })
 ```
 
 ## Withdrawing
@@ -95,7 +113,9 @@ Users can withdraw funds to any recipient address with `connext.withdraw()`. Rig
     // Amount to withdraw, note:
     // 1. Dai withdrawals are not enabled by default
     // 2. Withdrawing more Eth than is available will automatically exchange and withdraw Dai instead
-    amount //TODO
+    amount: {
+      amountWei: "15000"
+    }
   })
 ```
 
