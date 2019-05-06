@@ -1,14 +1,6 @@
-# Core Concepts
+# System Limitations
 
-There are a few core concepts to be aware of as an implementer.
-
-## Signing State Updates
-
-The signing wallet is the ethereum address that is used to sign the state updates within the channel. The signing wallet can be any ethereum account you have access to (such as Metamask), however, it is important to understand how signing affects user experience.
-
-When using a Metamask account as the signer, for instance, your users will have to explicitly approve any signature requested of them. The resultant signature pop-ups must be resolved before the channel state can be advanced, and often significantly detract from UX.
-
-To avoid this, you can implement a custom provider that defaults to approving and signing messages without requiring explicit user input (i.e. a signing pop-up). An example autosigner implmentation can be found [here](https://github.com/ConnextProject/card/blob/master/src/utils/ProviderOptions.ts). Error checks against malformed state updates are performed before signing, and any application-specific errors should be checked before calling Connext functions to avoid an improper state update.
+There are a few limitations of Connext to be aware of as an implementer.
 
 ## Collateral
 

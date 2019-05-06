@@ -4,7 +4,7 @@ Connext is an infrastructure layer on top of Ethereum that lets projects do inst
 
 Connext does this using *state channels*. State channels enable batching of signed Ethereum interactions which can all be settled later on the blockchain without needing to trust intermediaries.
 
-If you're already familiar with Connext and how state channels work and would like to learn how to develop with our system, check out the [Quick Start](../usage/gettingStarted.md).
+If you're already familiar with Connext and how state channels work and would like to learn how to develop with our system, check out the [Quick Start Guide](../usage/gettingStarted.md).
 
 If you're unfamiliar with terms like smart contract and private key, please refer to a more general developer guide such as [this one, compiled by the Ethereum community](https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial), before continuing.
 
@@ -12,7 +12,7 @@ If you're unfamiliar with terms like smart contract and private key, please refe
 
 V1.0 of Connext is *live* on the Ethereum mainnet and already being used by prominent projects in the space to scale their transactions.
 
-This iteration of Connext features basic payment transaction support limited to Ether and the [Dai stablecoin](https://makerdao.com). Transactions are routed through a centralized Hub that is hosted by the Connext team which can be connected to with any [Connext client](../develop/client.md). User's funds are completely noncustodial, though there are instances where payments themselves, while in-flight, may place a trust burden on the Hub. For a detailed overview of the trust assumptions that exist at present, please read [Core Concepts](../usage/coreConcepts.md).
+This iteration of Connext features basic payment transaction support limited to Ether and the [Dai stablecoin](https://makerdao.com). Transactions are routed through a centralized Hub that is hosted by the Connext team which can be connected to with any [Connext client](../develop/client.md). User's funds are completely noncustodial, though there are instances where payments themselves, while in-flight, may place a trust burden on the Hub. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../usage/limitations.md).
 
 Development of v2.0 of Connext is currently underway. The coming update will move Connext onto the [CounterFactual Framework](https://counterfactual.io) and enable more abstract conditionality for settling payments, much stronger trust-minimization, and the ability to route transactions over multiple decentralized nodes. 
 

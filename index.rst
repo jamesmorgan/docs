@@ -45,7 +45,7 @@ Contents
     :caption: Contributor Documentation
 
     background/architecture
-    usage/coreConcepts
+    usage/limitations
     advanced/runHub
     develop/contracts
     develop/hub

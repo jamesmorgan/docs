@@ -1,6 +1,6 @@
 # Payments and In-channel Swaps
 
-**Note: The hub is responsible for "collateralizing" all payments. If the hub does not have funds to forward the payment in the payment recipient's channel, the payment will fail until the hub is able to deposit more tokens into the channel. To add collateral to the hub, simply send tokens (Dai if you're using our hosted hub) to the contract address. See the [Collateral section](./coreConcepts.md#collateral) to learn more.**
+**Note: The hub is responsible for "collateralizing" all payments. If the hub does not have funds to forward the payment in the payment recipient's channel, the payment will fail until the hub is able to deposit more tokens into the channel. To add collateral to the hub, simply send tokens (Dai if you're using our hosted hub) to the contract address. See the [collateral limitations](./limitations.md#collateral) to learn more.**
 
 Now that you've deposited, you have a payment channel open with the hub. You're ready to start transacting by updating your channel state. Connext facilitates in-channel exchanges, token payments, and channel withdrawals in Wei.
 

@@ -61,7 +61,7 @@ V2.0 of Connext will enable support for transactions routed over multiple nodes,
 ### Why is my payment taking so long?
 Some payments can seem to take forever, and it can be difficult to figure out when it happens. This has to do with the collateral requirements of passing on noncustodial payments, and it means that the hub is depositing into the receivers channel before agreeing to forward on the payment. This could appear as if your payment has failed, but don't worry, the hub is just autocollateralizing onchain!
 
-Check out the [core concepts](../usage/coreConcepts.md) section for more detailed information on the collateral requirements of the system.
+Check out the [System Limitations](../usage/limitations.md) section for more detailed information on the collateral requirements of the system.
 
 ### What happened to my linked payment?
 If you did not save the link, it is lost for now. To get your payment refunded, or to regenerate a link, [contact us](https://discordapp.com/invite/yKkzZZm).
@@ -69,7 +69,7 @@ If you did not save the link, it is lost for now. To get your payment refunded, 
 ### My channel says its not open?
 There are a couple of reasons this may be the case. First, hubs can freely dispute any channels with the latest state to reclaim excess collateral from channels. This could throw a channel into a `CS_CHANNEL_DISPUTE` state. Channels may also be thrown into a `CS_CHAINSAW_ERROR` if there are errors processing events from web3.
 
-In both of these cases, users are free to reclaim funds by initiating onchain dispute processes. However, these can cost gas and take a while to resolve onchain, so we would reccommend reaching out to [us](https://discordapp.com/invite/yKkzZZm)
+In both of these cases, users are free to reclaim funds by initiating onchain dispute processes. However, these can cost gas and take a while to resolve onchain, so we would reccommend [reaching out to us](https://discordapp.com/invite/yKkzZZm)
 
 ### I deposited tokens into the signing wallet, but they are not appearing in the channel?
 Users depositing into their own channel is the *only* user submitted ethereum transaction, and that means it needs gas to complete. If you only send tokens to the signing wallet, it will not have enough eth to send the transaction as well. 
