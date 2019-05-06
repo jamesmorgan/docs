@@ -1,38 +1,32 @@
 # Quick Start
+Like [web3.js](https://web3js.readthedocs.io/), the Connext client is a collection of libraries that allow you to interact with a local or remote Connext hub over HTTP.
 
-The following is a basic end-to-end example of how to connect to the Connext Network and make your first payment.
+We will connect to the Connext Rinkeby hub hosted at `https://rinkeby.hub.connext.network/api/hub` using the Connext client. If you don't have Rinkeby ETH, we recommend you get some from a [faucet](https://faucet.rinkeby.io/) before continuing with this guide.
 
 ## Installation
-
-This guide assumes you have familiary with `nodejs`, `npm` and other common JS development paradigms.
-
-We will connect to the Connext Rinkeby hub hosted at `https://rinkeby.hub.connext.network/api/hub`. If you don't have Rinkeby ETH, we recommend you get some from a [faucet](https://faucet.rinkeby.io/) before continuing with this guide.
-
-Installation is simple. In your project directory,
-
+Installing the client is simple. In your project root,
 ```npm install --save connext@latest```
 
 **Warning: Be sure to use only Connext client v3.1.8 and above. Other versions have been deprecated and may be unstable**
 
 ## Instantiating the Client
+The client is instantiated by passing in an object of type [ConnextOptions](../develop/types.md#connextclientoptions). There are three ways to set up options:
 
-Like `web3.js`(https://web3js.readthedocs.io/), the Connext client is a collection of libraries that allow you to interact with a local or remote Connext hub over HTTP.
-
-The client is instantiated by passing in an object of type `ConnextOptions`(../develop/types.md#connextclientoptions). There are three ways to set up options:
-
-1. For web applications: an Ethereum compatible browser will have a `window.connext` or `context.channelProvider` available. In this case,
-  ```javascript
+**For web applications:**
+An Ethereum compatible browser will have a `window.connext` or `context.channelProvider` available. In this case,
+```javascript
   const connextOptions: ConnextOptions = {
     connextProvider: window.connext,
     web3: window.web3
   }
-  ```
-  Passing in a hubUrl here is *not needed* because it is contained within the connextProvider's context.
+```
+Passing in a hubUrl here is *not needed* because it is contained within the connextProvider's context.
 
-2. For wallets: the client accepts any hooked signer function. This function is used exclusively for signing *safe* messages (i.e. messages associated with receiving payments or confirming onchain transactions which can safely be signed without prompting the user). A wallet can pass in their own signing functionality and choose how they wish to expose normal vs safe signing to their users.
+**For wallets:**
+The client accepts a hooked signer function. This function is used exclusively for signing *safe* messages (i.e. messages associated with receiving payments or confirming onchain transactions which can safely be signed without prompting the user). We strongly recommend that wallets pass in a custom signer here which does not prompt the user for signatures here.
 
-  Note, we also pass in the hub URL address here:
-  ```javascript
+For more information on integrating into wallets, see [Wallet Integrations] -- (coming soon)
+```javascript
   //rinkeby: hubUrl=https://rinkeby.hub.connext.network/api/hub
   //mainnet: hubUrl=https://hub.connext.network/api/hub
 
@@ -41,12 +35,11 @@ The client is instantiated by passing in an object of type `ConnextOptions`(../d
     web3,
     safeSignHook
   }
-  ```
+```
 
-  For more information on integrating into wallets, see [Wallet Integrations] -- (coming soon)
-
-3. For burner-style applications: the client can also be instantiated by directly passing in a private key or mnemonic. The storing the key safely is up to the implementer's discretion.
-  ```javascript
+**For burner-style applications:** 
+The client can also be instantiated by directly passing in a private key or mnemonic. The storing the key safely is up to the implementer's discretion.
+```javascript
   //rinkeby: hubUrl=https://rinkeby.hub.connext.network/api/hub
   //mainnet: hubUrl=https://hub.connext.network/api/hub
 
@@ -54,8 +47,9 @@ The client is instantiated by passing in an object of type `ConnextOptions`(../d
     hubUrl,
     privateKey, //OR mnemonic
   }
+```
 
-After setting up your options,
+**After setting up your options:**
 ```javascript
   const client = await Connext.create(connextOptions)
   client.start() //starts polling for updates
@@ -83,7 +77,7 @@ Make an in-channel swap with,
 ## Making a Payment
 Making a payment is simple! Just call `connext.buy()`
 ```javascript
-//TODO
+  //TODO
 ```
 
 ## Withdrawing
