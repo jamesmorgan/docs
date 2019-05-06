@@ -2,25 +2,103 @@
 
 The following is a basic end-to-end example of how to connect to the Connext Network and make your first payment.
 
-## Pre-requisites
+## Installation
 
 This guide assumes you have familiary with `nodejs`, `npm` and other common JS development paradigms.
 
 We will connect to the Connext Rinkeby hub hosted at `https://rinkeby.hub.connext.network/api/hub`. If you don't have Rinkeby ETH, we recommend you get some from a [faucet](https://faucet.rinkeby.io/) before continuing with this guide.
 
-## Installation
-
 Installation is simple. In your project directory,
 
 ```npm install --save connext@latest```
 
-Then, continue on with: 
-  - [Instantiating the Client](../instantiation.md)
-  - [Depositing](../deposits.md)
-  - [Making Payments and Exchanges](../payments.md)
-  - [Withdrawing](../withdrawals.md)
-
 **Warning: Be sure to use only Connext client v3.1.8 and above. Other versions have been deprecated and may be unstable**
+
+## Instantiating the Client
+
+Like `web3.js`(https://web3js.readthedocs.io/), the Connext client is a collection of libraries that allow you to interact with a local or remote Connext hub over HTTP.
+
+The client is instantiated by passing in an object of type `ConnextOptions`(../develop/types.md#connextclientoptions). There are three ways to set up options:
+
+1. For web applications: an Ethereum compatible browser will have a `window.connext` or `context.channelProvider` available. In this case,
+  ```javascript
+  const connextOptions: ConnextOptions = {
+    connextProvider: window.connext,
+    web3: window.web3
+  }
+  ```
+  Passing in a hubUrl here is *not needed* because it is contained within the connextProvider's context.
+
+2. For wallets: the client accepts any hooked signer function. This function is used exclusively for signing *safe* messages (i.e. messages associated with receiving payments or confirming onchain transactions which can safely be signed without prompting the user). A wallet can pass in their own signing functionality and choose how they wish to expose normal vs safe signing to their users.
+
+  Note, we also pass in the hub URL address here:
+  ```javascript
+  //rinkeby: hubUrl=https://rinkeby.hub.connext.network/api/hub
+  //mainnet: hubUrl=https://hub.connext.network/api/hub
+
+  const connextOptions: ConnextOptions = {
+    hubUrl,
+    web3,
+    safeSignHook
+  }
+  ```
+
+  For more information on integrating into wallets, see [Wallet Integrations] -- (coming soon)
+
+3. For burner-style applications: the client can also be instantiated by directly passing in a private key or mnemonic. The storing the key safely is up to the implementer's discretion.
+  ```javascript
+  //rinkeby: hubUrl=https://rinkeby.hub.connext.network/api/hub
+  //mainnet: hubUrl=https://hub.connext.network/api/hub
+
+  const connextOptions: ConnextOptions = {
+    hubUrl,
+    privateKey, //OR mnemonic
+  }
+
+After setting up your options,
+```javascript
+  const client = await Connext.create(connextOptions)
+  client.start() //starts polling for updates
+```
+
+## Depositing
+After instantiation, you can deposit into a channel with `connext.deposit`. Our hosted Hub accepts deposits in both ETH and DAI. However, when depositing tokens, ensure the user has sufficient ETH remaining in their wallet to afford the gas of the deposit transaction.
+```javascript
+  // Making a deposit in ETH
+  await connext.deposit({
+    amountWei: "1500",
+    amountToken: "0", // assumed to be in wei units
+  })
+```
+
+## Exchanging
+For now, our hosted hub is opinionated and only [collateralizes](../usage/limitations.md#Collateral) each channel with DAI by default. (I.e. only DAI payments are allowed) If you need ETH payments, [get in touch](https://discord.gg/raNmNb5) and we'll set you up with Eth-collateralized channels!
+
+Make an in-channel swap with,
+```javascript
+  // Exchanging Wei for Dai
+  await connext.exchange("1000", "wei");
+```
+
+## Making a Payment
+Making a payment is simple! Just call `connext.buy()`
+```javascript
+//TODO
+```
+
+## Withdrawing
+Users can withdraw funds to any recipient address with `connext.withdraw()`. Right now, the Hub only supports withdrawals in ETH to mitigate spam. When withdrawing, DAI that is in your channel is automatically exchanged for ETH as part of the withdrawal process. If you need DAI (or DAI + ETH) withdrawals, [get in touch](https://discord.gg/raNmNb5) and we can activate them for your channels.
+```javascript
+  await connext.withdraw({
+    // Address to receive withdrawal funds
+    // Does not need to have a channel with Connext to receive funds
+    recipient: "0x8cef....",
+    // Amount to withdraw, note:
+    // 1. Dai withdrawals are not enabled by default
+    // 2. Withdrawing more Eth than is available will automatically exchange and withdraw Dai instead
+    amount //TODO
+  })
+```
 
 ## Additional Resources
 
