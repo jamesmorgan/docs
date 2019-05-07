@@ -19,7 +19,7 @@ It is recommended that implementers use the [`RuntimeState`](#runtimestate) flag
 
 Methods:
 
-* [create](#create)
+* [getConnextClient](#getConnextClient)
 * [buy](#buy)
 * [deposit](#deposit)
 * [exchange](#exchange)
@@ -34,9 +34,9 @@ State:
 * [PersistentState](#persistentstate)
 * [RuntimeState](#runtimestate)
 
-### create
+### getConnextClient
 
-▸ **create**(options: *[ConnextClientOptions](types.html#connextclientoptions)*): <`ConnextClient`>
+▸ **getConnextClient**(options: *[ConnextClientOptions](types.html#connextclientoptions)*): <`ConnextClient`>
 
 Retrieve a new instance of the connext client initialized with the provided parameters. 
 
@@ -57,9 +57,9 @@ Implementers can provide:
 **Example:**
 
 ```javascript
-import Connext from `connext`;
+import { getConnextClient } from `connext`;
 
-const connext = Connext.create({...})
+const connext = getConnextClient({...})
 await connext.start() // start polling
 ```
 
