@@ -1,8 +1,8 @@
 # Introduction
 
-Connext is an infrastructure layer on top of Ethereum that enables instant, high volume transactions by reducing the amount of data that needs to be committed to the blockchain. The goal of the Connext Network is to scale Ethereum applications to large consumer bases by improving their usability and cost. Projects in the space are already using Connext to enable instant wallet to wallet payments, monetize content with microtransactions, power marketplaces, and build games on the Ethereum mainnet!
+Connext is an infrastructure layer on top of Ethereum that enables instant, high volume transactions by reducing the amount of data that needs to be committed to the blockchain. The goal of the Connext Network is to help Ethereum applications scale to large consumer bases by improving their usability and cost. Projects in the space are already using Connext to enable instant wallet to wallet payments, monetize content with microtransactions, power marketplaces, and build games on the Ethereum mainnet!
 
-Connext does this using *state channels*. State channels enable users to batch up their own normal Ethereum transactions without needing to trust intermediaries. State channels do not require any external custodians or add any additional functionality to Ethereum, they simply allow existing Ethereum interactions to occur *more quickly* and at *lower cost*.
+Connext does this using *state channels*. State channels enable users to batch up normal Ethereum transactions without needing to trust intermediaries. State channels do not require any external custodians or add any additional functionality to Ethereum, they simply allow existing Ethereum interactions to occur *more quickly* and at *lower cost* by putting more interactions into each block.
 
 If you're already familiar with Connext and how state channels work and would like to learn how to develop with our system, check out the [Quick Start Guide](../usage/gettingStarted.md).
 
