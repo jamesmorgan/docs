@@ -1,32 +1,37 @@
 # Introduction
 
-Connext is an infrastructure layer on top of Ethereum that lets projects do instant, high volume transactions with arbitrarily complex conditions for settlement. The goal of the Connext Network is to scale payment-related applications built on top of Ethereum to large consumer bases without affecting their usability or cost. Projects in the space are already using Connext to enable instant wallet payments, monetize content with microtransactions, and power marketplaces on the Ethereum mainnet!
+Connext is an infrastructure layer on top of Ethereum that enables instant, high volume transactions by reducing the amount of data that needs to be committed to the blockchain. The goal of the Connext Network is to scale Ethereum applications to large consumer bases by improving their usability and cost. Projects in the space are already using Connext to enable instant wallet to wallet payments, monetize content with microtransactions, power marketplaces, and build games on the Ethereum mainnet!
 
-Connext does this using *state channels*. State channels enable batching of signed Ethereum interactions which can all be settled later on the blockchain without needing to trust intermediaries.
+Connext does this using *state channels*. State channels enable users to batch up their own normal Ethereum transactions without needing to trust intermediaries. State channels do not require any external custodians or add any additional functionality to Ethereum, they simply allow existing Ethereum interactions to occur *more quickly* and at *lower cost*.
 
 If you're already familiar with Connext and how state channels work and would like to learn how to develop with our system, check out the [Quick Start Guide](../usage/gettingStarted.md).
 
 If you're unfamiliar with terms like smart contract and private key, please refer to a more general developer guide such as [this one, compiled by the Ethereum community](https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial), before continuing.
 
-## Status
-
-V1.0 of Connext is *live* on the Ethereum mainnet and already being used by prominent projects in the space to scale their transactions.
-
-This iteration of Connext features basic payment transaction support limited to Ether and the [Dai stablecoin](https://makerdao.com). Transactions are routed through a centralized Hub that is hosted by the Connext team which can be connected to with any [Connext client](../develop/client.md). User's funds are completely noncustodial, though there are instances where payments themselves, while in-flight, may place a trust burden on the Hub. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../usage/limitations.md).
-
-Development of v2.0 of Connext is currently underway. The coming update will move Connext onto the [CounterFactual Framework](https://counterfactual.io) and enable more abstract conditionality for settling payments, much stronger trust-minimization, and the ability to route transactions over multiple decentralized nodes. 
-
 ## State Channel Basics
 
-1. A user opens a channel by depositing their money into our Channel Manager smart contract with the Hub.
+State channels allow many off-chain transactions to be aggregated into just a few onchain transactions:
 
-2. The user transacts to any counterparty by sending balance updates. The balance update is valid once both the payer and the payee have digitally signed it. 
+1. A user opens a channel by depositing their money into a multisignature smart contract with a counterparty. Note that the smart contract runs entirely on the blockchain and so the user remains *entirely* in custody of their own funds.
 
-3.  When parties are done transacting, they each submit their latest balance update to the contract; if the updates match, each party's new balance (reflecting the agreed-upon balance updates) is unlocked onchain. If the updates don't match, the update with the highest transaction nonce takes precedence.
+2. The user transactions by sending signed settlement instructions for how the counterparty can retrieve funds from the smart contract. Because the instructions give the counterparty irrevocable access to part of the funds, the user can make multiple "updates" to their balances while only paying the fees of the initial deposit.
 
-State channels allow many off-chain transactions to be aggregated into just a few onchain transactions. If you're looking for more information, here are a few digestible resources on how they work:
+3. When either party is done transacting, they can take the latest update to the smart contract and unlock the finalized funds.
+
+4. Because there can be arbitrary conditionality to the settlement instructions, the above relationship can be extended to allow users to transact with more parties. For instance, if Alice wants to pay Charlie but only has a channel with Bob, Alice can pay Bob conditionally based on whether he pays Charlie. If the latter part of the transaction is not completed, then Alice's transaction to Bob will not occur either - this makes transactions *atomic* and *noncustodial*.
+
+If you're looking for more information, here are a few digestible resources on how they work:
 
 * [EthHub's Layer Two Scaling Page](https://docs.ethhub.io/ethereum-roadmap/layer-2-scaling/state-channels/)
 * [State Channels for Dummies Series](https://medium.com/blockchannel/counterfactual-for-dummies-part-1-8ff164f78540)
 * [State Channels for Babies Series](https://medium.com/connext/state-channels-for-babies-c39a8001d9af)
 
+## Status
+
+V1.0 of Connext is *live* on the Ethereum mainnet and already being used by some prominent projects in the space to scale their transactions.
+
+This iteration of Connext features basic transaction support in ETH and the [DAI stablecoin](https://makerdao.com). For safety, there are also limits on the maximum capacity of channels and transactions. Additionally, this iteration of Connext features only one node - currently hosted by Connext - over which transactions are routed, which can be connected to by any [Connext client](../develop/client.md). User's funds are completely noncustodial, though there are instances where payments themselves, while in-flight, may place a trust burden on the node. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../usage/limitations.md).
+
+V1.0 is an experiment for the Connext development team to collect usage data on the system and make iterative process towards better ensuring that users *always* have custody over their own funds, even when routing over random and anonymous actors. Development of v2.0 of Connext is currently underway which will solve most of the above limitations. The coming update will move Connext onto the [CounterFactual Framework](https://counterfactual.io) and enable better state update backups, more abstract conditionality for settling payments, much stronger trust-minimization, and the ability to for anyone to run their own node.
+
+At that time, we intend to shut down the Connext-hosted node completely to make the system entirely peer to peer.

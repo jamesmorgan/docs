@@ -6,7 +6,7 @@
 Connext Documentation
 ===================================
 
-Connext is an infrastructure layer on top of Ethereum that lets projects do instant, high volume transactions with arbitrarily complex conditions for settlement. Connext does this by batching signed Ethereum interactions which can all be settled later on the blockchain without needing to trust intermediaries.
+Connext is an infrastructure layer on top of Ethereum that lets Ethereum wallets, applications and protocols do instant, high volume transactions with arbitrarily complex conditions for settlement. Projects that integrate Connext can enable users to batch up their own Ethereum interactions without placing any trust or custody in external parties.
 
 These docs cover both the background of Connext and how you get started integrating Connext into your Ethereum wallet or application.
 

@@ -3,22 +3,26 @@
 ## General
 
 ### What Connext is:
-- A scalability solution for EVM-compatible blockchains
-- Open source technology infrastructure that enables cheap, high volume payments in any asset
-- A peer to peer clearance system for transactions conducted between Ethereum wallets
+- A scalability solution for EVM-compatible blockchains.
+- A software company that builds open source technology infrastructure for Ethereum applications.
+- A non-custodial "clearance" layer on top of Ethereum which retains the security and self-sovereignty qualities of the base blockchain.
 
 ### What Connext is not:
-- A payment company in and of itself
-- A custodial wallet or custody solution of any sort
-- An exchange or other financial service provider
+- A payment company.
+- A custodial wallet or custody solution of any sort.
+- An exchange or other financial service provider.
+
+**Connext DOES NOT in any way take custody of user funds. We don't even run the code, you do.**
 
 ### What problems does Connext solve?
 Connext makes it possible to build scalable payment and transaction-related applications on the Ethereum blockchain. 
 
-The Ethereum blockchain already enables trust-minimized payments between peers, but these payments have high costs and slow confirmation times. This makes the Ethereum blockchain very suitable as a settlement layer, but not usable for many day-to-day usecases. Connext reduces the number of transactions that need to be put onto Ethereum without changing the core decentralization and trust-minimization properties of Ethereum itself
+The Ethereum blockchain already enables trust-minimized payments between peers, but these payments have high costs and slow confirmation times. This makes the Ethereum blockchain very suitable as a settlement layer, but not usable for many day-to-day usecases. Connext reduces the number of transactions that need to be put onto Ethereum without changing the core decentralization and trust-minimization properties of Ethereum itself.
 
 ### Does Connext have a token or native currency?
-No. v1.0 of Connext allows transactions to be made in Ether or the Dai stablecoin for the purposes of improving usability. v2.0 of Connext will allow transactions to be made in any Ethereum ERC20 token.
+No. We have no token.
+
+v1.0 of Connext allows transactions to be made in Ether or the Dai stablecoin for the purposes of improving usability. v2.0 of Connext will allow transactions to be made in any Ethereum ERC20 token.
 
 ### How does Connext compare to other state channels solutions?
 Connext is live on the Ethereum mainnet, leverages existing industry standards rather than implementing custom solutions, does not have a token, and focuses largely on usecases related to conditional payments.
@@ -26,7 +30,11 @@ Connext is live on the Ethereum mainnet, leverages existing industry standards r
 Connext is also very easy to use as compared to other solutions! Check out [Quick Start](../usage/gettingStarted.md) to learn more.
 
 ### How does Connext compare to Plasma/sidechains?
-Plasma is a framework for scaling Ethereum capacity by using hierarchical sidechains. While it offers significant speed and latency improvements over Ethereum itself, it cannot offer the usability, near-zero latency and near-free transaction costs that Connext can. Moreover, Connext can be complementary to Plasma sidechains much as it is to Ethereum itself.
+Plasma is a framework for scaling Ethereum capacity by using hierarchical sidechains. Plasma helps Ethereum scale *out* (i.e. allowing for more parallel processing) rather than scaling *up* (i.e. allowing for more transactions per block). 
+
+The way that plasma is theorized right now still places a minor amount of trust on the plasma operator as the plasma chain custodies your assets entirely which can be lost if the chain is shut down. With Connext, your assets are always yours - they are stored in a contract which *you* have the keys to.
+
+Even in a multichain world, an overlay clearance network like Connext is still needed for seamless UX.
 
 ### Are there fees?
 Connext itself does not collect any fees from the network. Nodes providing transaction routing and storage services within the network may collect fees if they choose to do so.
@@ -44,7 +52,7 @@ In Connext, each state update must be signed by all channel parties and contain 
 
 The dispute resolution contract contains instructions on how a transaction should be resolved, based on the contents of the state update and/or external factors such as time or onchain events.
 
-### Why do you use hubs?
+### Why do you host a single node for v1.0?
 One of the most difficult challenges of channelized networks is ensuring that there is enough *capacity* (or collateral) in a given channel to receive transactions without interrupting the flow of payments. In a relatively simple hub and spoke system, if Alice wants to pay Bob 1 Eth through the Hub, Alice would first pay the Hub 1 Eth in her channel conditionally based on if the Hub would pay 1 Eth to Bob in his channel. To successfully complete this transaction, the Hub would need to *already* have had 1 Eth in Bob's channel, which it could only have done if it knew beforehand that Bob would be the receiver of funds.
 
 It turns out, this is largely a data science problem related to payment behavior. Our goal with running a hub ourselves for v1.0 was to prioritize usability - by collecting data and coming up with a rebalancing/recollateralization protocol beforehand, we can improve the efficiency of collateral allocation for decentralized nodes in the future.
