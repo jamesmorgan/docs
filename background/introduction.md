@@ -4,7 +4,7 @@ Connext is an infrastructure layer on top of Ethereum that enables instant, high
 
 Connext does this using *state channels*. State channels enable users to batch up normal Ethereum transactions without needing to trust intermediaries. State channels do not require any external custodians or add any additional functionality to Ethereum, they simply allow existing Ethereum interactions to occur *more quickly* and at *lower cost* by putting more interactions into each block.
 
-If you're already familiar with Connext and how state channels work and would like to learn how to develop with our system, check out the [Quick Start Guide](../usage/gettingStarted.md).
+If you're already familiar with Connext and how state channels work and would like to learn how to develop with our system, check out the [Quick Start Guide](../usage/quickStart.md).
 
 If you're unfamiliar with terms like smart contract and private key, please refer to a more general developer guide such as [this one, compiled by the Ethereum community](https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial), before continuing.
 
@@ -32,6 +32,6 @@ V1.0 of Connext is *live* on the Ethereum mainnet and already being used by some
 
 This iteration of Connext features basic transaction support in ETH and the [DAI stablecoin](https://makerdao.com). For safety, there are also limits on the maximum capacity of channels and transactions. Additionally, this iteration of Connext features only one node - currently hosted by Connext - over which transactions are routed, which can be connected to by any [Connext client](../develop/client.md). User's funds are completely noncustodial, though there are instances where payments themselves, while in-flight, may place a trust burden on the node. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../usage/limitations.md).
 
-V1.0 is an experiment for the Connext development team to collect usage data on the system and make iterative process towards better ensuring that users *always* have custody over their own funds, even when routing over random and anonymous actors. Development of v2.0 of Connext is currently underway which will solve most of the above limitations. The coming update will move Connext onto the [CounterFactual Framework](https://counterfactual.io) and enable better state update backups, more abstract conditionality for settling payments, much stronger trust-minimization, and the ability to for anyone to run their own node.
+V1.0 is an experiment for the Connext development team to collect usage data on the system and make iterative process towards better ensuring that users *always* have custody over their own funds, even when routing over random and anonymous actors. Development of v2.0 of Connext is currently underway which will solve most of the above limitations. The coming update will move Connext onto the [CounterFactual Framework](https://www.counterfactual.com/) and enable better state update backups, more abstract conditionality for settling payments, much stronger trust-minimization, and the ability to for anyone to run their own node.
 
 At that time, we intend to shut down the Connext-hosted node completely to make the system entirely peer to peer.
