@@ -1,20 +1,43 @@
-# System Limitations
+# Additional Considerations
 
-There are a few limitations of Connext to be aware of as an implementer.
+There are a few considerations to be aware of as an implementer.
 
-## Collateral
+## Availability
+
+The wallet must acknowledge every state update by cosigning that state. This means in order to update your channel, the user must be online. We've built several different payment types to help accomodate user availability constraints. 
+
+
+## Payment Types and UX Impacts
+
+### Trust-minimized
 
 If you are using trust-minimized payments, you will only be able to make payments if the hub has at least that amount in the payee's channel. For example, if Alice pays Bob 10 DAI through the hub, the hub must have at least 10 DAI in its channel with Bob to facilitate the payment. If Alice and Chris want to pay Bob 10 DAI each, as tips during videogame streaming for example, the hub must have at least 20 DAI in it's channel with Bob.
 
+In practice, this means that when a user *receives* their first payment, the hub will need to collateralize the recipient's channel. This involves an onchain transaction, and will take 15 - 30 seconds. See [Autocollateralization](#autocollateralization) for a more detailed description of node collateralization behavior.
+
 To collateralize the hub, send funds to the contract address.
 
-### Custodial payments don't need collateral
 
-Collateral requirements only apply if you are using non-custodial payments. To bypass these requirements completely, use trusted hub payments by inserting the payment type `PT_CUSTODIAL`. This allows the hub to forward along payments it receives, without having the collateral in the recipients channel.
+### Custodial
 
-### Autocollateralization
+Collateral requirements only apply if you are using trust-minimized payments. To bypass these requirements completely, use trusted hub payments by inserting the payment type `PT_CUSTODIAL`. This allows the hub to forward along payments it receives, without having the collateral in the recipients channel.
 
-The hub handles these requirements by using an autocollateralization mechanism that is triggered by any payment made, whether or not the payment was successful. Hubs determine amount of collateral needed in a channel based on the number and value of recent payments made to the recipient. Additionally, there are floors and ceilings implemented by hub operators to minimize the amount of collateral that is locked in hub channels, as well as set a minimum amount of collateral to be maintained in each channel.
+### Link
+
+Payment type `PT_LINK` allows you to create a preloaded link that can be redeemed for a given amount of funds. When you create a link, the amount of the link is deducted from your channel balance and the funds are locked by the hub pending the receipt of a secret. Next, a link is generated with that secret. It cannot be regenerated, so don't lose it or you'll lose those funds! This link (and only this link) can be used to unlock those funds.
+
+Link payments are a useful tool for onboarding new users and/or creating prepaid accounts.
+
+
+### Optimistic
+
+Optimistic payments (`PT_OPTIMISTIC`) combine elements of custodial and noncustodial payments: if a user is online, the payment will be sent as a noncustodial transfer; if not, it will be sent as a custodial transfer. This mitigates UX issues caused by availability requirements, so long as you're okay with some custodial payments.
+
+
+
+## Autocollateralization
+
+The hub uses an autocollateralization mechanism that is triggered by any payment made, whether or not the payment was successful. Hubs determine amount of collateral needed in a channel based on the number and value of recent payments made to the recipient. Additionally, there are floors and ceilings implemented by hub operators to minimize the amount of collateral that is locked in hub channels, as well as set a minimum amount of collateral to be maintained in each channel.
 
 Typically, hub balances below 10 DAI will trigger recollateralization. Hubs will put up to 170 DAI in any one channel. These values are configurable, so contact your hub operator for more details. Additionally, check out the [hub](../advanced/hub.md) documentation for additional configurable parameters.
 
@@ -26,15 +49,10 @@ This means if you do not send a failing payment to trigger collateralization, it
 
 The hub can reclaim collateral by disputing the channel, or by the client submitting a withdrawal request with 0 value to allow the hub to withdraw excess collateral from the channel. By minimizing the hub collateral, you also reduce the amount of user channels the hub disputes (lowering user gas costs and wait times) and help payments pass more smoothly through the network.
 
-## Availability
 
-The wallet must acknowledge every state update by cosigning that state. This means in order to update your channel, the user must be online.
+## Current Trust Assumptions
 
-Again, availability requirements only apply if you are using non-custodial payments and using the payment type `PT_CUSTODIAL` will relax these, and rely on a trusted hub.
-
-## Trust Assumptions
-
-While the underlying protocol is completely noncustodial, there are trust assumptions to the Dai Card implementation which we want to make explicit. We plan to address these assumptions over the next few months.
+While the underlying protocol is completely noncustodial, there are trust assumptions to the Dai Card implementation which we want to make explicit. We are actively addressing these assumptions, so expect this section to change over the next few months.
 
 ### Hub can intercept payments
 

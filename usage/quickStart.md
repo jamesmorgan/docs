@@ -121,9 +121,9 @@ Users can withdraw funds to any recipient address with `connext.withdraw()`. Rig
 
 ## Additional Resources
 
-Further documentation on the client (types, method reference, etc) can be found [here](../develop/client.md).
+Considerations for implementers (onboarding, collateral requirements, and availability) that affect user experience: [system limitations](./limitations.md)
 
-As an implementer, there are some [system limitations](./limitations.md) to be aware of that may impact user trust minimization.
+Further documentation on the client (types, method reference, etc) can be found [here](../develop/client.md).
 
 A live mainnet implementation can be found [here](../usage/daiCard.md).
 
