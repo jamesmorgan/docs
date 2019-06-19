@@ -28,7 +28,7 @@ v1.0 of Connext allows transactions to be made in Ether or the Dai stablecoin fo
 ### How does Connext compare to other state channels solutions?
 Connext is live on the Ethereum mainnet, leverages existing industry standards rather than implementing custom solutions, does not have a token, and focuses largely on usecases related to conditional payments.
 
-Connext is also very easy to use as compared to other solutions! Check out [Quick Start](../usage/gettingStarted.md) to learn more.
+Connext is also very easy to use as compared to other solutions! Check out [Quick Start](../userDocumentation/quickStart.md) to learn more.
 
 ### How does Connext compare to Plasma/sidechains?
 Plasma is a framework for scaling Ethereum capacity by using hierarchical sidechains. Plasma helps Ethereum scale *out* (i.e. allowing for more parallel processing) rather than scaling *up* (i.e. allowing for more transactions per block). 
@@ -44,7 +44,7 @@ Connext itself does not collect any fees from the network. Nodes providing trans
 For now, Connext is backed by VCs and grants from the Ethereum Foundation. Long term, the Connext team expects to monetize through selling services for reducing the operating costs of running nodes.
 
 ### Is there a whitepaper?
-No. A protocol specification for v1.0 can be found in the [Contracts and Protocols](../develop/contracts.md) section. A protocol specification for the v2.0 update can be found in the [Counterfactual framework documentation](https://specs.counterfactual.com/en/latest/).
+No. A protocol specification for v1.0 can be found in the [Contracts and Protocols](../contributorDocumentation/contracts.md) section. A protocol specification for the v2.0 update can be found in the [Counterfactual framework documentation](https://specs.counterfactual.com/en/latest/).
 
 ## State Channels
 
@@ -70,7 +70,7 @@ V2.0 of Connext will enable support for transactions routed over multiple nodes,
 ### Why is my payment taking so long?
 Some payments can seem to take forever, and it can be difficult to figure out when it happens. This has to do with the collateral requirements of passing on noncustodial payments, and it means that the Connext node is depositing into the receivers channel before agreeing to forward on the payment. This could appear as if your payment has failed, but don't worry, the node is just autocollateralizing onchain!
 
-Check out the [System Limitations](../usage/limitations.md) section for more detailed information on the collateral requirements of the system.
+Check out the [System Limitations](../userDocumentation/limitations.md) section for more detailed information on the collateral requirements of the system.
 
 ### What happened to my linked payment?
 If you did not save the link, it is lost for now. To get your payment refunded, or to regenerate a link, [contact us](https://discordapp.com/invite/yKkzZZm).

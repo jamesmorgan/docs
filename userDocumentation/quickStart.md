@@ -1,0 +1,111 @@
+# Quick Start
+Like [web3.js](https://web3js.readthedocs.io/), the Connext client is a collection of libraries that allow you to interact with a local or remote Connext node.
+
+We will connect to the Connext Rinkeby node hosted at `https://rinkeby.node.connext.network/api/node` using the Connext client. If you don't have Rinkeby ETH, we recommend you get some from a [faucet](https://faucet.rinkeby.io/) before continuing with this guide.
+
+## Installation
+Installing the client is simple. In your project root,
+```npm install --save connext@latest```
+
+
+## Instantiating the Client
+Import the client into your code:
+```javascript
+import * as connext from 'connext';
+import { AssetAmount } from 'connext/types';
+```
+
+The client is instantiated by passing in an object of type [ConnextOptions](../develop/types.md#connextclientoptions).
+
+**For web applications:**
+dApps can simple pass a mnemonic and node URL as client options. In Web3-enabled browsers, a `ChannelProvider` will be used in the default Client options.
+```javascript
+const options: ClientOptions = {
+  mnemonic: 'Apple Banana ...',
+  nodeUrl: 'nats://node.connext.network',
+}
+```
+
+**For wallets:**
+Wallet integrations have more optionality; please see [Wallet Integrations](../userDocumentation/walletIntegrations) to read more.
+
+**Setting Up a Channel**
+
+Once you've set your parameters, call `connext.connect()` to register an event listener for changes to the channel. The client emits `onStateChange`, which is triggered each time the Connext internal store is updated. 
+```javascript
+  const channel: Channel = await connext.connect(options)
+```
+
+
+## Depositing
+After instantiating and starting Connext, you can deposit into a channel with `channel.deposit`. Our hosted node accepts deposits in both ETH and DAI. However, when depositing tokens, ensure the user has sufficient ETH remaining in their wallet to afford the gas of the deposit transaction.
+
+```javascript
+// Making a deposit in ETH
+const payload: AssetAmount = { 
+  amount: '0x3abc', // represented as bignumber
+  assetId: '0x0'    // i.e. Eth
+}
+
+channel.deposit(payload)
+```
+
+## Exchanging
+For now, our hosted node is opinionated and only [collateralizes](../userDocumentation/limitations.md#Collateral) each channel with DAI by default. (I.e. only DAI payments are allowed) If you need ETH payments, [get in touch](https://discord.gg/raNmNb5) and we'll set you up with Eth-collateralized channels!
+
+Make an in-channel swap with:
+```javascript
+  // Exchanging Wei for Dai
+const payload: ExchangeParams = { 
+  amount: "100" // in Wei
+  toAssetId: "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359" // Dai
+  fromAssetId: "0x0" // ETH
+}
+
+await connext.exchange(payload)
+```
+
+## Making a Payment
+Making a payment is simple! Just call `channel.transfer()`
+
+```javascript
+const payload: TransferParams = { 
+  recipient: "0xabcdef"
+  meta: "Metadata for transfer"
+  amount: "1000" // in Wei
+  assetId: "0x0" // represents ETH
+}
+
+await channel.transfer(payload)
+```
+
+## Withdrawing
+Users can withdraw funds to any recipient address with `channel.withdraw()`. Right now, the node only supports withdrawals in ETH to mitigate spam. When withdrawing, DAI that is in your channel is automatically exchanged for ETH as part of the withdrawal process. If you need DAI (or DAI + ETH) withdrawals, [get in touch](https://discord.gg/raNmNb5) and we can activate them for your channels.
+
+```javascript
+
+const payload: WithdrawParams = { 
+  recipient: // defaults to signer
+  amount: "100"
+  assetId: "0x0"
+}
+
+await channel.withdraw(payload)
+```
+
+
+## What's next?
+
+If you've completed this quickstart guide and want to dive deeper into UX optimizations, continue to [Advanced Integrations](../userDocumentation/advanced).
+
+
+## Additional Resources
+
+Further documentation on the client (types, method reference, etc) can be found [here](../userDocumentation/clientAPI.md).
+
+A live mainnet implementation can be found [here](../userDocumentation/daiCard.md).
+
+
+
+
+
