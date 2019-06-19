@@ -1,6 +1,7 @@
 # Client Method Reference
 
 ## Core Channel Management Methods
+```javascript
 transfer: (TransferParams) =>  Promise<ChannelState>
 deposit: (DepositParams) => Promise<ChannelState>
 exchange: (ExchangeParams) => Promise<ChannelState>
@@ -19,8 +20,10 @@ getChannelState: () => Promise<ChannelState>
 getAppState: (string) => Promise<AppState>
 getApps: () => Promise<string[]>
 getFreeBalance: () => //TODO
+```
 
 ## Low Level Channel API (mapped to CF node)
+```javascript
 createChannel: () => Promise<string>
 proposeInstall: (LowLevelProposeInstallParams) => Promise<string>
 install: (LowLevelInstallParams) => Promise<AppInstance>
@@ -31,3 +34,4 @@ proposeState: (LowLevelProposeStateParams) => //TODO (CF)
 updateState: (LowLevelUpdateStateParams) => //TODO (CF)
 rejectState: (LowLevelRejectStateParams) => //TODO (CF)
 getProposedAppInstance: () => Promise<AppInstance[]>
+```
