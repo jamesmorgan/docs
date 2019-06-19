@@ -7,6 +7,16 @@ If you're interested in:
 2. Running your own node, see [Running your own Node](../nodeDocumentation/runHub.md)
 3. Helping build Connext, see our [Contributor docs](../contributorDocumentation/CONTRIBUTING.md)
 
+## Status
+
+V2.0 of Connext is *live* on the Ethereum mainnet and already being used by some prominent projects in the space to scale their transactions.
+
+This iteration of Connext features basic transaction and conditional transfer support in ETH and all ERC20 tokens. For safety, there are limits on the maximum capacity of channels and transactions. 
+
+V2.0 features one node - currently hosted by Connext - over which transactions are routed. Any [Connext client](../userDocumentation/client.md) can connect to this node. User's funds are completely noncustodial, though there are instances where transfers themselves, while in-flight, may place a trust burden on the node. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../userDocumentation/limitations.md).
+
+V2.x of Connext will feature inter-node routing and the ability for anyone to connect their own node to the Connext Network. When V2.x is released in late Q3, we intend to shut down the Connext-hosted node completely and make the system entirely peer to peer.
+
 ## What is Connext?
 
 Connext is an infrastructure layer on top of Ethereum that enables instant, high volume transactions by reducing the amount of data that needs to be committed to the blockchain. The goal of the Connext Network is to help Ethereum applications scale to large consumer bases by improving their usability and cost. Projects in the space are already using Connext to enable instant wallet to wallet payments, monetize content with microtransactions, power marketplaces, and build games on the Ethereum mainnet!
@@ -34,12 +44,3 @@ If you're looking for more information, here are a few digestible resources on h
 * [State Channels for Dummies Series](https://medium.com/blockchannel/counterfactual-for-dummies-part-1-8ff164f78540)
 * [State Channels for Babies Series](https://medium.com/connext/state-channels-for-babies-c39a8001d9af)
 
-## Status
-
-V1.0 of Connext is *live* on the Ethereum mainnet and already being used by some prominent projects in the space to scale their transactions.
-
-This iteration of Connext features basic transaction support in ETH and the [DAI stablecoin](https://makerdao.com). For safety, there are also limits on the maximum capacity of channels and transactions. Additionally, this iteration of Connext features only one node - currently hosted by Connext - over which transactions are routed, which can be connected to by any [Connext client](../userDocumentation/client.md). User's funds are completely noncustodial, though there are instances where payments themselves, while in-flight, may place a trust burden on the node. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../userDocumentation/limitations.md).
-
-V1.0 is an experiment for the Connext development team to collect usage data on the system and make iterative process towards better ensuring that users *always* have custody over their own funds, even when routing over random and anonymous actors. Development of v2.0 of Connext is currently underway which will solve most of the above limitations. The coming update will move Connext onto the [CounterFactual Framework](https://www.counterfactual.com/) and enable better state update backups, more abstract conditionality for settling payments, much stronger trust-minimization, and the ability to for anyone to run their own node.
-
-At that time, we intend to shut down the Connext-hosted node completely to make the system entirely peer to peer.
