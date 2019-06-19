@@ -39,7 +39,10 @@ Contents
 
     userDocumentation/quickStart
     userDocumentation/walletIntegrations
+    userDocumentation/advanced
+    userDocumentation/limitations
     userDocumentation/clientAPI
+    userDocumentation/types
 
 .. toctree::
     :maxdepth: 2
@@ -53,6 +56,7 @@ Contents
     :maxdepth: 2
     :caption: Contributor Documentation
 
+    contributorDocumentation/protocolDescription
     contributorDocumentation/CONTRIBUTING
     contributorDocumentation/contracts
 

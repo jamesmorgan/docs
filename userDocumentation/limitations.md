@@ -39,7 +39,7 @@ Optimistic payments (`PT_OPTIMISTIC`) combine elements of custodial and noncusto
 
 The hub uses an autocollateralization mechanism that is triggered by any payment made, whether or not the payment was successful. Hubs determine amount of collateral needed in a channel based on the number and value of recent payments made to the recipient. Additionally, there are floors and ceilings implemented by hub operators to minimize the amount of collateral that is locked in hub channels, as well as set a minimum amount of collateral to be maintained in each channel.
 
-Typically, hub balances below 10 DAI will trigger recollateralization. Hubs will put up to 170 DAI in any one channel. These values are configurable, so contact your hub operator for more details. Additionally, check out the [hub](../advanced/hub.md) documentation for additional configurable parameters.
+Typically, hub balances below 10 DAI will trigger recollateralization. Hubs will put up to 170 DAI in any one channel. These values are configurable, so contact your hub operator for more details. Additionally, check out the [hub](../nodeDocumentation/node.md) documentation for additional configurable parameters.
 
 ### Implementer considerations
 

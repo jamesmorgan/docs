@@ -3,8 +3,8 @@
 ## How to get started
 
 If you're interested in:
-1. Integrating state channels into your dApp or wallet, see [Getting Started](../userDocumentation/quickstart)
-2. Running your own node, see [Running your own Node](../nodeDocumentation/runHub.md)
+1. Integrating state channels into your dApp or wallet, see [Getting Started](../userDocumentation/quickStart)
+2. Running your own node, see [Running your own Node](../nodeDocumentation/runNode.md)
 3. Helping build Connext, see our [Contributor docs](../contributorDocumentation/CONTRIBUTING.md)
 
 ## Status
@@ -13,7 +13,7 @@ V2.0 of Connext is *live* on the Ethereum mainnet and already being used by some
 
 This iteration of Connext features basic transaction and conditional transfer support in ETH and all ERC20 tokens. For safety, there are limits on the maximum capacity of channels and transactions. 
 
-V2.0 features one node - currently hosted by Connext - over which transactions are routed. Any [Connext client](../userDocumentation/client.md) can connect to this node. User's funds are completely noncustodial, though there are instances where transfers themselves, while in-flight, may place a trust burden on the node. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../userDocumentation/limitations.md).
+V2.0 features one node - currently hosted by Connext - over which transactions are routed. Any [Connext client](../userDocumentation/clientAPI.md) can connect to this node. User's funds are completely noncustodial, though there are instances where transfers themselves, while in-flight, may place a trust burden on the node. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../userDocumentation/limitations.md).
 
 V2.x of Connext will feature inter-node routing and the ability for anyone to connect their own node to the Connext Network. When V2.x is released in late Q3, we intend to shut down the Connext-hosted node completely and make the system entirely peer to peer.
 
