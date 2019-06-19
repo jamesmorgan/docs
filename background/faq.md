@@ -23,7 +23,7 @@ The Ethereum blockchain already enables trust-minimized payments between peers, 
 ### Does Connext have a token or native currency?
 No. We have no token.
 
-v1.0 of Connext allows transactions to be made in Ether or the Dai stablecoin for the purposes of improving usability. v2.0 of Connext will allow transactions to be made in any Ethereum ERC20 token.
+v2.0 of Connext allows transactions to be made in any Ethereum ERC20 token.
 
 ### How does Connext compare to other state channels solutions?
 Connext is live on the Ethereum mainnet, leverages existing industry standards rather than implementing custom solutions, does not have a token, and focuses largely on usecases related to conditional payments.
