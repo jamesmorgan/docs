@@ -15,7 +15,7 @@ import * as connext from 'connext';
 import { AssetAmount } from 'connext/types';
 ```
 
-The client is instantiated by passing in an object of type [ConnextOptions](../develop/types.md#connextclientoptions).
+The client is instantiated by passing in an object of type [ConnextOptions](../userDocumentation/types.md).
 
 **For web applications:**
 dApps can simple pass a mnemonic and node URL as client options. In Web3-enabled browsers, a `ChannelProvider` will be used in the default Client options.
@@ -31,7 +31,7 @@ Wallet integrations have more optionality; please see [Wallet Integrations](../u
 
 **Setting Up a Channel**
 
-Once you've set your parameters, call `connext.connect()` to register an event listener for changes to the channel. The client emits `onStateChange`, which is triggered each time the Connext internal store is updated. 
+Once you've set your parameters, call `connext.connect()` to establish a connection with your channel. For more information on monitoring you channel, please see [Event Monitoring](../userDocumentation/advanced#event-monitoring)
 ```javascript
   const channel: Channel = await connext.connect(options)
 ```
