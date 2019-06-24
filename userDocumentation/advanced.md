@@ -1,30 +1,6 @@
 # Advanced
 
-## Conditional Transfers
-
-### Installing and Uninstalling Apps
-
-## Predefined Transfer Types
-
-### Link Transfers
-
-### Oracle-based Transfers
-
-### In-flight Swaps
-
-## Writing Custom Apps
-
-### How to Write Custom Contracts
-
-#### Exporting Custom Contract ABI
-
-### Creating a forceMove Update
-
-## Other UX Considerations
-
-### Availability
-
-The wallet must acknowledge every state update by cosigning that state. This means in order to update your channel, the user must be online. We've built several different payment types to help accomodate user availability constraints. 
+## UX Considerations
 
 ### Event Monitoring
 
@@ -48,7 +24,34 @@ CHALLENGE_RESOLVED
 Example:
 
 ```javascript
-connext.on("DEPOSIT_STARTED",() => console.log("Your deposit has begun"));
+connext.on("DEPOSIT_STARTED", () => 
+            { console.log("Your deposit has begun")
+              this.showDepositStarted()
+            });
 ```
 
+### Availability
+
+The wallet must acknowledge every state update by cosigning that state. This means in order to update your channel, the user must be online. We've built several different payment types to help accomodate user availability constraints. 
+
+
+## Conditional Transfers
+
+### Installing and Uninstalling Apps
+
+## Predefined Transfer Types
+
+### Link Transfers
+
+### Oracle-based Transfers
+
+### In-flight Swaps
+
+## Writing Custom Apps
+
+### How to Write Custom Contracts
+
+#### Exporting Custom Contract ABI
+
+### Creating a forceMove Update
 
