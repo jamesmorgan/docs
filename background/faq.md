@@ -26,7 +26,7 @@ No. We have no token.
 v2.0 of Connext allows transactions to be made in any Ethereum ERC20 token.
 
 ### How does Connext compare to other state channels solutions?
-Connext is live on the Ethereum mainnet, leverages existing industry standards rather than implementing custom solutions, does not have a token, and focuses largely on usecases related to conditional payments.
+Connext is live on the Ethereum mainnet, leverages existing industry standards rather than implementing custom solutions, does not have a token, and focuses largely on use cases related to conditional and simple transfers.
 
 Connext is also very easy to use as compared to other solutions! Check out [Quick Start](../userDocumentation/quickStart.md) to learn more.
 
@@ -41,10 +41,10 @@ Even in a multichain world, an overlay clearance network like Connext is still n
 Connext itself does not collect any fees from the network. Nodes providing transaction routing and storage services within the network may collect fees if they choose to do so.
 
 ### How does Connext sustain itself?
-For now, Connext is backed by VCs and grants from the Ethereum Foundation. Long term, the Connext team expects to monetize through selling services for reducing the operating costs of running nodes.
+For now, Connext is backed by VCs and grants from the Ethereum Foundation. Long term, the Connext team expects to monetize through selling ancillary services for reducing the operating costs of running nodes.
 
 ### Is there a whitepaper?
-No. A protocol specification for v1.0 can be found in the [Contracts and Protocols](../contributorDocumentation/contracts.md) section. A protocol specification for the v2.0 update can be found in the [Counterfactual framework documentation](https://specs.counterfactual.com/en/latest/).
+No. A protocol specification for Connext v2.0 can be found in the [Counterfactual framework documentation](https://specs.counterfactual.com/en/latest/).
 
 ## State Channels
 
@@ -53,17 +53,16 @@ In Connext, each state update must be signed by all channel parties and contain 
 
 The dispute resolution contract contains instructions on how a transaction should be resolved, based on the contents of the state update and/or external factors such as time or onchain events.
 
-### Why do you host a single node for v1.0?
-One of the most difficult challenges of channelized networks is ensuring that there is enough *capacity* (or collateral) in a given channel to receive transactions without interrupting the flow of payments. In a relatively simple hub and spoke system, if Alice wants to pay Bob 1 Eth through the Hub, Alice would first pay the Hub 1 Eth in her channel conditionally based on if the Hub would pay 1 Eth to Bob in his channel. To successfully complete this transaction, the Hub would need to *already* have had 1 Eth in Bob's channel, which it could only have done if it knew beforehand that Bob would be the receiver of funds.
+### Why do you host a single node for v2.0?
+One of the most difficult challenges of channelized networks is ensuring that there is enough *capacity* (or collateral) in a given channel to receive transactions without interrupting the flow of payments. In a relatively simple hub and spoke system, if Alice wants to pay Bob 1 Eth through the node, Alice would first pay the node 1 Eth in her channel conditionally based on if the node would pay 1 Eth to Bob in his channel. To successfully complete this transaction, the node would need to *already* have had 1 Eth in Bob's channel, which it could only have done if it knew beforehand that Bob would be the receiver of funds.
 
-It turns out, this is largely a data science problem related to payment behavior. Our goal with running a singular node ourselves for v1.0 was to prioritize usability - by collecting data and coming up with a rebalancing/recollateralization protocol beforehand, we can improve the efficiency of collateral allocation for decentralized nodes in the future.
+It turns out, this is largely a data science problem related to payment behavior. Our goal with running a  node ourselves for v1.0 (and 2.0) is to prioritize usability. By collecting data and coming up with a rebalancing/recollateralization protocol beforehand, we can improve the efficiency of collateral allocation for decentralized nodes in the future.
 
 ### Doesn't that mean you're centralized?
-Yes! This version of Connext is centralized. We fully acknowledge that this is the case and have been transparent about it from first deployment.
+Yes! This version of Connext is centralized. We fully acknowledge that this is the case and have been transparent about it from first deployment. V2.x of Connext, shipping in late Q3 2019, will enable support for transactions routed over multiple nodes, and will make it much simpler for any orgazation or individual to run their own node. At that point, we expect the network to become more and more decentralized.
 
 Note that centralization here is completely different from being custodial. While we are currently the only entity routing and processing transactions, this *does not* mean that we hold user funds in any way. The primary risk here is censorship of payments themselves. Also note that our node implementation is fully open source, so anyone can come run their own node if they wanted to - in fact, many companies already do!
 
-V2.0 of Connext will enable support for transactions routed over multiple nodes, and will make it much simpler for any orgazation or individual to run their own node. At that point, we expect the network to become more and more decentralized.
 
 ## Dai Card
 

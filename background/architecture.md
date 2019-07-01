@@ -1,24 +1,18 @@
-# v1.0 Architecture Overview
+# v2.0 Architecture Overview
 
-Version 1.0 of Connext is composed of three core components. At the core of the platform is our [ChannelManager](https://github.com/ConnextProject/contracts), where users deposit/withdraw funds and which acts as the arbitrator for dispute resolution.
 
-The [Connext client](https://github.com/ConnextProject/connext-client) is a Typescript interface that lets users connect to any Connext hub over HTTP.
-
-Our [Hub](https://github.com/ConnextProject/indra) can be thought of as an automated implementation of the Connext client: its logic automatically manages responding to state updates, routing payments from senders to receivers, and collateralizing channels.
-
-![alt text](https://github.com/ConnextProject/docs/blob/master/ConnextArchitecture.png "Architecture")
 
 ## Indra
 
-[Indra](https://github.com/ConnextProject/indra) is the core implementation repository for Connext. Indra contains ready-for-deployment code for our core contracts, client, Hub, as well as scripts needed to deploy and operate a hub in production. When deploying a hub to production, the most recent docker images will be used.
+[Indra](https://github.com/ConnextProject/indra-v2) is the core implementation repository for Connext. Indra contains ready-for-deployment code for our core contracts, client, node, as well as scripts needed to deploy and operate a node in production. When deploying a node to production, the most recent docker images will be used.
 
-For detailed instructions on how to run the code contained within the repository see the [Running your own Hub](../advanced/runHub.md) guide.
+For detailed instructions on how to run the code contained within the repository see the [Running your own node](../nodeDocumentation/runNode.md) guide.
 
 There are several modules contained within the indra repository:
 
 ### Client
 
-The Connext Client package is a Typescript interface which is used to connect to a hub and communicate over the Connext Network. The client package is available through [NPM](https://www.npmjs.com/package/connext).
+The Connext Client package is a Typescript interface which is used to connect to a node and communicate over the Connext Network. The client package is available through [NPM](https://www.npmjs.com/package/connext).
 
 Clients are ideally integrated directly at the wallet layer. This is because they contain validator code which determines, on behalf of the user, whether a given state is safe to sign. Clients can also be used via a `connextProvider` in a frontend environment to make calls to a hooked client that is hosted in a more trusted environment such as a wallet.
 
@@ -29,29 +23,29 @@ Clients contain the following functionality:
 * Closing a thread and automatically submitting the latest available mutually agreed update.
 * Withdrawing from a channel and automatically submitting the latest available mutually agreed update.
 * Handling a dispute.
-* Generating/signing/sending and validating/receiving state updates over HTTP. The Client takes in the address of the server that is being used to pass messages in the constructor.
+* Generating/signing/sending and validating/receiving state updates over NATS. The Client takes in the address of the server that is being used to pass messages in the constructor.
 
 Payment channel implementations need a communication layer where users can pass signed state updates to each other. The initial implementation of Connext does this through traditional server-client HTTPS requests. While this is the simplest and most effective mechanism for now, we plan to move to a synchronous message passing layer that doesn't depend on a centralized server as soon as possible.
 
-Further documentation on the client can be found [here](../develop/client.md).
+Further documentation on the client can be found [here](../userDocumentation/clientAPI.md).
 
-### Hub
+### node
 
-Hubs can be thought of as an automated implementation of the client. Hubs have the same functionality outlined above, and forward payments between clients.
+nodes can be thought of as an automated implementation of the client. nodes have the same functionality outlined above, and forward payments between clients.
 
 ### Contracts
 
 Our payment channel contracts. Our implementation relies on a combination of the research done by a variety of organizations, including Spankchain, Finality, Althea, Magmo and CounterFactual. Comprehensive documentation are fully [open source](https://github.com/ConnextProject/indra/modules/contracts) and are available [here](../develop/contracts.md).
 
-The contracts repository should only be used for development purposes. The latest stable version of the contracts which works with Hub and Client will always be kept in Indra. **Do not modify the contracts themselves before deploying - this could break the security model of the entire protocol**
+The contracts repository should only be used for development purposes. The latest stable version of the contracts which works with node and Client will always be kept in Indra. **Do not modify the contracts themselves before deploying - this could break the security model of the entire protocol**
 
 ### Dashboard
 
-This is a simple admin UI for easily analyzing recent payment and user information as a hub operator. The dashboard server is accessible at `localhost:3000/api/dashboard` and the UI is served from `localhost:3000/dashboard/` (if running on docker).
+This is a simple admin UI for easily analyzing recent payment and user information as a node operator. The dashboard server is accessible at `localhost:3000/api/dashboard` and the UI is served from `localhost:3000/dashboard/` (if running on docker).
 
 ### Database
 
-Contains all the database migration information to be used by the docker images. Make sure that the migrations in the database module, and in the `hub/migrations` folder are consistent if you are making changes here.
+Contains all the database migration information to be used by the docker images. Make sure that the migrations in the database module, and in the `node/migrations` folder are consistent if you are making changes here.
 
 ### Proxy
 
