@@ -14,6 +14,14 @@ transfer: (TransferParams) =>  Promise<ChannelState>
 
 #### Example
 ```javascript
+const payload: TransferParams = { 
+  recipient: "0xabcdef"
+  meta: "Metadata for transfer"
+  amount: "1000" // in Wei
+  assetId: "0x0" // represents ETH
+}
+
+await transfer(payload)
 ```
 
 ### deposit
@@ -26,6 +34,13 @@ deposit: (DepositParams) => Promise<ChannelState>
 
 #### Example
 ```javascript
+// Making a deposit in ETH
+const payload: AssetAmount = { 
+  amount: '0x3abc', // represented as bignumber
+  assetId: '0x0'    // i.e. Eth
+}
+
+deposit(payload)
 ```
 
 
@@ -39,6 +54,13 @@ exchange: (ExchangeParams) => Promise<ChannelState>
 
 #### Example
 ```javascript
+const payload: ExchangeParams = { 
+  amount: "100" // in Wei
+  toAssetId: "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359" // Dai
+  fromAssetId: "0x0" // ETH
+}
+
+await exchange(payload)
 ```
 
 
@@ -92,6 +114,13 @@ withdraw: (WithdrawParams) => Promise<ChannelState>
 
 #### Example
 ```javascript
+const payload: WithdrawParams = { 
+  recipient: // defaults to signer
+  amount: "100"
+  assetId: "0x0"
+}
+
+await withdraw(payload)
 ```
 
 

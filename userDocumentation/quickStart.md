@@ -62,7 +62,7 @@ const payload: ExchangeParams = {
   fromAssetId: "0x0" // ETH
 }
 
-await connext.exchange(payload)
+await channel.exchange(payload)
 ```
 
 ## Making a Payment
