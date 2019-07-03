@@ -11,7 +11,7 @@
 - A payment company.
 - A custodial wallet or custody solution of any sort.
 - An exchange or other financial service provider.
-- A blockchain of it's own.
+- A blockchain of its own.
 
 **Connext DOES NOT in any way take custody of user funds. We don't even run the code, you do.**
 

@@ -74,19 +74,10 @@ on: (event: ConnextEvent, (cb: any => any) => void) => void
 
 #### Example
 ```javascript
-```
-
-
-### recipientNeedsCollateral
-
-Signal to the intermediate node that the recipient of the payment needs collateral before the payment can be completed.
-
-```javascript
-recipientNeedsCollateral: (string, PartialPayment Payment) => Promise<string|null>
-```
-
-#### Example
-```javascript
+connext.on("DEPOSIT_STARTED", () => 
+            { console.log("Your deposit has begun")
+              this.showDepositStarted()
+            });g
 ```
 
 
