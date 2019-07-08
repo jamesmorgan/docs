@@ -31,17 +31,17 @@ Clients contain the following functionality:
 * Handling a dispute.
 * Generating/signing/sending and validating/receiving state updates over HTTP. The Client takes in the address of the server that is being used to pass messages in the constructor.
 
-Payment channel implementations need a communication layer where users can pass signed state updates to each other. The initial implementation of Connext does this through traditional server-client HTTPS requests. While this is the simplest and most effective mechanism for now, we plan to move to a synchronous message passing layer that doesn't depend on a centralized server as soon as possible.
+State channel implementations need a communication layer where users can pass signed state updates to each other. The initial implementation of Connext does this through traditional server-client HTTPS requests. While this is the simplest and most effective mechanism for now, we plan to move to a synchronous message passing layer that doesn't depend on a centralized server as soon as possible.
 
 Further documentation on the client can be found [here](../develop/client.md).
 
 ### Hub
 
-Hubs can be thought of as an automated implementation of the client. Hubs have the same functionality outlined above, and forward payments between clients.
+Hubs can be thought of as an automated implementation of the client. Hubs have the same functionality outlined above, and forward state update packets between clients.
 
 ### Contracts
 
-Our payment channel contracts. Our implementation relies on a combination of the research done by a variety of organizations, including Spankchain, Finality, Althea, Magmo and CounterFactual. Comprehensive documentation are fully [open source](https://github.com/ConnextProject/indra/modules/contracts) and are available [here](../develop/contracts.md).
+Our state channel contracts. Our implementation relies on a combination of the research done by a variety of organizations, including Spankchain, Finality, Althea, Magmo and CounterFactual. Comprehensive documentation are fully [open source](https://github.com/ConnextProject/indra/modules/contracts) and are available [here](../develop/contracts.md).
 
 The contracts repository should only be used for development purposes. The latest stable version of the contracts which works with Hub and Client will always be kept in Indra. **Do not modify the contracts themselves before deploying - this could break the security model of the entire protocol**
 
@@ -59,4 +59,4 @@ Routing proxy and related configurations.
 
 ## Card
 
-The [card](https://github.com/ConnextProject/card/) is a sample implementation of the client designed to help you bootstrap an application that integrates Connext. It contains a simple inpage wallet and payment interface, as well as a custom Web3 injection that automatically signs transactions using the inpage wallet. For developers just beginning to build their application, the card is a great way to get started; for developers looking to integrate with existing an existing app, it's a good instructive resource for implementation and includes some components that you can easily copy over.
+The [Card](https://github.com/ConnextProject/card/) is a sample implementation of the client designed to help you bootstrap a payment application that integrates Connext. It contains a simple inpage wallet and payment interface, as well as a custom Web3 injection that automatically signs transactions using the inpage wallet. For developers just beginning to build their application, the card is a great way to get started; for developers looking to integrate with existing an existing app, it's a good instructive resource for implementation and includes some components that you can easily copy over.
