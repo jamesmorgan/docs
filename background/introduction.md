@@ -14,7 +14,7 @@ State channels allow many off-chain transactions to be aggregated into just a fe
 
 1. A user opens a channel by depositing their money into a multisignature smart contract with a counterparty. Note that the smart contract runs entirely on the blockchain and so the user remains *entirely* in custody of their own funds.
 
-2. The user transactions by sending signed settlement instructions for how the counterparty can retrieve funds from the smart contract. Because the instructions give the counterparty irrevocable access to part of the funds, the user can make multiple "updates" to their balances while only paying the fees of the initial deposit.
+2. The user transacts by sending signed settlement instructions for how the counterparty can retrieve funds from the smart contract. Because the instructions give the counterparty irrevocable access to part of the funds, the user can make multiple "updates" to their balances while only paying the fees of the initial deposit.
 
 3. When either party is done transacting, they can take the latest update to the smart contract and unlock the finalized funds.
 
@@ -30,8 +30,10 @@ If you're looking for more information, here are a few digestible resources on h
 
 V1.0 of Connext is *live* on the Ethereum mainnet and already being used by some prominent projects in the space to scale their transactions.
 
-This iteration of Connext features basic transaction support in ETH and the [DAI stablecoin](https://makerdao.com). For safety, there are also limits on the maximum capacity of channels and transactions. Additionally, this iteration of Connext features only one node - currently hosted by Connext - over which transactions are routed, which can be connected to by any [Connext client](../develop/client.md). User's funds are completely noncustodial, though there are instances where payments themselves, while in-flight, may place a trust burden on the node. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../usage/limitations.md).
+This iteration of Connext features basic transaction support in ETH and the [DAI stablecoin](https://makerdao.com). For safety, there are also limits on the maximum capacity of channels and transactions. Additionally, this iteration of Connext features only one public node - currently hosted by Connext - over which transactions are routed, which can be connected to by any [Connext client](../develop/client.md). Note that Connext is fully open source and many organizations run their own private Connext nodes.
 
-V1.0 is an experiment for the Connext development team to collect usage data on the system and make iterative process towards better ensuring that users *always* have custody over their own funds, even when routing over random and anonymous actors. Development of v2.0 of Connext is currently underway which will solve most of the above limitations. The coming update will move Connext onto the [CounterFactual Framework](https://www.counterfactual.com/) and enable better state update backups, more abstract conditionality for settling payments, much stronger trust-minimization, and the ability to for anyone to run their own node.
+In Connext, users' funds are completely noncustodial, though there are instances where payments themselves, while in-flight, may place a trust burden on the node. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../usage/limitations.md).
 
-At that time, we intend to shut down the Connext-hosted node completely to make the system entirely peer to peer.
+V1.0 is an experiment for the Connext development team to collect usage data on the system and make iterative process towards better ensuring that users *always* have custody over their own funds, even when update packets are routed over random and anonymous actors. Development of v2 of Connext is currently underway which will solve most of the above limitations. The coming update will move Connext onto the [CounterFactual Framework](https://www.counterfactual.com/) and enable better state update backups, more abstract conditionality for settling payments, much stronger trust-minimization, and the ability for nodes to communicate with each other.
+
+At that time, we intend to shut down the Connext-hosted node completely and let the network be fully p2p.
