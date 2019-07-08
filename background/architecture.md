@@ -34,9 +34,9 @@ Nodes can be thought of as an automated implementation of the client. Nodes have
 
 ### Contracts
 
-Our state channel contracts. Our implementation relies on a combination of the research done by a variety of organizations, including Spankchain, Finality, Althea, Magmo and CounterFactual. Comprehensive documentation are fully [open source](https://github.com/ConnextProject/indra/modules/contracts) and are available [here](../contributorDocumentation/contracts.md).
+Our state channel contracts. Our implementation relies on a combination of the research done by a variety of organizations, including Spankchain, Finality, Althea, Magmo and CounterFactual. Code is fully [open source](https://github.com/counterfactual/monorepo/tree/master/packages/contracts) and protocol description is available [here](../contributorDocumentation/protocolDescriptions.md).
 
-The contracts repository should only be used for development purposes. The latest stable version of the contracts which works with the node and Client will always be kept in Indra. **Do not modify the contracts themselves before deploying - this could break the security model of the entire protocol**
+**Do not modify the contracts themselves before deploying - this could break the security model of the entire protocol**
 
 ### Dashboard
 

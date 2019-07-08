@@ -32,7 +32,7 @@ connext.on("DEPOSIT_STARTED", () =>
 
 ### Availability
 
-The wallet must acknowledge every state update by cosigning that state. This means in order to update your channel, the user must be online. We've built several different payment types to help accomodate user availability constraints. 
+The wallet must acknowledge every state update by cosigning that state. This means in order to update your channel, the user must be online. We've built several different transaction types to help accomodate user availability constraints. 
 
 
 ## Conditional Transfers

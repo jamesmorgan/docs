@@ -51,7 +51,7 @@ channel.deposit(payload)
 ```
 
 ## Exchanging
-For now, our hosted node is opinionated and only [collateralizes](../userDocumentation/limitations.md#Collateral) each channel with DAI by default. (I.e. only DAI payments are allowed) If you need ETH payments, [get in touch](https://discord.gg/raNmNb5) and we'll set you up with Eth-collateralized channels!
+For now, our hosted node is opinionated and only [collateralizes](../userDocumentation/limitations.md#Collateral) each channel with DAI by default. (I.e. only DAI transfers are allowed) If you need ETH transfers, [get in touch](https://discord.gg/raNmNb5) and we'll set you up with Eth-collateralized channels!
 
 Make an in-channel swap with:
 ```javascript
@@ -65,8 +65,8 @@ const payload: ExchangeParams = {
 await channel.exchange(payload)
 ```
 
-## Making a Payment
-Making a payment is simple! Just call `channel.transfer()`
+## Making a Transfer
+Making a transfer is simple! Just call `channel.transfer()`
 
 ```javascript
 const payload: TransferParams = { 

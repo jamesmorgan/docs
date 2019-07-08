@@ -27,7 +27,7 @@ No, Connext does not currently have its own native token. There are no plans for
 V2 of Connext allows transactions to be made in any Ethereum ERC20 token.
 
 ### How does Connext compare to other state channels solutions?
-Connext is live on the Ethereum mainnet, is supported by a growing number of wallets/applications/stakeholders as the industry standard, and focuses largely on use cases related to conditional payments.
+Connext is live on the Ethereum mainnet, is supported by a growing number of wallets/applications/stakeholders as the industry standard, and focuses largely on use cases related to conditional transfers.
 
 Connext is also very easy to use as compared to other solutions! Check out [Quick Start](../userDocumentation/quickStart.md) to learn more.
 
@@ -57,7 +57,7 @@ The dispute resolution contract contains instructions on how a transaction shoul
 ### Why do you host a single node for v2.0?
 One of the most difficult challenges of channelized networks is ensuring that there is enough *capacity* (or collateral) in a given channel to receive transactions without interrupting the flow of updates. 
 
-Let's consider a simple payment usecase in a hub and spoke system: if Alice wants to pay Bob 1 Eth through the Hub, Alice would first pay the Hub 1 Eth in her channel conditionally based on if the Hub would pay 1 Eth to Bob in his channel. To successfully complete this payment, the Hub would need to *already* have had 1 Eth in Bob's channel, which it could only have done if it knew beforehand that Bob would be the receiver of funds.
+Let's consider a simple transfer usecase in a hub and spoke system: if Alice wants to pay Bob 1 Eth through the Hub, Alice would first pay the Hub 1 Eth in her channel conditionally based on if the Hub would pay 1 Eth to Bob in his channel. To successfully complete this transfer, the Hub would need to *already* have had 1 Eth in Bob's channel, which it could only have done if it knew beforehand that Bob would be the receiver of funds.
 
 It turns out, this is largely a data science problem related to user behavior. Our goal with running a singular public node ourselves for v1.0 was to prioritize usability - by collecting data and coming up with a rebalancing/recollateralization protocol beforehand, we can improve the efficiency of collateral allocation for decentralized nodes in the future.
 
@@ -70,13 +70,13 @@ Note that centralization here is completely different from being custodial. Whil
 
 ## Dai Card
 
-### Why is my payment taking so long?
-Some payments can seem to take forever, and it can be difficult to figure out when it happens. This has to do with the collateral requirements of passing on noncustodial payments, and it means that the Connext node is depositing into the receivers channel before agreeing to forward on the payment. This could appear as if your payment has failed, but don't worry, the node is just autocollateralizing onchain!
+### Why is my transfer taking so long?
+Some transfer can seem to take forever, and it can be difficult to figure out when it happens. This has to do with the collateral requirements of forwarding packets noncustodially, and it means that the Connext node is depositing into the receivers channel before agreeing to forward on the packet. This could appear as if your transfer has failed, but don't worry, the node is just autocollateralizing onchain!
 
 Check out the [System Limitations](../userDocumentation/limitations.md) section for more detailed information on the collateral requirements of the system.
 
-### What happened to my linked payment?
-If you did not save the link, it is lost for now. To get your payment refunded, or to regenerate a link, [contact us](https://discordapp.com/invite/yKkzZZm).
+### What happened to my linked transfer?
+If you did not save the link, it is lost for now. To get refunded, or to regenerate a link, [contact us](https://discordapp.com/invite/yKkzZZm).
 
 ### My channel says its not open?
 There are a couple of reasons this may be the case. First, nodes can freely dispute any channels with the latest state to reclaim excess collateral from channels. This could throw a channel into a `CS_CHANNEL_DISPUTE` state. Channels may also be thrown into a `CS_CHAINSAW_ERROR` if there are errors processing events from web3.
