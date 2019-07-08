@@ -1,7 +1,5 @@
 # v2.0 Architecture Overview
 
-
-
 ## Indra
 
 [Indra](https://github.com/ConnextProject/indra-v2) is the core implementation repository for Connext. Indra contains ready-for-deployment code for our core contracts, client, node, as well as scripts needed to deploy and operate a node in production. When deploying a node to production, the most recent docker images will be used.
@@ -29,15 +27,16 @@ Payment channel implementations need a communication layer where users can pass 
 
 Further documentation on the client can be found [here](../userDocumentation/clientAPI.md).
 
-### node
+### Node
 
-nodes can be thought of as an automated implementation of the client. nodes have the same functionality outlined above, and forward payments between clients.
+Nodes can be thought of as an automated implementation of the client. Nodes have the same functionality outlined above, and forward state update packets between clients.
+
 
 ### Contracts
 
-Our payment channel contracts. Our implementation relies on a combination of the research done by a variety of organizations, including Spankchain, Finality, Althea, Magmo and CounterFactual. Comprehensive documentation are fully [open source](https://github.com/ConnextProject/indra/modules/contracts) and are available [here](../develop/contracts.md).
+Our state channel contracts. Our implementation relies on a combination of the research done by a variety of organizations, including Spankchain, Finality, Althea, Magmo and CounterFactual. Comprehensive documentation are fully [open source](https://github.com/ConnextProject/indra/modules/contracts) and are available [here](../contributorDocumentation/contracts.md).
 
-The contracts repository should only be used for development purposes. The latest stable version of the contracts which works with node and Client will always be kept in Indra. **Do not modify the contracts themselves before deploying - this could break the security model of the entire protocol**
+The contracts repository should only be used for development purposes. The latest stable version of the contracts which works with the node and Client will always be kept in Indra. **Do not modify the contracts themselves before deploying - this could break the security model of the entire protocol**
 
 ### Dashboard
 
@@ -53,4 +52,4 @@ Routing proxy and related configurations.
 
 ## Card
 
-The [card](https://github.com/ConnextProject/card/) is a sample implementation of the client designed to help you bootstrap an application that integrates Connext. It contains a simple inpage wallet and payment interface, as well as a custom Web3 injection that automatically signs transactions using the inpage wallet. For developers just beginning to build their application, the card is a great way to get started; for developers looking to integrate with existing an existing app, it's a good instructive resource for implementation and includes some components that you can easily copy over.
+The [Card](https://github.com/ConnextProject/card/) is a sample implementation of the client designed to help you bootstrap a payment application that integrates Connext. It contains a simple inpage wallet and payment interface, as well as a custom Web3 injection that automatically signs transactions using the inpage wallet. For developers just beginning to build their application, the card is a great way to get started; for developers looking to integrate with existing an existing app, it's a good instructive resource for implementation and includes some components that you can easily copy over.

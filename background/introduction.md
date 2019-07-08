@@ -13,9 +13,10 @@ V2.0 of Connext is *live* on the Ethereum mainnet and already being used by some
 
 This iteration of Connext features basic transaction and conditional transfer support in ETH and all ERC20 tokens. For safety, there are limits on the maximum capacity of channels and transactions. 
 
-V2.0 features one node - currently hosted by Connext - over which transactions are routed. Any [Connext client](../userDocumentation/clientAPI.md) can connect to this node. User's funds are completely noncustodial, though there are instances where transfers themselves, while in-flight, may place a trust burden on the node. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../userDocumentation/limitations.md).
+V2.0 features one node - currently hosted by Connext - over which transactions are routed. Any [Connext client](../userDocumentation/clientAPI.md) can connect to this node. In Connext, users' funds are completely noncustodial, though there are instances where transfers themselves, while in-flight, may place a trust burden on the node. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../userDocumentation/limitations.md).
 
 V2.x of Connext will feature inter-node routing and the ability for anyone to connect their own node to the Connext Network. When V2.x is released in late Q3, we intend to shut down the Connext-hosted node completely and make the system entirely peer to peer.
+
 
 ## What is Connext?
 
@@ -32,7 +33,7 @@ State channels allow many off-chain transactions to be aggregated into just a fe
 
 1. A user opens a channel by depositing their money into a multisignature smart contract with a counterparty. Note that the smart contract runs entirely on the blockchain and so the user remains *entirely* in custody of their own funds.
 
-2. The user transactions by sending signed settlement instructions for how the counterparty can retrieve funds from the smart contract. Because the instructions give the counterparty irrevocable access to part of the funds, the user can make multiple "updates" to their balances while only paying the fees of the initial deposit.
+2. The user transacts by sending signed settlement instructions for how the counterparty can retrieve funds from the smart contract. Because the instructions give the counterparty irrevocable access to part of the funds, the user can make multiple "updates" to their balances while only paying the fees of the initial deposit.
 
 3. When either party is done transacting, they can take the latest update to the smart contract and unlock the finalized funds.
 
