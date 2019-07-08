@@ -16,29 +16,29 @@
 **Connext DOES NOT in any way take custody of user funds. We don't even run the code, you do.**
 
 ### What problems does Connext solve?
-Connext makes it possible to build scalable payment and transaction-related applications on the Ethereum blockchain. 
+Connext makes it possible to build scalable decentralized applications on the Ethereum blockchain. 
 
-The Ethereum blockchain already enables trust-minimized payments between peers, but these payments have high costs and slow confirmation times. This makes the Ethereum blockchain very suitable as a settlement layer, but not usable for many day-to-day usecases. Connext reduces the number of transactions that need to be put onto Ethereum without changing the core decentralization and trust-minimization properties of Ethereum itself.
+The Ethereum blockchain already enables trust-minimized transactions between peers, but these transactions have high fees and slow confirmation times. This makes the Ethereum blockchain very suitable as a settlement layer, but not usable for day-to-day usecases. Connext reduces the number of transactions that need to be put onto Ethereum without changing the core decentralization and trust-minimization properties of Ethereum itself.
 
-### Does Connext have a token or native currency?
-No. We have no token.
+### Does Connext have a token or native currency? Will Connext do an ICO/IEO?
+No, currently Connext does not have it's own native token. There are no plans for Connext to ever do an ICO/IEO.
 
-v1.0 of Connext allows transactions to be made in Ether or the Dai stablecoin for the purposes of improving usability. v2.0 of Connext will allow transactions to be made in any Ethereum ERC20 token.
+v1 of Connext allows transactions to be made in Ether or the Dai stablecoin for the purposes of improving usability. v2 of Connext will allow transactions to be made in any Ethereum ERC20 token.
 
 ### How does Connext compare to other state channels solutions?
-Connext is live on the Ethereum mainnet, leverages existing industry standards rather than implementing custom solutions, does not have a token, and focuses largely on usecases related to conditional payments.
+Connext is live on the Ethereum mainnet, is supported by a growing number of wallets/applications/stakeholders as the industry standard, and focuses largely on usecases related to conditional payments.
 
 Connext is also very easy to use as compared to other solutions! Check out [Quick Start](../usage/gettingStarted.md) to learn more.
 
 ### How does Connext compare to Plasma/sidechains?
-Plasma is a framework for scaling Ethereum capacity by using hierarchical sidechains. Plasma helps Ethereum scale *out* (i.e. allowing for more parallel processing) rather than scaling *up* (i.e. allowing for more transactions per block). 
+Plasma is a framework for scaling Ethereum capacity by using hierarchical sidechains with mechanisms to ensure economic finality. Plasma helps Ethereum scale *out* (i.e. allowing for more parallel processing) rather than scaling *up* (i.e. allowing for more transactions per block). 
 
-The way that plasma is theorized right now still places a minor amount of trust on the plasma operator as the plasma chain custodies your assets entirely which can be lost if the chain is shut down. With Connext, your assets are always yours - they are stored in a contract which *you* have the keys to.
+This means that plasma scales transactions around a specific ecosystem, rather than being massively horizontally scalable across the entirety of the Ethereum network (and other chains). Think of the difference between the transactional activity related to Uber vs the transactional activity related to Visa/Mastercard.
 
-Even in a multichain world, an overlay clearance network like Connext is still needed for seamless UX.
+Plasma and Connext are mutually beneficial to one another. Wallets that implement Connext at scale may need plasma-like solutions for seamless end user experience. Plasma chains will need Connext to allow for interoperability and to allow users to utilize funds locked on the plasma chain without waiting for long exit timeouts.
 
 ### Are there fees?
-Connext itself does not collect any fees from the network. Nodes providing transaction routing and storage services within the network may collect fees if they choose to do so.
+Connext itself does not collect any fees from the network. Nodes providing packet routing and storage services within the network may collect fees if they choose to do so.
 
 ### How does Connext sustain itself?
 For now, Connext is backed by VCs and grants from the Ethereum Foundation. Long term, the Connext team expects to monetize through selling services for reducing the operating costs of running nodes.
@@ -54,16 +54,18 @@ In Connext, each state update must be signed by all channel parties and contain 
 The dispute resolution contract contains instructions on how a transaction should be resolved, based on the contents of the state update and/or external factors such as time or onchain events.
 
 ### Why do you host a single node for v1.0?
-One of the most difficult challenges of channelized networks is ensuring that there is enough *capacity* (or collateral) in a given channel to receive transactions without interrupting the flow of payments. In a relatively simple hub and spoke system, if Alice wants to pay Bob 1 Eth through the Hub, Alice would first pay the Hub 1 Eth in her channel conditionally based on if the Hub would pay 1 Eth to Bob in his channel. To successfully complete this transaction, the Hub would need to *already* have had 1 Eth in Bob's channel, which it could only have done if it knew beforehand that Bob would be the receiver of funds.
+One of the most difficult challenges of channelized networks is ensuring that there is enough *capacity* (or collateral) in a given channel to receive transactions without interrupting the flow of updates. 
 
-It turns out, this is largely a data science problem related to payment behavior. Our goal with running a singular node ourselves for v1.0 was to prioritize usability - by collecting data and coming up with a rebalancing/recollateralization protocol beforehand, we can improve the efficiency of collateral allocation for decentralized nodes in the future.
+Let's consider a simple payment usecase in a hub and spoke system: if Alice wants to pay Bob 1 Eth through the Hub, Alice would first pay the Hub 1 Eth in her channel conditionally based on if the Hub would pay 1 Eth to Bob in his channel. To successfully complete this payment, the Hub would need to *already* have had 1 Eth in Bob's channel, which it could only have done if it knew beforehand that Bob would be the receiver of funds.
+
+It turns out, this is largely a data science problem related to user behavior. Our goal with running a singular public node ourselves for v1.0 was to prioritize usability - by collecting data and coming up with a rebalancing/recollateralization protocol beforehand, we can improve the efficiency of collateral allocation for decentralized nodes in the future.
 
 ### Doesn't that mean you're centralized?
 Yes! This version of Connext is centralized. We fully acknowledge that this is the case and have been transparent about it from first deployment.
 
-Note that centralization here is completely different from being custodial. While we are currently the only entity routing and processing transactions, this *does not* mean that we hold user funds in any way. The primary risk here is censorship of payments themselves. Also note that our node implementation is fully open source, so anyone can come run their own node if they wanted to - in fact, many companies already do!
+Note that centralization here is completely different from being custodial. While we are currently the only entity routing and processing packets, this *does not* mean that we hold user funds in any way. The primary risk here is censorship of transactions themselves. Also note that our node implementation is fully open source, so anyone can come run their own node if they wanted to - in fact, many companies already do!
 
-V2.0 of Connext will enable support for transactions routed over multiple nodes, and will make it much simpler for any orgazation or individual to run their own node. At that point, we expect the network to become more and more decentralized.
+V2.0 of Connext will enable support for packets routed over multiple nodes, and will make it much simpler for any orgazation or individual to run their own node. At that point, we expect the network to become more and more decentralized.
 
 ## Dai Card
 
