@@ -2,7 +2,7 @@
 
 ## Indra
 
-[Indra](https://github.com/ConnextProject/indra-v2) is the core implementation repository for Connext. Indra contains ready-for-deployment code for our core contracts, client, node, as well as scripts needed to deploy and operate a node in production. When deploying a node to production, the most recent docker images will be used.
+[Indra](https://github.com/ConnextProject/indra-v2) is the core implementation repository for Connext. Indra-v2 contains ready-for-deployment code for our core contracts, client, node, as well as scripts needed to deploy and operate a node in production. When deploying a node to production, the most recent docker images will be used.
 
 For detailed instructions on how to run the code contained within the repository see the [Running your own node](../nodeDocumentation/runNode.md) guide.
 
@@ -23,7 +23,7 @@ Clients contain the following functionality:
 * Handling a dispute.
 * Generating/signing/sending and validating/receiving state updates over NATS. The Client takes in the address of the server that is being used to pass messages in the constructor.
 
-Payment channel implementations need a communication layer where users can pass signed state updates to each other. The initial implementation of Connext does this through traditional server-client HTTPS requests. While this is the simplest and most effective mechanism for now, we plan to move to a synchronous message passing layer that doesn't depend on a centralized server as soon as possible.
+State channel implementations need a communication layer where users can pass signed state updates to each other. The initial implementation of Connext does this through traditional server-client HTTPS requests. While this is the simplest and most effective mechanism for now, we plan to move to a synchronous message passing layer that doesn't depend on a centralized server as soon as possible.
 
 Further documentation on the client can be found [here](../userDocumentation/clientAPI.md).
 
@@ -34,13 +34,13 @@ Nodes can be thought of as an automated implementation of the client. Nodes have
 
 ### Contracts
 
-Our state channel contracts. Our implementation relies on a combination of the research done by a variety of organizations, including Spankchain, Finality, Althea, Magmo and CounterFactual. Code is fully [open source](https://github.com/counterfactual/monorepo/tree/master/packages/contracts) and protocol description is available [here](../contributorDocumentation/protocolDescriptions.md).
+Connext is built on Counterfactual's contracts. Code is fully [open source](https://github.com/counterfactual/monorepo/tree/master/packages/contracts) and protocol description is available [here](../contributorDocumentation/protocolDescriptions.md).
 
 **Do not modify the contracts themselves before deploying - this could break the security model of the entire protocol**
 
 ### Dashboard
 
-This is a simple admin UI for easily analyzing recent payment and user information as a node operator. The dashboard server is accessible at `localhost:3000/api/dashboard` and the UI is served from `localhost:3000/dashboard/` (if running on docker).
+This is a simple admin UI for easily analyzing recent transaction and user information as a node operator. The dashboard server is accessible at `localhost:3000/api/dashboard` and the UI is served from `localhost:3000/dashboard/` (if running on docker).
 
 ### Database
 
@@ -52,4 +52,4 @@ Routing proxy and related configurations.
 
 ## Card
 
-The [Card](https://github.com/ConnextProject/card/) is a sample implementation of the client designed to help you bootstrap a payment application that integrates Connext. It contains a simple inpage wallet and payment interface, as well as a custom Web3 injection that automatically signs transactions using the inpage wallet. For developers just beginning to build their application, the card is a great way to get started; for developers looking to integrate with existing an existing app, it's a good instructive resource for implementation and includes some components that you can easily copy over.
+The [Card](https://github.com/ConnextProject/card/) is a sample implementation of the client designed to help you bootstrap a s application that integrates Connext. It contains a simple inpage wallet and payment interface, as well as a custom Web3 injection that automatically signs transactions using the inpage wallet. For developers just beginning to build their application, the card is a great way to get started; for developers looking to integrate with existing an existing app, it's a good instructive resource for implementation and includes some components that you can easily copy over.

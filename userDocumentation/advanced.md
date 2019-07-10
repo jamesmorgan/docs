@@ -1,6 +1,21 @@
 # Advanced
 
-## UX Considerations
+## Monitoring your channel
+
+### Accessing Channel State
+
+Information about channel state can be accessed with `getChannel()`. This includes current node and client balances, availability of channel, and more. 
+
+#### Usage Example
+
+`getChannel()` can be used (for example) to stop execution if certain conditions are not met:
+
+```javascript
+    if (!(await channel.getChannel()).available) {
+      console.warn(`Channel not available yet.`);
+      return;
+    }
+```
 
 ### Event Monitoring
 

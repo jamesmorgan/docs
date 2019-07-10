@@ -64,7 +64,7 @@ It turns out, this is largely a data science problem related to user behavior. O
 ### Doesn't that mean you're centralized?
 Yes! This version of Connext is centralized. We fully acknowledge that this is the case and have been transparent about it from first deployment. 
 
-V2.x of Connext, shipping in late Q3 2019, will enable support for transactions routed over multiple nodes, and will make it much simpler for any orgazation or individual to run their own node. At that point, we expect the network to become more and more decentralized.
+V2.x of Connext, shipping in late Q3 2019, will enable support for transactions routed over multiple nodes, and will make it much simpler for any organization or individual to run their own node. At that point, we expect the network to become more and more decentralized.
 
 Note that centralization here is completely different from being custodial. While we are currently the only entity routing and processing packets, this *does not* mean that we hold user funds in any way. The primary risk here is censorship of transactions themselves. Also note that our node implementation is fully open source, so anyone can come run their own node if they wanted to - in fact, many companies already do!
 
