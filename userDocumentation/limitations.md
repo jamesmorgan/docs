@@ -20,9 +20,9 @@ Link payments are a useful tool for onboarding new users and/or creating prepaid
 
 ## Autocollateralization
 
-The node uses an autocollateralization mechanism that is triggered by any payment made, whether or not the payment was successful. Nodes determine amount of collateral needed in a channel based on the number and value of recent payments made to the recipient. Additionally, there are floors and ceilings implemented by node operators to minimize the amount of collateral that is locked in node channels, as well as set a minimum amount of collateral to be maintained in each channel.
+The node uses an autocollateralization mechanism that is triggered by any payment made, whether or not the payment was successful. Nodes determine amount of collateral needed based on user profiles (e.g., in a retail environment the cashier might be assigned a profile that gives them a large amount of collateral so they can receive many payments). Additionally, there are floors and ceilings implemented by node operators to minimize the amount of collateral that is locked in node channels, as well as set a minimum amount of collateral to be maintained in each channel.
 
-Typically, node balances below 10 DAI will trigger recollateralization. Connext's hosted node will put up to 170 DAI in any one channel. These values are configurable, so contact your node operator for more details. Additionally, check out the [node](../nodeDocumentation/node.md) documentation for additional configurable parameters.
+Check out the [node](../nodeDocumentation/node.md) documentation for additional configurable parameters.
 
 ### Implementer considerations
 
