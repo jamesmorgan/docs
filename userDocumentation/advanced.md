@@ -8,10 +8,11 @@ Information about channel state can be accessed with `getChannel()`. This includ
 
 #### Usage Example
 
-`getChannel()` can be used (for example) to stop execution if certain conditions are not met:
+Information about channel state retrieved with `getChannel()` can be used (for example) to stop execution if certain conditions are not met:
 
 ```javascript
-    if (!(await channel.getChannel()).available) {
+    var channelAvailable = await channel.getChannel()).available
+    if (!channelAvailable) {
       console.warn(`Channel not available yet.`);
       return;
     }
