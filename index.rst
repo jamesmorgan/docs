@@ -58,7 +58,6 @@ Contents
 
     contributorDocumentation/protocolDescription
     contributorDocumentation/CONTRIBUTING
-    contributorDocumentation/contracts
 
 
 

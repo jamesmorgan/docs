@@ -34,7 +34,7 @@ Nodes can be thought of as an automated implementation of the client. Nodes have
 
 ### Contracts
 
-Connext is built on Counterfactual's contracts. Code is fully [open source](https://github.com/counterfactual/monorepo/tree/master/packages/contracts) and protocol description is available [here](../contributorDocumentation/protocolDescriptions.md).
+Connext is built on Counterfactual's contracts. Code is fully [open source](https://github.com/counterfactual/monorepo/tree/master/packages/contracts) and protocol description is available [here](../contributorDocumentation/protocolDescription.md).
 
 **Do not modify the contracts themselves before deploying - this could break the security model of the entire protocol**
 
