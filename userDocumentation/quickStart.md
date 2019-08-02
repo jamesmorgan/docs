@@ -5,14 +5,13 @@ We will connect to the Connext Rinkeby node hosted at `https://rinkeby.node.conn
 
 ## Installation
 Installing the client is simple. In your project root,
-```npm install --save connext@latest```
+```npm install --save @connext/client;```
 
 
 ## Instantiating the Client
 Import the client into your code:
 ```javascript
-import * as connext from 'connext';
-import { AssetAmount } from 'connext/types';
+import * as connext from '@connext/client';
 ```
 
 The client is instantiated by passing in an object of type [ConnextOptions](../userDocumentation/types.md).
@@ -22,7 +21,7 @@ dApps can simple pass a mnemonic and node URL as client options. In Web3-enabled
 ```javascript
 const options: ClientOptions = {
   mnemonic: 'Apple Banana ...',
-  nodeUrl: 'nats://node.connext.network',
+  nodeUrl: 'ws://indra-v2.node.connext.network',
 }
 ```
 
@@ -31,7 +30,9 @@ Wallet integrations have more optionality; please see [Wallet Integrations](../u
 
 **Setting Up a Channel**
 
-Once you've set your parameters, call `connext.connect()` to establish a connection with your channel. For more information on monitoring you channel, please see [Event Monitoring](../userDocumentation/advanced#event-monitoring)
+Once you've set your parameters, call `connext.connect()` to establish a connection with your channel. If you're using React, it can be helpful to save this instance to state.
+
+For more information on monitoring you channel, please see [Event Monitoring](../userDocumentation/advanced#event-monitoring)
 ```javascript
   const channel: Channel = await connext.connect(options)
 ```
@@ -44,7 +45,7 @@ After instantiating and starting Connext, you can deposit into a channel with `c
 // Making a deposit in ETH
 const payload: AssetAmount = { 
   amount: '0x3abc', // represented as bignumber
-  assetId: '0x0'    // i.e. Eth
+  assetId: // Use the AddressZero constant from ethers.js to represent ETH, or enter the token address
 }
 
 channel.deposit(payload)
@@ -59,21 +60,21 @@ Make an in-channel swap with:
 const payload: ExchangeParams = { 
   amount: "100" // in Wei
   toAssetId: "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359" // Dai
-  fromAssetId: "0x0" // ETH
+  fromAssetId: AddressZero // ETH
 }
 
 await channel.exchange(payload)
 ```
 
 ## Making a Transfer
-Making a transfer is simple! Just call `channel.transfer()`
+Making a transfer is simple! Just call `channel.transfer()`. Recipient is identified by the counterparty's xPub identifier, which you can find with `channel.publicIdentifier`.
 
 ```javascript
 const payload: TransferParams = { 
-  recipient: "0xabcdef"
+  recipient: "xpub1abcdef"  //
   meta: "Metadata for transfer"
   amount: "1000" // in Wei
-  assetId: "0x0" // represents ETH
+  assetId: AddressZero // represents ETH
 }
 
 await channel.transfer(payload)
