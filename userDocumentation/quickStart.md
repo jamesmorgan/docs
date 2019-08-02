@@ -75,7 +75,7 @@ Wallet integrations have more optionality in terms of client options, including 
 
 **Setting Up a Channel**
 
-Once you've set your parameters, call `connext.connect()` to establish a connection with your channel. If you're using React, it can be helpful to save this instance to state.
+Once you've set your parameters, call `connext.connect()` to establish a connection with your channel. If you're using React, it can be helpful to set up your channel and save the instance to state in `componentDidMount`.
 
 For more information on monitoring you channel, please see [Event Monitoring](../userDocumentation/advanced#event-monitoring)
 ```javascript
