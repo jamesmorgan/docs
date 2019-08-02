@@ -9,19 +9,62 @@ Installing the client is simple. In your project root,
 
 
 ## Instantiating the Client
+
+
 Import the client into your code:
 ```javascript
 import * as connext from '@connext/client';
 ```
 
-The client is instantiated by passing in an object of type [ConnextOptions](../userDocumentation/types.md).
+Set up your store (for now, copy/paste the code below):
+```javascript
+export const store = {
+    get: (key) => {
+      const raw = localStorage.getItem(`CF_NODE:${key}`)
+      if (raw) {
+        try {
+          return JSON.parse(raw);
+        } catch {
+          return raw;
+        }
+      }
+      // Handle partial matches so the following line works -.-
+      // https://github.com/counterfactual/monorepo/blob/master/packages/node/src/store.ts#L54
+      const partialMatches = {}
+      for (const k of Object.keys(localStorage)) {
+        if (k.includes(`${key}/`)) {
+          try {
+            partialMatches[k.replace('CF_NODE:', '').replace(`${key}/`, '')] = JSON.parse(localStorage.getItem(k))
+          } catch {
+            partialMatches[k.replace('CF_NODE:', '').replace(`${key}/`, '')] = localStorage.getItem(k)
+          }
+        }
+      }
+      return partialMatches;
+    },
+    set: (pairs, allowDelete) => {
+      for (const pair of pairs) {
+        localStorage.setItem(
+          `CF_NODE:${pair.key}`,
+          typeof pair.value === 'string' ? pair.value : JSON.stringify(pair.value),
+        );
+      }
+    }
+  };
+```
+
+
+
+Once your store is set up, instantiate the client by passing in an object of type [ConnextOptions](../userDocumentation/types.md).
 
 **For web applications:**
 dApps can simple pass a mnemonic and node URL as client options. In Web3-enabled browsers, a `ChannelProvider` will be used in the default Client options.
 ```javascript
 const options: ClientOptions = {
   mnemonic: 'Apple Banana ...',
-  nodeUrl: 'ws://indra-v2.node.connext.network',
+  nodeUrl: 'ws://indra-v2.connext.network/api/messaging',
+  ethProviderUrl: `https://indra-v2.connext/api/ethprovider`,
+  store
 }
 ```
 
@@ -45,7 +88,7 @@ After instantiating and starting Connext, you can deposit into a channel with `c
 // Making a deposit in ETH
 const payload: AssetAmount = { 
   amount: '0x3abc', // represented as bignumber
-  assetId: // Use the AddressZero constant from ethers.js to represent ETH, or enter the token address
+  assetId: AddressZero // Use the AddressZero constant from ethers.js to represent ETH, or enter the token address
 }
 
 channel.deposit(payload)
