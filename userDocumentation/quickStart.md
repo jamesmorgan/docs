@@ -84,7 +84,7 @@ For more information on monitoring you channel, please see [Event Monitoring](..
 
 
 ## Depositing
-After instantiating and starting Connext, you can deposit into a channel with `channel.deposit`. Our hosted node accepts deposits in both ETH and DAI. However, when depositing tokens, ensure the user has sufficient ETH remaining in their wallet to afford the gas of the deposit transaction.
+After instantiating and starting Connext, you can deposit into a channel with `channel.deposit`. Our hosted node accepts deposits in ETH and all ERC20 tokens. However, when depositing tokens, ensure the user has sufficient ETH remaining in their wallet to afford the gas of the deposit transaction.
 
 ```javascript
 // Making a deposit in ETH
@@ -97,7 +97,7 @@ channel.deposit(payload)
 ```
 
 ## Exchanging
-For now, our hosted node is opinionated and only [collateralizes](../userDocumentation/limitations.md#Collateral) each channel with DAI by default. (I.e. only DAI transfers are allowed) If you need ETH transfers, [get in touch](https://discord.gg/raNmNb5) and we'll set you up with Eth-collateralized channels!
+For now, our testnet node is opinionated and only [collateralizes](../userDocumentation/limitations.md#Collateral) each channel with DAI by default. (E.e. only DAI transfers are allowed) If you need ETH transfers, [get in touch](https://discord.gg/raNmNb5) and we'll set you up with Eth-collateralized channels!
 
 Make an in-channel swap with:
 ```javascript
@@ -112,7 +112,7 @@ await channel.exchange(payload)
 ```
 
 ## Making a Transfer
-Making a transfer is simple! Just call `channel.transfer()`. Recipient is identified by the counterparty's xPub identifier, which you can find with `channel.publicIdentifier`.
+Making a transfer is simple! Just call `channel.transfer()`. Recipient is identified by the counterparty's xPub identifier, which you can find with `channel.publicIdentifier`. 
 
 ```javascript
 const payload: TransferParams = { 
