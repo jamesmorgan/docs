@@ -68,8 +68,10 @@ const options: ClientOptions = {
 }
 ```
 
+Note: The node URL defines the transport layer and should be prefixed with `ws://` in most cases. If you're building a non-browser-based implementation, however, you may need to use `nats://`.
+
 **For wallets:**
-Wallet integrations have more optionality; please see [Wallet Integrations](../userDocumentation/walletIntegrations) to read more.
+Wallet integrations have more optionality in terms of client options, including the ability to pass in a provider; please see [Wallet Integrations](../userDocumentation/walletIntegrations) to read more.
 
 **Setting Up a Channel**
 
