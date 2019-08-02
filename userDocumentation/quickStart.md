@@ -16,7 +16,7 @@ Import the client into your code:
 import * as connext from '@connext/client';
 ```
 
-Set up your store (for now, copy/paste the code below):
+Set up your store (for now, if you're building a web app it's easiest to copy/paste the following code):
 ```javascript
 export const store = {
     get: (key) => {
