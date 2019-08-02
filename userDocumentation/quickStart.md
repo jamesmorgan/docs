@@ -101,7 +101,7 @@ Make an in-channel swap with:
 ```javascript
   // Exchanging Wei for Dai
 const payload: ExchangeParams = { 
-  amount: "100" // in Wei
+  amount: "0x3abc" // in Wei, represented as bignumber
   toAssetId: "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359" // Dai
   fromAssetId: AddressZero // ETH
 }
@@ -114,9 +114,9 @@ Making a transfer is simple! Just call `channel.transfer()`. Recipient is identi
 
 ```javascript
 const payload: TransferParams = { 
-  recipient: "xpub1abcdef"  //
+  recipient: "xpub1abcdef"  //counterparty's xPub
   meta: "Metadata for transfer"
-  amount: "1000" // in Wei
+  amount: "0x3abc" // in Wei, represented as bignumber
   assetId: AddressZero // represents ETH
 }
 
@@ -129,9 +129,9 @@ Users can withdraw funds to any recipient address with `channel.withdraw()`. Rig
 ```javascript
 
 const payload: WithdrawParams = { 
-  recipient: // defaults to signer
-  amount: "100"
-  assetId: "0x0"
+  recipient: // defaults to signer xpub but can be changed to withdraw to any recipient
+  amount: "0x3abc" // in Wei, represented as bignumber
+  assetId: AddressZero
 }
 
 await channel.withdraw(payload)
