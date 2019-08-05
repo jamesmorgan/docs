@@ -62,8 +62,8 @@ dApps can simple pass a mnemonic and node URL as client options. In Web3-enabled
 ```javascript
 const options: ClientOptions = {
   mnemonic: 'Apple Banana ...',
-  nodeUrl: 'ws://indra-v2.connext.network/api/messaging',
-  ethProviderUrl: `https://indra-v2.connext/api/ethprovider`,
+  nodeUrl: 'wss://indra-v2.connext.network/api/messaging',
+  ethProviderUrl: `https://indra-v2.connext.network/api/ethprovider`,
   store
 }
 ```
