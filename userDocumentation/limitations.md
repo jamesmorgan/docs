@@ -1,7 +1,5 @@
 # Additional Considerations
 
-**OUT OF DATE**
-
 There are a few considerations to be aware of as an implementer.
 
 ## Availability
@@ -35,7 +33,7 @@ The node can reclaim collateral by disputing the channel, or by the client submi
 
 ## Current Trust Assumptions
 
-While the underlying protocol is completely noncustodial, there are trust assumptions to the Dai Card implementation which we want to make explicit. We are actively addressing these assumptions, so expect this section to change over the next few months.
+While the underlying protocol is completely noncustodial, there are trust assumptions which we want to make explicit. We are actively addressing these assumptions, so expect this section to change over the next few months.
 
 ### You don’t always have access to your state
 
@@ -49,4 +47,4 @@ Our hosted node is currently operated by us (Connext) and is centralized off-cha
 
 In practice, this means that the node could refuse to transfer payments; however, the node is noncustodial and *cannot steal user funds*. 
 
-Hosting a node is an interim solution to solve cheap, fast transfers now while we work on building out the remaining pieces needed for a decentralized state channel network. We can fix our own centralization by allowing other Connext nodes (at that point, nodes) to be networked together, and by making it easy for anyone to run a node. These changes will require some quality of life improvements to our contract functions, however, so we expect to only start work on them after our next contract iteration is deployed.
+Hosting a node is an interim solution to solve cheap, fast transfers now while we work on building out the remaining pieces needed for a decentralized state channel network. We can fix our own centralization by allowing other Connext nodes (at that point, nodes) to be networked together, and by making it easy for anyone to run a node.
