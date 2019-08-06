@@ -47,4 +47,4 @@ Our hosted node is currently operated by us (Connext) and is centralized off-cha
 
 In practice, this means that the node could refuse to transfer payments; however, the node is noncustodial and *cannot steal user funds*. 
 
-Hosting a node is an interim solution to solve cheap, fast transfers now while we work on building out the remaining pieces needed for a decentralized state channel network. We can fix our own centralization by allowing other Connext nodes (at that point, nodes) to be networked together, and by making it easy for anyone to run a node.
+Hosting a node is an interim solution to solve cheap, fast transfers now while we work on building out the remaining pieces needed for a decentralized state channel network. We can fix our own centralization by allowing other Connext nodes to be networked together, and by making it easy for anyone to run a node.
