@@ -1,7 +1,11 @@
 # Quick Start
 Like [web3.js](https://web3js.readthedocs.io/), the Connext client is a collection of libraries that allow you to interact with a local or remote Connext node.
 
+<<<<<<< HEAD
 We will connect to the Connext Rinkeby node hosted at `https://indra-v2.connext.network/api/messaging` using the Connext client. If you don't have any Rinkeby ETH, we recommend you get some from a [faucet](https://faucet.rinkeby.io/) before continuing with this guide.
+=======
+We will connect to the Connext Rinkeby node hosted at `https://rinkeby.indra.connext.network` using the Connext client. If you don't have any Rinkeby ETH, we recommend you get some from a [faucet](https://faucet.rinkeby.io/) before continuing with this guide.
+>>>>>>> b7190c7584973f6ea215c48d64ba231784c9517e
 
 ## Installation
 Installing the client is simple. In your project root,
@@ -66,8 +70,8 @@ dApps can simple pass a mnemonic and node URL as client options. In Web3-enabled
 ```javascript
 const options: ClientOptions = {
   mnemonic: 'Apple Banana ...',
-  nodeUrl: 'wss://indra-v2.connext.network/api/messaging',
-  ethProviderUrl: `https://indra-v2.connext.network/api/ethprovider`,
+  nodeUrl: 'wss://rinkeby.indra.connext.network/api/messaging',
+  ethProviderUrl: `https://rinkeby.indra.connext.network/api/ethprovider`,
   store
 }
 ```
