@@ -1,7 +1,7 @@
 # Quick Start
 Like [web3.js](https://web3js.readthedocs.io/), the Connext client is a collection of libraries that allow you to interact with a local or remote Connext node.
 
-We will connect to the Connext Rinkeby node hosted at `https://indra-v2.connext.network/api/` using the Connext client. If you don't have any Rinkeby ETH, we recommend you get some from a [faucet](https://faucet.rinkeby.io/) before continuing with this guide.
+We will connect to the Connext Rinkeby node hosted at `https://indra-v2.connext.network/api/messaging` using the Connext client. If you don't have any Rinkeby ETH, we recommend you get some from a [faucet](https://faucet.rinkeby.io/) before continuing with this guide.
 
 ## Installation
 Installing the client is simple. In your project root,
@@ -18,18 +18,19 @@ import * as connext from '@connext/client';
 
 Set up your store (for now, if you're building a web app it's easiest to copy/paste the following code):
 ```javascript
-export const store = {
-    get: (key) => {
-      const raw = localStorage.getItem(`CF_NODE:${key}`)
-      if (raw) {
-        try {
-          return JSON.parse(raw);
-        } catch {
-          return raw;
-        }
+const store = {
+  get: (key) => {
+    const raw = localStorage.getItem(`CF_NODE:${key}`)
+    if (raw) {
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return raw;
       }
-      // Handle partial matches so the following line works -.-
-      // https://github.com/counterfactual/monorepo/blob/master/packages/node/src/store.ts#L54
+    }
+    // Handle partial matches so the following line works -.-
+    // https://github.com/counterfactual/monorepo/blob/master/packages/node/src/store.ts#L54
+    if (key.endsWith("channel") || key.endsWith("appInstanceIdToProposedAppInstance")) {
       const partialMatches = {}
       for (const k of Object.keys(localStorage)) {
         if (k.includes(`${key}/`)) {
@@ -41,16 +42,19 @@ export const store = {
         }
       }
       return partialMatches;
-    },
-    set: (pairs, allowDelete) => {
-      for (const pair of pairs) {
-        localStorage.setItem(
-          `CF_NODE:${pair.key}`,
-          typeof pair.value === 'string' ? pair.value : JSON.stringify(pair.value),
-        );
-      }
     }
-  };
+    return raw;
+  },
+  set: (pairs, allowDelete) => {
+    for (const pair of pairs) {
+      localStorage.setItem(
+        `CF_NODE:${pair.key}`,
+        typeof pair.value === 'string' ? pair.value : JSON.stringify(pair.value),
+      );
+    }
+  }
+};
+
 ```
 
 

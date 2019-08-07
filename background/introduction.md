@@ -9,9 +9,9 @@ If you're interested in:
 
 ## Status
 
-V2.0 of Connext is *live* on the Ethereum mainnet and already being used by some prominent projects in the space to scale their transactions.
+V1 of Connext is *live* on the Ethereum mainnet and already being used by some prominent projects in the space to scale their transactions. This iteration of Connext features basic transaction and conditional transfer support in ETH and all ERC20 tokens. For safety, there are limits on the maximum capacity of channels and transactions. 
 
-This iteration of Connext features basic transaction and conditional transfer support in ETH and all ERC20 tokens. For safety, there are limits on the maximum capacity of channels and transactions. 
+V2 of Connext is live on testnet, and the contracts currently being audited.
 
 V2.0 features one node - currently hosted by Connext - over which transactions are routed. Any [Connext client](../userDocumentation/clientAPI.md) can connect to this node. In Connext, users' funds are completely noncustodial, though there are instances where transfers themselves, while in-flight, may place a trust burden on the node. For a detailed overview of the trust assumptions and limitations that exist at present, please read [System Limitations](../userDocumentation/limitations.md).
 
